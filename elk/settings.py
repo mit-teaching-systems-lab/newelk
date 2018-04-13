@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'chat',
-    'channels'
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,6 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'elk.wsgi.application'
+ASGI_APPLICATION = "elk.routing.application"
 
 
 # Database
@@ -82,6 +83,15 @@ DATABASES = {
     }
 }
 
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
