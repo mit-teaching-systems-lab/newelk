@@ -3,6 +3,12 @@ import json
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        # y = dir(self.scope["user"])
+        # for x in y:
+        #     print(x)
+        # self.user = self.scope["user"]
+        # print(self.user)
+
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
@@ -38,6 +44,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
+        # print(dir(event))
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
