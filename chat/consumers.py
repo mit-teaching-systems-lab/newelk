@@ -1,4 +1,5 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
+# from channels.auth import get_user
 import json
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -6,8 +7,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # y = dir(self.scope["user"])
         # for x in y:
         #     print(x)
-        # self.user = self.scope["user"]
-        # print(self.user)
+        self.user = self.scope["user"]
+        # self.user = await get_user(self.scope)
+        # print((self.user))
+        # print(self.user.username)
+        # print(self.scope["path"])
+        # for key, value in self.scope.items():
+        # for key in self.user.items():
+        #     print(key)
+            # print(value)
 
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
@@ -30,7 +38,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
+        username = self.user.username if self.user.username != "" else "Anonymous"
+        message =  username + ": " + text_data_json['message']
+        # message = text_data_json['message']
 
         # Send message to room group
         await self.channel_layer.group_send(
