@@ -20,6 +20,5 @@ from django.contrib.auth.views import login, logout
 urlpatterns = [
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/login/', login, name='login'),
-    path('accounts/logout/', logout, name='logout')
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
