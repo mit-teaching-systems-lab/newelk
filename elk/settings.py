@@ -111,7 +111,7 @@ DATABASES = {
 import dj_database_url
 dbconfig = dj_database_url.config()
 if dbconfig:
-DATABASES['default'] = dbconfig
+    DATABASES['default'] = dbconfig
 
 
 # Password validation
