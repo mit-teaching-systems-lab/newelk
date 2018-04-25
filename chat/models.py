@@ -11,3 +11,5 @@ class Scenario(models.Model):
     teacher_objective = models.TextField()
     teacher_hints = ArrayField(models.TextField())
 
+    def __str__(self):
+        return self.scenario_name
