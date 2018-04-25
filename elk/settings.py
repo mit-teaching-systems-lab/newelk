@@ -94,11 +94,7 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-dbconfig = dj_database_url.config()
-if dbconfig:
-    DATABASES['default'] =  dbconfig
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -110,6 +106,12 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default.
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+dbconfig = dj_database_url.config()
+if dbconfig:
+DATABASES['default'] = dbconfig
 
 
 # Password validation
