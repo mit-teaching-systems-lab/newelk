@@ -74,22 +74,30 @@ TEMPLATES = [
 WSGI_APPLICATION = 'elk.wsgi.application'
 ASGI_APPLICATION = "elk.routing.application"
 
+# PAAS settings -------------------------------------------------
+import django_heroku
+django_heroku.settings(locals())
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT=True
+REDIS = os.environ['REDIS_URL']
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-# PAAS settings -------------------------------------------------
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'unplatform',                      # Or path to database file if using sqlite3.
+        'NAME': 'elk',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -98,27 +106,6 @@ DATABASES = {
     }
 }
 
-# Parse database configuration from $DATABASE_URL
-# import dj_database_url
-# dbconfig = dj_database_url.config()
-# if dbconfig:
-#     DATABASES['default'] =  dbconfig
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT=True
-
-
-REDIS = os.environ['REDIS_URL']
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [REDIS], #, "redis://localhost:6379"
-        },
-    },
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -152,11 +139,4 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
 STATIC_URL = '/static/'
-
-import django_heroku
-django_heroku.settings(locals())
