@@ -71,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/chat'
 
 WSGI_APPLICATION = 'elk.wsgi.application'
 ASGI_APPLICATION = "elk.routing.application"
