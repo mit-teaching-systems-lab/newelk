@@ -72,6 +72,7 @@ TEMPLATES = [
 ]
 
 LOGIN_REDIRECT_URL = '/chat'
+LOGOUT_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'elk.wsgi.application'
 ASGI_APPLICATION = "elk.routing.application"
