@@ -58,7 +58,7 @@ ROOT_URLCONF = 'elk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'elk/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +70,8 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'elk.wsgi.application'
 ASGI_APPLICATION = "elk.routing.application"
