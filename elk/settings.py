@@ -58,7 +58,7 @@ ROOT_URLCONF = 'elk.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'elk/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'elk/templates/registration')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
