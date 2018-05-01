@@ -4,6 +4,8 @@
 
 {% block content %}
 {% if user.is_authenticated %}
+  <a href="{% url 'logout' %}">logout</a>
+  <br>
   Hi {{ user.username }}!
   <br>
   <a href="{% url 'chat_select' %}">Select a chat</a>
