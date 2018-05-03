@@ -1,6 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 # from channels.auth import get_user
 import json
+from elk.research.models import Transcript
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -20,6 +21,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
+        self.transcript = Transcript(room_name=self.room_name)
+        self.transcript.save()
+
         # Join room group
         await self.channel_layer.group_add(
             self.room_group_name,
@@ -29,6 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
+        self.transcript.save()
         # Leave room group
         await self.channel_layer.group_discard(
             self.room_group_name,
@@ -41,7 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = self.user.username if self.user.username != "" else "Anonymous"
         message =  username + ": " + text_data_json['message']
         # message = text_data_json['message']
-
+        self.transcript.transcript += self.transcript.transcript + '\n' + message
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,

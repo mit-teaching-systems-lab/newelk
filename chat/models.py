@@ -13,7 +13,10 @@ class Scenario(models.Model):
 
     def __str__(self):
         return self.scenario_name
-#
+
+# class Quiz(models.Model):
+#     questions = ArrayField(models.TextField())
+
 # class Teacher(models.Model):
 #
 #
