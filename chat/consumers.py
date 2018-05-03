@@ -1,7 +1,7 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 # from channels.auth import get_user
 import json
-from elk.research.models import Transcript
+from research.models import Transcript
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
