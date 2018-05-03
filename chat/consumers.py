@@ -46,7 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = self.user.username if self.user.username != "" else "Anonymous"
         message =  username + ": " + text_data_json['message']
         # message = text_data_json['message']
-        self.transcript.transcript += self.transcript.transcript + '\n' + message
+
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -60,6 +60,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         # print(dir(event))
+        self.transcript.transcript += self.transcript.transcript + '\n' + message
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
