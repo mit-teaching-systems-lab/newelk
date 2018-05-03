@@ -6,7 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class Transcript(models.Model):
     users = models.ManyToManyField(User)
-    transcript = models.TextField(null=True)
+    transcript = models.TextField(default="")
     room_name = models.TextField()
     creation_time = models.DateTimeField(default=timezone.now)
     # teacher_hints = ArrayField(models.TextField())
