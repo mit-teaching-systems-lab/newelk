@@ -23,6 +23,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         self.transcript = Transcript(room_name=self.room_name)
         self.transcript.save()
+        self.transcript.users.add(self.user)
 
         # Join room group
         await self.channel_layer.group_add(
