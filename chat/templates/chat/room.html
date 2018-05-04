@@ -17,18 +17,22 @@
         <br>
         {{ scenario_name }}
         <br>
-        {{ student_background }}
-        <br><br>
-        {{ student_profile }}
-        <br><br>
-        {{ student_hints }}
-        <br><br>
-        {{ teacher_background }}
-        <br><br>
-        {{ teacher_objective }}
-        <br><br>
-        {{ teacher_hints }}
-        <br><br>
+        {% if student_background: %}
+            {{ student_background }}
+            <br><br>
+            {{ student_profile }}
+            <br><br>
+            {{ student_hints }}
+            <br><br>
+        {% endif %}
+        {% if teacher_background: teacher_background %}
+            {{ teacher_background }}
+            <br><br>
+            {{ teacher_objective }}
+            <br><br>
+            {{ teacher_hints }}
+            <br><br>
+        {% endif %}
     </div>
     Chat here:
     <textarea id="chat-log" cols="100" rows="20" disabled="disabled" ></textarea><br/>
