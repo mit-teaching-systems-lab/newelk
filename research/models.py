@@ -12,7 +12,7 @@ class Transcript(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
     # teacher_hints = ArrayField(models.TextField())
     def __str__(self):
-        return self.users + self.creation_time
+        return self.user + self.creation_time
 
 
 # class Score(models.Model):
