@@ -33,22 +33,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.accept()
 
-    async def disconnect(self, close_code):
-        self.transcript.save()
-        # Leave room group
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name
-        )
-
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         username = self.user.username if self.user.username != "" else "Anonymous"
         message =  username + ": " + text_data_json['message']
         # message = text_data_json['message']
-        self.transcript.transcript += '\n' + message
-        print(self.transcript.transcript)
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
@@ -62,9 +52,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         # print(dir(event))
-
+        self.transcript.transcript += '\n' + message
+        self.transcript.save()
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message
         }))
+
+    async def disconnect(self, close_code):
+        self.transcript.save()
+        # Leave room group
+        await self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name
+        )
