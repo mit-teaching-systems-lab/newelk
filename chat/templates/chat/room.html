@@ -14,9 +14,11 @@
         {% endif %}
     </header>
     <div>
-        <br>
+        <!--All these <br> tags are a bad idea and should be updated with something better. maybe <p>? idk. -->
+        <br><br>
         {{ scenario_name }}
-        <br>
+        <br><br>
+
         {% if student_background %}
             {{ student_background }}
             <br><br>
@@ -25,6 +27,7 @@
             {{ student_hints }}
             <br><br>
         {% endif %}
+
         {% if teacher_background %}
             {{ teacher_background }}
             <br><br>
