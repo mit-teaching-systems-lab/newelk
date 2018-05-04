@@ -30,4 +30,6 @@ def room(request, role, scenario, room_name):
         room_details.pop('student_profile', None)
         room_details.pop('student_hints', None)
 
+    print(room_details)
+
     return render(request, 'chat/room.html', room_details)
