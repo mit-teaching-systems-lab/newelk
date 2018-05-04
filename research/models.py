@@ -12,7 +12,11 @@ class Transcript(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
     # teacher_hints = ArrayField(models.TextField())
     def __str__(self):
-        return self.user.username + self.creation_time
+        try:
+            name = self.user.username
+        except NoneType:
+            name = "Anonymous"
+        return name
 
 
 class Score(models.Model):
