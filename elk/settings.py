@@ -78,31 +78,16 @@ LOGOUT_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'elk.wsgi.application'
 ASGI_APPLICATION = "elk.routing.application"
 
-# PAAS settings -------------------------------------------------
-import django_heroku
-django_heroku.settings(locals())
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT=True
 try:
+    # PAAS settings -------------------------------------------------
     REDIS = os.environ['REDIS_URL']
-except KeyError:
-    REDIS = "redis://localhost:6379"
+    import django_heroku
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [REDIS],
-        },
-    },
-}
+    django_heroku.settings(locals())
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
-try:
-    DB_CHECK = os.environ['DATABASE_URL']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -120,12 +105,23 @@ try:
     if dbconfig:
         DATABASES['default'] = dbconfig
 except KeyError:
+    # Development settings -------------------------------------------------
+    REDIS = "redis://localhost:6379"
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [REDIS],
+        },
+    },
+}
 
 
 # Password validation
