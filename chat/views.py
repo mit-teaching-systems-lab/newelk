@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'chat/index.html', {'scenarios': scenarios})
 
 def room(request, role, scenario, room_name):
-    scene = Scenario.objects.filter(pk=scenario)
+    scene = Scenario.objects.get(pk=scenario)
     print(scene)
     room_details = {
         'room_name_json': mark_safe(json.dumps(room_name)),
