@@ -16,7 +16,7 @@ class Transcript(models.Model):
             name = self.user.username
         except AttributeError:
             name = "Anonymous"
-        return name + ' ' str(self.creation_time)[0:10]
+        return name + ' ' + str(self.creation_time)[0:10]
 
 
 
