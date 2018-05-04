@@ -46,7 +46,7 @@
         var roomName = document.querySelector('#room-name-input').value;
         var role = document.querySelector('input[name = "role"]:checked').value;
         var scene = document.querySelector('input[name = "scenario"]:checked').value;
-        window.location.pathname = '/chat/' + role + '/' + String(scene) + roomName + '/';
+        window.location.pathname = '/chat/' + role + '/' + String(scene) + '/' + roomName + '/';
     };
 
     var initialSelection = document.querySelector("input")
