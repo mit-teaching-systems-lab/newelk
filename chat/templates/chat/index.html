@@ -17,10 +17,18 @@
     <div>
         Select a scenario:
         {% for x in scenarios %}
-            <input type="radio" id="{{ x.scenario_name }}"
-             name="{{ x.scenario_name }}" value="{{ x.scenario_name }}">
-            <label for="{{ x.scenario_name }}">{{ x.scenario_name }}</label>
+            <input type="radio" name="scenario" value="{{ x.pk }}">
+            {{ x.scenario_name }}
+            <br>
         {% endfor %}
+    </div>
+    <br>
+    <div>
+        Choose a role:
+        <br>
+        <input type="radio" name="role" value="t" checked="checked">Teacher<br>
+        <input type="radio" name="role" value="s">Student<br>
+        <input type="radio" name="role" value="o">Observer<br>
     </div>
     What chat room would you like to enter?<br/>
     <input id="room-name-input" type="text" size="100"/><br/>
@@ -36,7 +44,12 @@
 
     document.querySelector('#room-name-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name-input').value;
-        window.location.pathname = '/chat/' + roomName + '/';
+        var role = document.querySelector('input[name = "role"]:checked').value;
+        var scene = document.querySelector('input[name = "scenario"]:checked').value;
+        window.location.pathname = '/chat/' + role + '/' + String(scene) + roomName + '/';
     };
+
+    var initialSelection = document.querySelector("input")
+    initialSelection.checked = "checked"
 </script>
 </html>
