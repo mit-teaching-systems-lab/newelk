@@ -13,23 +13,24 @@
             <li><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
     </header>
-    <br>
-    {{ scenario_name }}
-    <br>
-    {{ student_background }}
-    <br><br>
-    {{ student_profile }}
-    <br><br>
-    {{ student_hints }}
-    <br><br>
-    {{ teacher_background }}
-    <br><br>
-    {{ teacher_objective }}
-    <br><br>
-    {{ teacher_hints }}
-    <br><br>
-
-
+    <div>
+        <br>
+        {{ scenario_name }}
+        <br>
+        {{ student_background }}
+        <br><br>
+        {{ student_profile }}
+        <br><br>
+        {{ student_hints }}
+        <br><br>
+        {{ teacher_background }}
+        <br><br>
+        {{ teacher_objective }}
+        <br><br>
+        {{ teacher_hints }}
+        <br><br>
+    </div>
+    Chat here:
     <textarea id="chat-log" cols="100" rows="20" disabled="disabled" ></textarea><br/>
     <input id="chat-message-input" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
