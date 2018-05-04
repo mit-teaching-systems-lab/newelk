@@ -8,26 +8,26 @@
 <body>
     <header>
         {% if user.is_authenticated %}
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                        
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
     </header>
-     {{ scenario_name }}
+    <br>
+    {{ scenario_name }}
     <br>
     {{ student_background }}
-    <br>
+    <br><br>
     {{ student_profile }}
-    <br>
+    <br><br>
     {{ student_hints }}
-    <br>
+    <br><br>
     {{ teacher_background }}
-    <br>
+    <br><br>
     {{ teacher_objective }}
-    <br>
+    <br><br>
     {{ teacher_hints }}
-    <br>
+    <br><br>
 
 
     <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
