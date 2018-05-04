@@ -12,7 +12,12 @@ class Transcript(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
     # teacher_hints = ArrayField(models.TextField())
     def __str__(self):
-        return self.user + self.creation_time
+        return self.user.username + self.creation_time
+
+
+class Score(models.Model):
+    scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
+    score = models.IntegerField()
 
 
 # class Score(models.Model):
