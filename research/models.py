@@ -14,7 +14,7 @@ class Transcript(models.Model):
     def __str__(self):
         try:
             name = self.user.username
-        except NoneType:
+        except AttributeError:
             name = "Anonymous"
         return name
 
