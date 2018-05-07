@@ -22,18 +22,7 @@ class Transcript(models.Model):
 
 class TFAnswer(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
+    transcript = models.ForeignKey(Transcript, on_delete=models.SET_NULL, null=True)
     question = models.TextField(null=True)
     user_answer = models.TextField(null=True)
     correct_answer = models.TextField(null=True)
-
-
-# class Result(models.Model):
-#     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
-#     scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
-#     score = models.IntegerField()
-#
-
-
-# class Score(models.Model):
-#     scenario = models.ForeignKey(Scenario)
-#     user = models.ForeignKey(User)

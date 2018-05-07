@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
 from .models import Scenario, TFQuestion
-from research.models import TFAnswer
+from research.models import TFAnswer, Transcript
 
 
 def index(request):
@@ -38,11 +38,17 @@ def room(request, role, scenario, room_name):
 def quiz(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
+    transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
+    print(transcript.transcript)
     if request.method == 'POST':
         for pk in request.POST:
             if not pk == "csrfmiddlewaretoken":
                 question = TFQuestion.objects.get(pk=pk)
-                answer = TFAnswer(user_answer=request.POST[pk],correct_answer=question.answer,question=question.question,user=request.user)
+                answer = TFAnswer(user_answer=request.POST[pk],
+                                  correct_answer=question.answer,
+                                  question=question.question,
+                                  user=request.user,
+                                  transcript=transcript)
                 answer.save()
         return redirect('/accounts/profile')
     else:
