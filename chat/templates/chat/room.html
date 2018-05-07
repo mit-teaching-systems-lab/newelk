@@ -4,7 +4,26 @@
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    
+<!-- Bootstrap core CSS, hosted: Latest compiled and minified CSS 
+        <script href="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+    <!-- Custom styles for this template -->
+            <style>
+                .btn {background-color: teal; border-color: teal;}
+                .btn:hover {background-color: slategray; border-color: teal;}
+              body {
+                padding-top: 54px;
+              }
+              @media (min-width: 992px) {
+                body {
+                  padding-top: 56px;
+                }
+              }
+            </style>
 </head>
+    
 <body>
     <header>
         {% if user.is_authenticated %}
@@ -42,6 +61,16 @@
     <input id="chat-message-input" placeholder="Chat here" type="text" size="100"/><br/>
     <input id="chat-message-submit" type="button" value="Send"/>
 </body>
+    
+    
+<!-- Bootstrap core JavaScript, local
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>    -->
+
+<!-- Latest compiled and minified Bootstrap JavaScript, hosted -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    
 <!--this is to make the text area look like it isnt disabled (greyed out)'-->
 <style type="text/css">
     #chat-log{
