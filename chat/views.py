@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 import json
-from .models import Scenario
+from .models import Scenario, TFQuestion
 
 def index(request):
     scenarios = Scenario.objects.all()
@@ -32,3 +32,9 @@ def room(request, role, scenario, room_name):
         room_details.pop('student_hints', None)
 
     return render(request, 'chat/room.html', room_details)
+
+def quiz(request, role, scenario, room_name):
+    scene = Scenario.objects.get(pk=scenario)
+    questions = TFQuestion.objects.filter(scenario=scene)
+
+    return render(request, 'chat/quiz.html', {'questions':questions})
