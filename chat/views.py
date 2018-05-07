@@ -36,5 +36,7 @@ def room(request, role, scenario, room_name):
 def quiz(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
+    if request.method == 'POST':
+        print('post')
 
     return render(request, 'chat/quiz.html', {'questions':questions})
