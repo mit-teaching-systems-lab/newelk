@@ -20,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # print(value)
 
         self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.
         self.room_group_name = 'chat_%s' % self.room_name
 
         self.room = ChatRoom.objects.filter(name=self.room_name)
