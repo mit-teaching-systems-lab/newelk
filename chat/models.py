@@ -6,33 +6,19 @@ class Scenario(models.Model):
     scenario_name = models.CharField(max_length=50)
     student_background = models.TextField()
     student_profile = models.TextField()
-    student_hints = models.TextField()
+    student_hints = models.TextField(blank=True)
     teacher_background = models.TextField()
     teacher_objective = models.TextField()
-    teacher_hints = models.TextField()
+    teacher_hints = models.TextField(blank=True)
 
     def __str__(self):
         return self.scenario_name
 
-# class Quiz(models.Model):
-#     questions = ArrayField(models.TextField())
+# class TFQuestion(models.Model):
+#     scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE)
+#     question = models.TextField()
+#     answer = models.BooleanField()
 
-# class Teacher(models.Model):
-#
-#
-# class Student(models.Model):
-#
-#
-# class Chat(models.Model):
-#
-#
-#
-# class Quiz(models.Model):
-#
-#
-#
-#
-# class Transcript(model.Models):
 
 
 

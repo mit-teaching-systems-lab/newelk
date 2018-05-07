@@ -20,9 +20,11 @@ class Transcript(models.Model):
 
 
 
-class Score(models.Model):
-    scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
-    score = models.IntegerField()
+# class Result(models.Model):
+#     user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+#     scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
+#     score = models.IntegerField()
+#
 
 
 # class Score(models.Model):
