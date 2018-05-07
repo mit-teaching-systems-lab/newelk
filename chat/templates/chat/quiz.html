@@ -25,10 +25,10 @@
 <body>
                      
     
-<div class="container">
-    
+<div class="container"> 
     
   <div class="row">
+      
     <div class="col-sm-6">
     <h1 class="mt-5">Eliciting Learner Knowledge</h1>
           <p class="lead">Teaching Systems Lab</p>
@@ -36,9 +36,8 @@
             <p>Answer this quiz as you believe the student would answer it after your conversation.</p>
     </div>                
 
-<div class="row">
-    <div class="col-sm-6">  
-                
+    <div class="col-sm-6">
+        </br>
 <form action="" method="POST">
 {% csrf_token %}
 {% for q in questions %}
@@ -49,9 +48,9 @@
     <br>
 {% endfor %}
     <input type="submit" value="Submit">
-</form>
-               
+</form>               
      </div>
+      
  </div>
 </div>
                 
