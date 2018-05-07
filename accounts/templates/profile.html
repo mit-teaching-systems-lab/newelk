@@ -4,14 +4,22 @@
 
 {% block content %}
     {% if user.is_authenticated %}
+    <div style="white-space: pre-line">
         <br>
         <h5>Hello, {{ user.username }}!</h5>
         <p>Your quiz results:</p>
         <br>
         <p>Your transcripts:</p>
+        {% for t in transcripts %}
+            <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
+            <br>
+            {{ t.transcript }}
+            <br>
+
+        {% endfor %}
+    </div>
     {% else %}
         <h5>You are not logged in</h5>
         <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
-
     {% endif %}
 {% endblock %}
