@@ -2,6 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 # from channels.auth import get_user
 import json
 from research.models import Transcript
+from chat.models import ChatRoom
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -21,8 +22,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
-        self.transcript = Transcript(room_name=self.room_name,user=self.user)
-        self.transcript.save()
+        self.room = ChatRoom.objects.filter(name=self.room_name)
+        if not self.room:
+            self.room = ChatRoom(name=self.room_name)
+            self.room.save()
+            self.transcript = Transcript(room_name=self.room_name)
+            self.transcript.save()
+            self.room.transcript = self.transcript
+            print('made room')
+        else:
+            print('else')
+            self.room = self.room.order_by('-id')[0]
+        self.room.users.add(self.user)
+        # self.room.transcript.users.add(self.user)
+        self.room.save()
+
+        # self.room.transcript = Transcript(room_name=self.room_name)
 
         # Join room group
         await self.channel_layer.group_add(
@@ -51,8 +66,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
         # print(dir(event))
-        self.transcript.transcript += '\n' + message
-        self.transcript.save()
+        if self.room.transcript.last_line != message:
+            self.room.transcript.last_line = message
+            self.room.transcript.transcript += message + '\n'
+            self.room.transcript.save()
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
@@ -60,7 +77,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }))
 
     async def disconnect(self, close_code):
-        self.transcript.save()
+        self.room.transcript.users.add(self.user)
+        self.room.users.remove(self.user)
+        print(self.room.users)
+        if not self.room.users.all():
+            # self.room.transcript.
+            print('deleting')
+            ChatRoom.objects.filter(pk=self.room.pk).delete()
+        else:
+            self.room.save()
+
         # Leave room group
         await self.channel_layer.group_discard(
             self.room_group_name,

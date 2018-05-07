@@ -9,7 +9,6 @@ def index(request):
 
 def room(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
-    print(scene)
     room_details = {
         'room_name_json': mark_safe(json.dumps(room_name)),
         'scenario_name': scene.scenario_name,
@@ -29,7 +28,5 @@ def room(request, role, scenario, room_name):
         room_details.pop('student_background', None)
         room_details.pop('student_profile', None)
         room_details.pop('student_hints', None)
-
-    print(room_details)
 
     return render(request, 'chat/room.html', room_details)
