@@ -6,13 +6,15 @@
 {% if user.is_authenticated %}
   <a href="{% url 'logout' %}">logout</a>
   <br>
-  Hello, {{ user.username }}!
+<h5>Hello, {{ user.username }}!</h5>
+<p>Ready to begin?</p>
   <br>
 <button href="{% url 'chat_select' %}" type="button" class="btn btn-primary btn-sm">Play ELK</button>
-  <a href="{% url 'chat_select' %}">Select a chat</a>
 
 {% else %}
-  <p>You are not logged in</p>
+  <h5>You are not logged in</h5>
+<p>You will receive a handout from the ELK facilitators with your login information.</p>
+  <button href="{% url 'login' %}" type="button" class="btn btn-primary btn-sm">Login</button>
   <a href="{% url 'login' %}">login</a>
 {% endif %}
 {% endblock %}
