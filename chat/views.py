@@ -12,6 +12,8 @@ def room(request, role, scenario, room_name):
     room_details = {
         'room_name_json': mark_safe(json.dumps(room_name)),
         'scenario_name': scene.scenario_name,
+        'scenario_pk': scenario,
+        'role': role,
         'student_background': scene.student_background,
         'student_profile': scene.student_profile,
         'student_hints': scene.student_hints,
