@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
 from .models import Scenario, TFQuestion
@@ -38,5 +38,5 @@ def quiz(request, role, scenario, room_name):
     questions = TFQuestion.objects.filter(scenario=scene)
     if request.method == 'POST':
         print('post')
-
+        return redirect('/accounts/profile')
     return render(request, 'chat/quiz.html', {'questions':questions})
