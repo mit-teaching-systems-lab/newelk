@@ -20,6 +20,11 @@ class Transcript(models.Model):
             name = "Anonymous"
         return name + ' ' + str(self.creation_time)[0:10]
 
+class TFAnswer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
+    question = models.TextField(null=True)
+    user_answer = models.TextField(null=True)
+    correct_answer = models.TextField(null=True)
 
 
 # class Result(models.Model):
