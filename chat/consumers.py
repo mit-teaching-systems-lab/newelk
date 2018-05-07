@@ -2,7 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 # from channels.auth import get_user
 import json
 from research.models import Transcript
-from chat.models import ChatRoom
+from chat.models import ChatRoom, Scenario
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -19,10 +19,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         #     print(key)
             # print(value)
 
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
+        self.room_group_name = 'chat_%s_%s' % (self.room_name, self.scenario)
+
 
 
         self.room = ChatRoom.objects.filter(name=self.room_name)
@@ -30,6 +31,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room = ChatRoom(name=self.room_name)
             self.room.save()
             self.transcript = Transcript(room_name=self.room_name)
+            self.transcript.scenario = Scenario.objects.get(pk=self.scenario)
             self.transcript.save()
             self.room.transcript = self.transcript
             print('made room')

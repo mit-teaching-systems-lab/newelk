@@ -1,16 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from research.models import Transcript
-
-
-class ChatRoom(models.Model):
-    name = models.CharField(max_length=50)
-    users = models.ManyToManyField(User)
-    transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
-    def __str__(self):
-        return self.name
-
-
 
 class Scenario(models.Model):
     scenario_name = models.CharField(max_length=50)
@@ -20,9 +9,17 @@ class Scenario(models.Model):
     teacher_background = models.TextField()
     teacher_objective = models.TextField()
     teacher_hints = models.TextField(blank=True)
-
     def __str__(self):
         return self.scenario_name
+
+from research.models import Transcript
+
+class ChatRoom(models.Model):
+    name = models.CharField(max_length=50)
+    users = models.ManyToManyField(User)
+    transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
+    def __str__(self):
+        return self.name
 
 class TFQuestion(models.Model):
     scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE)

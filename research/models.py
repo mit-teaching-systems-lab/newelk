@@ -1,12 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
-# from chat.models import Scenario
+from chat.models import Scenario
 from django.utils import timezone
 
 # Create your models here.
 class Transcript(models.Model):
     users = models.ManyToManyField(User)
     # user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
+    scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
     transcript = models.TextField(default="")
     last_line = models.TextField(default="")
     room_name = models.TextField()
