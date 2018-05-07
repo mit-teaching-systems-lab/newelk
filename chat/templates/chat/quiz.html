@@ -26,7 +26,7 @@
                 
 <!-- Styling the main page -->      
     
-  <div class="container">
+<div class="container">
     
     
   <div class="row">
@@ -36,7 +36,8 @@
     </div>                
 
 <div class="row">
-    <div class="col-sm-6">               
+    <div class="col-sm-6">  
+                
 <form action="" method="POST">
 {% csrf_token %}
 {% for q in questions %}
@@ -48,8 +49,11 @@
 {% endfor %}
     <input type="submit" value="Submit">
 </form>
-                </div>
-
+               
+     </div>
+ </div>
+</div>
+                
 </body>
                 
 <!-- Latest compiled and minified Bootstrap JavaScript, hosted -->
