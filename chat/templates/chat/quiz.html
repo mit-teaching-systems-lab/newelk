@@ -6,10 +6,15 @@
 </head>
 <body>
 
+<form>
 {% for q in questions %}
     {{ q.question }}
+    <input type="radio" name="q.id" value="true">True<br>
+    <input type="radio" name="q.id" value="false">False<br>
     <br>
 {% endfor %}
+    <input type="submit" value="Submit">
+</form>
 
 </body>
 </html>
