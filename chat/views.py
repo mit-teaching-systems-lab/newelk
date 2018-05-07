@@ -37,6 +37,13 @@ def quiz(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     if request.method == 'POST':
-        print('post')
+        for pk in request.POST:
+            if not pk == "csrfmiddlewaretoken":
+                print(request.POST[pk])
+                question = TFQuestion.objects.get(pk=pk)
+                print(question.answer)
+                if request.POST[pk] == question.answer:
+                    print('right')
+
         return redirect('/accounts/profile')
     return render(request, 'chat/quiz.html', {'questions':questions})
