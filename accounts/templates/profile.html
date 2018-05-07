@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Account Profile{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">logout</a>
+        <br>
+        <h5>Hello, {{ user.username }}!</h5>
+        <p>Your quiz results:</p>
+        <br>
+        <p>Your transcripts:</p>
+    {% else %}
+        <h5>You are not logged in</h5>
+        <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
+
+    {% endif %}
+{% endblock %}
