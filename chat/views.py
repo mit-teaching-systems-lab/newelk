@@ -42,11 +42,8 @@ def quiz(request, role, scenario, room_name):
         for pk in request.POST:
             if not pk == "csrfmiddlewaretoken":
                 question = TFQuestion.objects.get(pk=pk)
-                answer = TFAnswer(answer=request.POST[pk],question=question.question)
-                answer.user = request.user
+                answer = TFAnswer(user_answer=request.POST[pk],correct_answer=question.answer,question=question.question,user=request.user)
                 answer.save()
-                if answer.answer == question.answer:
-                    print('right')
-
         return redirect('/accounts/profile')
-    return render(request, 'chat/quiz.html', {'questions':questions})
+    else:
+        return render(request, 'chat/quiz.html', {'questions':questions})
