@@ -30,26 +30,8 @@
 
         {% endif %}
     </header>
-    <div>
-        Select a scenario:
-        {% for x in scenarios %}
-            <input type="radio" name="scenario" value="{{ x.pk }}">
-            {{ x.scenario_name }}
-            <br>
-        {% endfor %}
-    </div>
-    <br>
-    <div>
-        Select a role:
-        <br>
-        <input type="radio" name="role" value="t" checked="checked">Teacher<br>
-        <input type="radio" name="role" value="s">Student<br>
-        <input type="radio" name="role" value="o">Observer<br>
-    </div>
-    What chat room would you like to enter?<br/>
-    <input id="room-name-input" type="text" size="100"/><br/>
-    <input id="room-name-submit" type="button" value="Enter"/>
-</body>
+    
+    
 <script>
     document.querySelector('#room-name-input').focus();
     document.querySelector('#room-name-input').onkeyup = function(e) {
