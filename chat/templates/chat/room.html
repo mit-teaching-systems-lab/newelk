@@ -132,7 +132,9 @@
     chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
         var message = data['message'];
-        document.querySelector('#chat-log').value += (message + '\n');
+        var textarea = document.querySelector('#chat-log');
+        textarea.value += (message + '\n');
+        textarea.scrollTop = textarea.scrollHeight;
     };
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
@@ -153,7 +155,3 @@
     };
 </script>
 </html>
-
-
-var textarea = document.getElementById('textarea_id');
-textarea.scrollTop = textarea.scrollHeight;
