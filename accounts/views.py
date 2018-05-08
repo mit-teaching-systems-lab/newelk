@@ -12,5 +12,5 @@ def profile(request):
 
     # for user in latest_transcript.users:
 
-
-    return render(request, 'profile.html',{"transcripts": transcripts, "answers": answers})
+    # , "answers": answers
+    return render(request, 'profile.html',{"transcripts": transcripts})
