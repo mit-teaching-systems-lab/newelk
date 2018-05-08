@@ -23,7 +23,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_name = re.sub(r'[^\w\s]', '_', self.room_name)
+        self.room_name = re.sub(r'^[^a-zA-Z]', '_', self.room_name)
         self.room_group_name = 'chat_%s_%s' % (self.room_name, self.scenario)
 
 
