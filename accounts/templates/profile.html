@@ -34,8 +34,9 @@
         <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
     {% endif %}
 <script>
-    if (Object.keys({{ quiz_results }}).length < 2){
-        setTimeout(function(){ location.reload(true) }, 10000)
+    var results = {{ quiz_results }};
+    if (Object.keys(results).length < 2){
+        setTimeout(function(){ location.reload(true) }, 10000);
     }
 </script>
 {% endblock %}
