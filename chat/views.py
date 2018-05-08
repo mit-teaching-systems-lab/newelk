@@ -46,7 +46,7 @@ def quiz(request, role, scenario, room_name):
                 question = TFQuestion.objects.get(pk=pk)
                 answer = TFAnswer(user_answer=request.POST[pk],
                                   correct_answer=question.answer,
-                                  question=question.question,
+                                  question=question,
                                   user=request.user,
                                   transcript=transcript)
                 answer.save()
