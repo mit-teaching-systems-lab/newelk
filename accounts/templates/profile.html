@@ -9,10 +9,7 @@
         <h5>Hello, {{ user.username }}!</h5>
         <p>Your quiz results:</p>
         Still styling this. Have to refresh once everyone has taken the quiz...<br>
-        {% for user, result in quiz_results %}
-            {{ user }}: {{ results }}
-        <br>
-        {% endfor %}
+        {{ quiz_results }}
 
 
         <br>
