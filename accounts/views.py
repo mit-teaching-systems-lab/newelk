@@ -9,7 +9,7 @@ def profile(request):
     transcripts = Transcript.objects.filter(users=request.user).order_by("-creation_time")
     latest_transcript = transcripts.latest("creation_time")
     participants = latest_transcript.users.distinct()
-    scenario = latest_transcript.scene
+    scenario = latest_transcript.scenario
     quiz_results = {}
     for person in participants:
         answers = TFAnswer.objects.filter(question__scenario=scenario, user=person)
