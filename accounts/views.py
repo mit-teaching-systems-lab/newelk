@@ -18,6 +18,6 @@ def profile(request):
         quiz_results["correct_answer"] = {}
         for answer in answers:
             quiz_results[person.username][answer.pk] = answer.user_answer
-            quiz_results["correct_answer"][answer.pk] = answer.correct_answer
+            quiz_results["correct_answer"][answer.pk] = { answer.question.question : answer.correct_answer }
 
     return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results})
