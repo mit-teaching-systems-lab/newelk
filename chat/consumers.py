@@ -27,7 +27,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
         self.room = ChatRoom.objects.filter(name=self.room_name)
-        if not self.room:
+        if not self.room or not self.room.transcript:
             self.room = ChatRoom(name=self.room_name)
             self.room.save()
             self.transcript = Transcript(room_name=self.room_name)
@@ -69,12 +69,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
-        # Ensures that the last line actually exists, otherwise attribute error
-        try:
-            previous = self.room.transcript.last_line
-        except AttributeError:
-            self.room.transcript.last_line = ''
-        if previous != message:
+
+        if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
             self.room.transcript.transcript += message + '\n'
             self.room.transcript.save()
