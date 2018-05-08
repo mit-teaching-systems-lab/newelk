@@ -12,7 +12,7 @@ def profile(request):
     scenario = latest_transcript.scenario
     quiz_results = {}
     for person in participants:
-        answers = TFAnswer.objects.filter(question__scenario=scenario, user=person)
+        answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=latest_transcript)
         # answers = TFAnswer.objects.filter(transcript=latest_transcript,user=person)
         quiz_results[person.username] = {}
         quiz_results["correct_answer"] = {}
