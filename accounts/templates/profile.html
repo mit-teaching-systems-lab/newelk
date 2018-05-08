@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
     {% endif %}
 <script>
-    var results = {{ quiz_results }};
+    var results = {{ quiz_results|safe }};
     if (Object.keys(results).length < 2){
         setTimeout(function(){ location.reload(true) }, 10000);
     }
