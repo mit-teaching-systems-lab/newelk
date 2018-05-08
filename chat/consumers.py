@@ -61,6 +61,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+        # send join message
+        username = self.user.username if self.user.username != "" else "Anonymous"
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type': 'chat_message',
+                'message': "*** " + username + " has joined the room***"
+            }
+        )
+
         await self.accept()
 
     # Receive message from WebSocket
