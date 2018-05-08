@@ -15,8 +15,11 @@
 
 
         <p>Your quiz results:</p>
-        Still styling this. Have to refresh once everyone has taken the quiz...<br>
-        {{ quiz_results }}
+        <div id="dataBlock">
+
+        </div>
+        <br>
+
 
 
         <br>
@@ -39,5 +42,9 @@
         console.log('awaiting results, reloading in 30s')
         setTimeout(function(){ location.reload(true) }, 30000);
     }
+    var dataBlock = document.querySelector("dataBlock")
+    // for (key in results) {
+    //     dataBlock.append(key: results.key)
+    // }
 </script>
 {% endblock %}
