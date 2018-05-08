@@ -12,15 +12,6 @@ class Scenario(models.Model):
     def __str__(self):
         return self.scenario_name
 
-from research.models import Transcript
-
-class ChatRoom(models.Model):
-    name = models.CharField(max_length=50)
-    users = models.ManyToManyField(User)
-    transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
-    def __str__(self):
-        return self.name
-
 class TFQuestion(models.Model):
     scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE)
     question = models.TextField()
@@ -31,6 +22,16 @@ class TFQuestion(models.Model):
     )
     def __str__(self):
         return "Scenario: " + self.scenario.scenario_name + " Q: " + self.question
+
+from research.models import Transcript
+class ChatRoom(models.Model):
+    name = models.CharField(max_length=50)
+    users = models.ManyToManyField(User)
+    transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
+    def __str__(self):
+        return self.name
+
+
 
 
 

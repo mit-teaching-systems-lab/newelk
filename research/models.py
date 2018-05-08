@@ -6,7 +6,6 @@ from django.utils import timezone
 # Create your models here.
 class Transcript(models.Model):
     users = models.ManyToManyField(User)
-    # user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
     transcript = models.TextField(default="")
     last_line = models.TextField(default="")
@@ -17,12 +16,13 @@ class Transcript(models.Model):
         try:
             name = self.room_name
         except AttributeError:
-            name = "Anonymous"
+            name = "NO_ROOM_NAME"
         return name + ' ' + str(self.creation_time)[0:10]
 
+from chat.models import TFQuestion
 class TFAnswer(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL,null=True)
     transcript = models.ForeignKey(Transcript, on_delete=models.SET_NULL, null=True)
-    question = models.TextField(null=True)
+    question = models.ForeignKey(TFQuestion, on_delete=models.SET_NULL, null=True)
     user_answer = models.TextField(null=True)
     correct_answer = models.TextField(null=True)
