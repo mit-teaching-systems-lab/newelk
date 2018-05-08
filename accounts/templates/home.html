@@ -20,13 +20,13 @@ When you have finished, close the survey and begin below.
 {% else %}
   <h5>You are not logged in</h5>
 <p>You will receive your login information from the ELK facilitators.</p>
-  <button id="login" type="button" class="btn btn-primary btn-lg">Login</button>
+  <button id="login" type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
 
 {% endif %}
 
-<button id="chat_select" type="button" class="btn btn-primary btn-lg">Play ELK</button>
+<button id="chat_select" type="button" class="btn btn-primary btn-lg"><a href="{% url 'chat_select' %}">Play ELK</a></button>
 <script>
-  document.querySelector("login").onclick = function(){location={% url 'login' %}};
-  document.querySelector("chat_select").onclick = function(){location={% url 'chat_select' %}};
+  document.querySelector("login").onclick = function(){window.location={% url 'login' %}};
+  document.querySelector("chat_select").onclick = function(){window.location={% url 'chat_select' %}};
 </script>
 {% endblock %}
