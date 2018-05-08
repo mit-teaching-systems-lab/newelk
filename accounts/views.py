@@ -6,7 +6,7 @@ from research.models import Transcript, TFAnswer
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
-    transcripts = Transcript.objects.filter(users=request.user).order_by("creation_time")
+    transcripts = Transcript.objects.filter(users=request.user).order_by("-creation_time")
     latest_transcript = transcripts.latest("creation_time")
     participants = latest_transcript.users.distinct()
     quiz_results = {}
