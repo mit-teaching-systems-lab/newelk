@@ -3,6 +3,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from research.models import Transcript
 from chat.models import ChatRoom, Scenario
+import re
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -22,7 +23,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_name.replace(" ", "_")
+        self.room_name = re.sub(r'[^\w\s]', '_', self.room_name)
         self.room_group_name = 'chat_%s_%s' % (self.room_name, self.scenario)
 
 
