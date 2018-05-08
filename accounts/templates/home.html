@@ -26,7 +26,7 @@ When you have finished, close the survey and begin below.
 
 
 <script>
-  document.querySelector("login").onclick = function(){window.location={% url 'login' %}};
-  document.querySelector("chat_select").onclick = function(){window.location={% url 'chat_select' %}};
+  document.querySelector("login").onclick = function(){window.location="{% url 'login' %}"};
+  document.querySelector("chat_select").onclick = function(){window.location="{% url 'chat_select' %}"};
 </script>
 {% endblock %}
