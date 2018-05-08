@@ -8,10 +8,10 @@
         <br>
         <h5>Hello, {{ user.username }}!</h5>
         <p>Your quiz results:</p>
-        Still editing this...<br>
-        Refresh once everyone has taken the quiz...<br>
+        Still editing this. Have to refresh once everyone has taken the quiz...<br>
         {% for r in quiz_results %}
-            {{ r }}<br>
+            {{ r }}: {{ quiz_results[r] }}
+        <br>
         {% endfor %}
 
 
