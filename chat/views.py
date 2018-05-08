@@ -6,10 +6,14 @@ from research.models import TFAnswer, Transcript
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
     scenarios = Scenario.objects.all()
     return render(request, 'chat/index.html', {'scenarios': scenarios})
 
 def room(request, role, scenario, room_name):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
     scene = Scenario.objects.get(pk=scenario)
     room_details = {
         'room_name_json': mark_safe(json.dumps(room_name)),
@@ -36,6 +40,8 @@ def room(request, role, scenario, room_name):
     return render(request, 'chat/room.html', room_details)
 
 def quiz(request, role, scenario, room_name):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
