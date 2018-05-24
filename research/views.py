@@ -23,7 +23,8 @@ class Echo:
             value = self.header + '\n' + str(value)
             self.header_written = True
         """Write the value by returning it, instead of storing in a buffer."""
-        return str(value) + '\n'
+        value_string = str(value) + '\n'
+        return value_string.encode('utf-8')
 
 def streaming_csv_view(request):
     """A view that streams a large CSV file."""
