@@ -40,4 +40,4 @@ class Message(models.Model):
         username = self.user.username if self.user else 'System'
         role = self.role if self.role else 'role_not_set'
         time = str(self.creation_time)
-        return transcript_id + ',' + room + ',' + username + ',' + role + ',' + self.id + ',"' + self.text + '",' + time
+        return transcript_id + ',' + room + ',' + username + ',' + role + ',' + str(self.id) + ',"' + self.text + '",' + time
