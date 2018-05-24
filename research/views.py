@@ -20,10 +20,10 @@ class Echo:
         self.header_written = False
     def write(self, value):
         if not self.header_written:
-            value = self.header + '\n' + value
+            value = self.header + '\n' + str(value) + '\n'
             self.header_written = True
         """Write the value by returning it, instead of storing in a buffer."""
-        return str(value)
+        return str(value) + '\n' 
 
 def streaming_csv_view(request):
     """A view that streams a large CSV file."""
@@ -34,7 +34,7 @@ def streaming_csv_view(request):
     rows = Message.objects.all().order_by("transcript", "-creation_time")
     headers = "group_id,room_name,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
-    response = StreamingHttpResponse((pseudo_buffer.write(row) + '\n' for row in rows),
+    response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
                                      content_type="text/csv")
     response['Content-Disposition'] = 'attachment; filename="data.csv"'
     return response
