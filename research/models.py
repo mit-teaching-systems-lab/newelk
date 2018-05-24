@@ -37,7 +37,8 @@ class Message(models.Model):
     def __str__(self):
         transcript_id = str(self.transcript.id) if self.transcript.id else 'no_transcript_id'
         room = self.transcript.room_name if self.transcript.room_name else 'no_room_name'
+        scenario = str(self.transcript.scenario) if self.transcript.scenario else 'no_scenario'
         username = self.user.username if self.user else 'System'
         role = self.role if self.role else 'role_not_set'
         time = str(self.creation_time)
-        return transcript_id + ',' + room + ',' + username + ',' + role + ',' + str(self.id) + ',"' + self.text + '",' + time
+        return transcript_id + ',' + room + ',' + scenario  + ',' + username + ',' + role + ',' + str(self.id) + ',"' + self.text + '",' + time

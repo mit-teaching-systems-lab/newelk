@@ -33,7 +33,7 @@ def streaming_csv_view(request):
     # applications.
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
     rows = Message.objects.all().order_by("transcript", "-creation_time")
-    headers = "group_id,room_name,username,role,message_id,message_text,time"
+    headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
                                      content_type="text/csv")
