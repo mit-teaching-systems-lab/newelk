@@ -26,3 +26,18 @@ class TFAnswer(models.Model):
     question = models.ForeignKey(TFQuestion, on_delete=models.SET_NULL, null=True)
     user_answer = models.TextField(null=True)
     correct_answer = models.TextField(null=True)
+
+
+class Message(models.Model):
+    text = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    role = models.CharField(null=True,max_length=1)
+    transcript = models.ForeignKey(Transcript, on_delete=models.SET_NULL, null=True)
+    creation_time = models.DateTimeField(default=timezone.now)
+    def __str__(self):
+        transcript_id = str(self.transcript.id) if self.transcript.id else 'no_transcript_id'
+        room = self.transcript.room_name if self.transcript.room_name else 'no_room_name'
+        username = self.user.username if self.user else 'System'
+        role = self.role if self.role else 'role_not_set'
+        time = str(self.creation_time)[0:10]
+        return transcript_id + ',' + room + ',' + username + ',' + role + ',"' + self.text + '",' + time
