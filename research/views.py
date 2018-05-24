@@ -25,7 +25,7 @@ def streaming_csv_view(request):
     # rows that can be handled by a single sheet in most spreadsheet
     # applications.
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
-    rows = Message.objects.all().order_by("transcript.id", "-creation_time")
+    rows = Message.objects.all().order_by("transcript", "-creation_time")
     pseudo_buffer = Echo()
     # writer = csv.writer(pseudo_buffer)
     # response = StreamingHttpResponse((writer.writerow(str(row)) for row in rows),
