@@ -20,10 +20,10 @@ class Echo:
         self.header_written = False
     def write(self, value):
         if not self.header_written:
-            value = self.header + '\n' + str(value) + '\n'
+            value = self.header + '\n' + str(value)
             self.header_written = True
         """Write the value by returning it, instead of storing in a buffer."""
-        return str(value) + '\n' 
+        return str(value) + '\n'
 
 def streaming_csv_view(request):
     """A view that streams a large CSV file."""
