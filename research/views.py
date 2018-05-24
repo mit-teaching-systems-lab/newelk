@@ -17,7 +17,7 @@ class Echo:
     """
     def write(self, value):
         """Write the value by returning it, instead of storing in a buffer."""
-        return value
+        return str(value)
 
 def streaming_csv_view(request):
     """A view that streams a large CSV file."""
@@ -30,7 +30,7 @@ def streaming_csv_view(request):
     # writer = csv.writer(pseudo_buffer)
     # response = StreamingHttpResponse((writer.writerow(str(row)) for row in rows),
     #                                  content_type="text/csv")
-    response = StreamingHttpResponse((str(row) + '\n' for row in rows),
+    response = StreamingHttpResponse((pseudo_buffer.write(row) + '\n' for row in rows),
                                      content_type="text/csv")
     response['Content-Disposition'] = 'attachment; filename="data.csv"'
     return response
