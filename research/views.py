@@ -32,7 +32,7 @@ def streaming_csv_view(request):
     # rows that can be handled by a single sheet in most spreadsheet
     # applications.
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
-    rows = Message.objects.all().order_by("transcript", "-creation_time")
+    rows = Message.objects.all().order_by("transcript", "creation_time")
     headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
