@@ -30,7 +30,7 @@ class TFAnswer(models.Model):
         transcript_id = str(self.transcript.id) if self.transcript.id else 'no_transcript_id'
         username = self.user.username if self.user else 'System'
         question = self.question.question if self.question else 'no_question'
-        correct_answer = self.question.answer if self.question.answer else 'no_question_answer'
+        correct_answer = str(self.question.answer) if str(self.question.answer) else 'no_question_answer'
         user_response = self.user_answer if self.user_answer else 'no_user_answer'
         return transcript_id + ',' + username + ',' + question + ',' + correct_answer + ',' + user_response
 
