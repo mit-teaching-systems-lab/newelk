@@ -29,7 +29,7 @@ class TFAnswer(models.Model):
     def __str__(self):
         transcript_id = str(self.transcript.id) if self.transcript.id else 'no_transcript_id'
         username = self.user.username if self.user else 'System'
-        question_id = self.question.id if self.question.id else 'no_question_id'
+        question_id = str(self.question.id) if str(self.question.id) else 'no_question_id'
         question = self.question.question if self.question else 'no_question'
         correct_answer = str(self.question.answer) if str(self.question.answer) else 'no_question_answer'
         user_response = self.user_answer if self.user_answer else 'no_user_answer'
