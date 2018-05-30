@@ -30,7 +30,7 @@ def streaming_chat_csv(request):
 
 def streaming_answers_view(request):
     rows = TFAnswer.objects.all().order_by("transcript")
-    headers = "group_id,username,question,correct_answer,user_response"
+    headers = "group_id,username,question_id,question,correct_answer,user_response"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
                                      content_type="text/csv")
