@@ -1,6 +1,6 @@
 from .models import Message, TFAnswer
 from datetime import timedelta
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, HttpResponse
 from django.utils import timezone
 
 
@@ -24,19 +24,25 @@ def streaming_chat_csv(request):
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
     yesterday = timezone.now() - timedelta(days=1)
     rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
-    headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
-    pseudo_buffer = Echo(headers)
-    response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
-                                     content_type="text/csv")
-    response['Content-Disposition'] = 'attachment; filename="chatlogs.csv"'
+    if len(rows) > 0:
+        headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
+        pseudo_buffer = Echo(headers)
+        response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
+                                         content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename="chatlogs.csv"'
+    else:
+        response = HttpResponse("No data found with current filters")
     return response
 
 def streaming_answers_view(request):
     yesterday = timezone.now() - timedelta(days=1)
     rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
-    headers = "group_id,username,question_id,question,correct_answer,user_response"
-    pseudo_buffer = Echo(headers)
-    response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
-                                     content_type="text/csv")
-    response['Content-Disposition'] = 'attachment; filename="answerlogs.csv"'
+    if len(rows) > 0:
+        headers = "group_id,username,question_id,question,correct_answer,user_response"
+        pseudo_buffer = Echo(headers)
+        response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
+                                         content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename="answerlogs.csv"'
+    else:
+        response = HttpResponse("No data found with current filters")
     return response
