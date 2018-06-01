@@ -1,6 +1,8 @@
 from .models import Message, TFAnswer
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.http import StreamingHttpResponse
+from django.utils import timezone
+
 
 class Echo:
     """An object that implements just the write method of the file-like
@@ -20,7 +22,7 @@ class Echo:
 def streaming_chat_csv(request):
     """A view that streams a large CSV file."""
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
-    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = timezone.now() - timedelta(days=1)
     rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
     headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
@@ -30,7 +32,7 @@ def streaming_chat_csv(request):
     return response
 
 def streaming_answers_view(request):
-    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = timezone.now() - timedelta(days=1)
     rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
     headers = "group_id,username,question_id,question,correct_answer,user_response"
     pseudo_buffer = Echo(headers)
