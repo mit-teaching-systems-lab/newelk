@@ -1,5 +1,4 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
-# from channels.auth import get_user
 import json
 from research.models import Transcript
 from chat.models import ChatRoom, Scenario
@@ -11,15 +10,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # for x in y:
         #     print(x)
         self.user = self.scope["user"]
-        # self.user = await get_user(self.scope)
-        # print((self.user))
-        # print(self.user.username)
-        # print(self.scope["path"])
-        # for key, value in self.scope.items():
-        # for key in self.user.items():
-        #     print(key)
-            # print(value)
-
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
         self.room_name = self.scope['url_route']['kwargs']['room_name']
