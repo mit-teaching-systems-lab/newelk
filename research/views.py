@@ -21,7 +21,7 @@ def streaming_chat_csv(request):
     """A view that streams a large CSV file."""
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
     yesterday = datetime.now() - timedelta(days=1)
-    rows = Message.objects.filter(created__gt=yesterday).order_by("transcript", "creation_time")
+    rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
     headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
@@ -31,7 +31,7 @@ def streaming_chat_csv(request):
 
 def streaming_answers_view(request):
     yesterday = datetime.now() - timedelta(days=1)
-    rows = TFAnswer.objects.filter(created__gt=yesterday).order_by("transcript")
+    rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
     headers = "group_id,username,question_id,question,correct_answer,user_response"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),

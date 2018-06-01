@@ -26,6 +26,7 @@ class TFAnswer(models.Model):
     question = models.ForeignKey(TFQuestion, on_delete=models.SET_NULL, null=True)
     user_answer = models.TextField(null=True)
     correct_answer = models.TextField(null=True)
+    creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         transcript_id = str(self.transcript.id) if self.transcript.id else 'no_transcript_id'
         username = self.user.username if self.user else 'System'
