@@ -19,30 +19,28 @@ class Echo:
         value_string = str(value) + '\n'
         return value_string.encode('utf-8')
 
+def filtered_data_as_http_response(rows, headers, filename):
+    if len(rows) > 0:
+        pseudo_buffer = Echo(headers)
+        response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
+                                         content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename="' + filename + '"'
+    else:
+        response = HttpResponse("No data found with current filters")
+    return response
+
 def streaming_chat_csv(request):
     """A view that streams a large CSV file."""
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
     yesterday = timezone.now() - timedelta(days=1)
     rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
-    if len(rows) > 0:
-        headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
-        pseudo_buffer = Echo(headers)
-        response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
-                                         content_type="text/csv")
-        response['Content-Disposition'] = 'attachment; filename="chatlogs.csv"'
-    else:
-        response = HttpResponse("No data found with current filters")
-    return response
+    return filtered_data_as_http_response(rows,
+                         "group_id,room_name,scenario,username,role,message_id,message_text,time",
+                         "chatlogs.csv")
 
 def streaming_answers_view(request):
     yesterday = timezone.now() - timedelta(days=1)
     rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
-    if len(rows) > 0:
-        headers = "group_id,username,question_id,question,correct_answer,user_response"
-        pseudo_buffer = Echo(headers)
-        response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
-                                         content_type="text/csv")
-        response['Content-Disposition'] = 'attachment; filename="answerlogs.csv"'
-    else:
-        response = HttpResponse("No data found with current filters")
-    return response
+    return filtered_data_as_http_response(rows,
+                         "group_id,username,question_id,question,correct_answer,user_response",
+                         "answerlogs.csv")
