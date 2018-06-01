@@ -1,5 +1,5 @@
 from .models import Message, TFAnswer
-
+from datetime import datetime, timedelta
 from django.http import StreamingHttpResponse
 
 class Echo:
@@ -20,7 +20,8 @@ class Echo:
 def streaming_chat_csv(request):
     """A view that streams a large CSV file."""
     # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
-    rows = Message.objects.all().order_by("transcript", "creation_time")
+    yesterday = datetime.now() - timedelta(days=1)
+    rows = Message.objects.filter(created__gt=yesterday).order_by("transcript", "creation_time")
     headers = "group_id,room_name,scenario,username,role,message_id,message_text,time"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
@@ -29,7 +30,8 @@ def streaming_chat_csv(request):
     return response
 
 def streaming_answers_view(request):
-    rows = TFAnswer.objects.all().order_by("transcript")
+    yesterday = datetime.now() - timedelta(days=1)
+    rows = TFAnswer.objects.filter(created__gt=yesterday).order_by("transcript")
     headers = "group_id,username,question_id,question,correct_answer,user_response"
     pseudo_buffer = Echo(headers)
     response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
