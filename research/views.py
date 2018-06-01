@@ -20,7 +20,7 @@ class Echo:
         return value_string.encode('utf-8')
 
 def filtered_data_as_http_response(rows, headers, filename):
-    if len(rows) > 0:
+    if rows:
         pseudo_buffer = Echo(headers)
         response = StreamingHttpResponse((pseudo_buffer.write(row) for row in rows),
                                          content_type="text/csv")
