@@ -56,12 +56,12 @@
             var txt = document.createTextNode("Player");
             th.appendChild(txt);
             tr.appendChild(th)
-            for (q in qpks){
+            qpks.forEach(function(q){
                 var th = document.createElement("th");
                 var txt = document.createTextNode(q.text);
                 th.appendChild(txt);
                 tr.appendChild(th)
-            }
+            })
 
 
 
