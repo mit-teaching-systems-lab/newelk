@@ -28,8 +28,10 @@
         {% for t in transcripts %}
             <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
             <br>
-            {{ t.transcript }}
-            <br>
+            {% for m in t.messages %}
+                {{ m.text }}
+                <br>
+            {% endfor %}
 
         {% endfor %}
     </div>

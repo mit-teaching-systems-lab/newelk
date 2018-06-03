@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from research.models import Transcript, TFAnswer
+from research.models import Transcript, TFAnswer, Message
 
 
 # Create your views here.
@@ -7,6 +7,8 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     transcripts = Transcript.objects.filter(users=request.user).order_by("-creation_time")
+    for t in transcripts:
+        t.messages = Message.objects.filter(transcript=t).order_by("-creation_time")
     latest_transcript = transcripts.latest("creation_time")
     participants = latest_transcript.users.distinct()
     scenario = latest_transcript.scenario
