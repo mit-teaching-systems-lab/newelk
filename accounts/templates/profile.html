@@ -56,9 +56,9 @@
             var txt = document.createTextNode("Player");
             th.appendChild(txt);
             tr.appendChild(th)
-            qpks.forEach(function(q){
+            for (q in qpks){
                 var th = document.createElement("th");
-                var txt = document.createTextNode(Object.keys(results.question_details[qpks[q]])[0]);
+                var txt = document.createTextNode(Object.keys(Object.keys(results.question_details[qpks[q]])[0])
                 th.appendChild(txt);
                 tr.appendChild(th)
             })
