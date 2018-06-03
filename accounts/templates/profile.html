@@ -58,7 +58,7 @@
             tr.appendChild(th)
             qpks.forEach(function(q){
                 var th = document.createElement("th");
-                var txt = document.createTextNode(q.text);
+                var txt = document.createTextNode(Object.keys(results.question_details[qpks[q]])[0]);
                 th.appendChild(txt);
                 tr.appendChild(th)
             })
