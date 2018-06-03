@@ -1,6 +1,6 @@
 from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from research.models import Transcript
+from research.models import Transcript, Message
 from chat.models import ChatRoom, Scenario
 import re
 
@@ -84,7 +84,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
-            self.room.transcript.transcript += message + '\n'
+            # self.room.transcript.transcript += message + '\n'
+            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.transcript)
+            message = text, user, role, transcript,
             self.room.transcript.save()
 
         # Send message to WebSocket
