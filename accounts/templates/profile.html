@@ -20,11 +20,6 @@
 
         <!--</div>-->
         <table id="resultsTable">
-            <tr>
-                <th>Question</th>
-                <th>Correct Answer</th>
-                <th>Age</th>
-            </tr>
 
         </table>
 
@@ -45,7 +40,7 @@
         <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
     {% endif %}
 <script>
-    window.onload=function() {
+    // window.onload=function() {
         var results = {{ quiz_results|safe }};
         if (Object.keys(results).length < 2){
             console.log('awaiting results, reloading in 30s')
@@ -67,6 +62,9 @@
                 th.appendChild(txt);
                 tr.appendChild(th)
             }
+
+
+
             resultsTable.appendChild(tr);
 
             for (p=0;p++;p<=players.length) {
@@ -93,7 +91,7 @@
         // var dataBlock = document.querySelector("dataBlock")
         // for (key in results) {
         //     dataBlock.append(key: results.key)
-    }
+    // }
 </script>
 <style>
 table, th, td {
