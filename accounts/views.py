@@ -17,9 +17,9 @@ def profile(request):
         answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=latest_transcript)
         # answers = TFAnswer.objects.filter(transcript=latest_transcript,user=person)
         quiz_results[person.username] = {}
-        quiz_results["correct_answer"] = {}
+        quiz_results["question_details"] = {}
         for answer in answers:
             quiz_results[person.username][answer.pk] = answer.user_answer
-            quiz_results["correct_answer"][answer.pk] = { answer.question.question : answer.correct_answer }
+            quiz_results["question_details"][answer.pk] = { answer.question.question : answer.correct_answer }
 
     return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results})

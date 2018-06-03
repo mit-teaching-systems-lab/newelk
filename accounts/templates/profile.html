@@ -15,12 +15,18 @@
 
 
         <p>Your quiz results:</p>
-        <div id="dataBlock">
-            {{ quiz_results }}
+        <!--<div id="dataBlock">-->
+            <!--{{ quiz_results }}-->
 
-        </div>
-        <br>
+        <!--</div>-->
+        <table id="resultsTable">
+            <tr>
+                <th>Question</th>
+                <th>Correct Answer</th>
+                <th>Age</th>
+            </tr>
 
+        </table>
 
 
         <br>
@@ -39,14 +45,57 @@
         <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
     {% endif %}
 <script>
-    var results = {{ quiz_results|safe }};
-    if (Object.keys(results).length < 3){
-        console.log('awaiting results, reloading in 30s')
-        setTimeout(function(){ location.reload(true) }, 30000);
+    window.onload=function() {
+        var results = {{ quiz_results|safe }};
+        if (Object.keys(results).length < 3){
+            console.log('awaiting results, reloading in 30s')
+            setTimeout(function(){ location.reload(true) }, 30000);
+        } else {
+            var resultsTable = document.getElementById("resultsTable")
+            var players = Object.keys(results)
+            qpks = Object.keys(results.question_details);
+            //Header row
+            var tr = document.createElement("tr");
+
+            var th = document.createElement("th");
+            var txt = document.createTextNode("Player");
+            th.appendChild(txt);
+            tr.appendChild(th)
+            for (q in qpks){
+                var th = document.createElement("th");
+                var txt = document.createTextNode(q.text);
+                th.appendChild(txt);
+                tr.appendChild(th)
+            }
+            table.appendChild(tr);
+
+            for (p=0;p++;p<=players.length) {
+                player = results[players[p]]
+                if (player!="question_details"){
+                    var tr = document.createElement("tr");
+                    var txt = document.createTextNode(players);
+                    tr.appendChild(txt);
+                    for (q in qpks){
+
+                    }
+                }
+            }
+            table.appendChild(th);
+
+
+            // var tr = document.createElement("tr");
+            // var td = document.createElement("td");
+            // var txt = document.createTextNode("some value");
+            // td.appendChild(txt);
+            // tr.appendChild(td);
+            // table.appendChild(tr);
+        }
+        // var dataBlock = document.querySelector("dataBlock")
+        // for (key in results) {
+        //     dataBlock.append(key: results.key)
     }
-    var dataBlock = document.querySelector("dataBlock")
-    // for (key in results) {
-    //     dataBlock.append(key: results.key)
-    // }
 </script>
+<style>
+
+</style>
 {% endblock %}
