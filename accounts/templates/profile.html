@@ -15,10 +15,12 @@
 
 
         <p>Your quiz results:</p>
-        <!--<div id="dataBlock">-->
-            <!--{{ quiz_results }}-->
+        <div id="dataBlock">
+            {{ quiz_results }}
 
-        <!--</div>-->
+        </div>
+
+        Updating new styling here..
         <table id="resultsTable">
 
         </table>
@@ -64,10 +66,14 @@
                 th.appendChild(txt);
                 tr.appendChild(th)
             }
-
-
-
             resultsTable.appendChild(tr);
+
+            for (p in players){
+                player = results[players[p]]
+            }
+
+
+
 
             for (p=0;p++;p<=players.length) {
                 player = results[players[p]]
