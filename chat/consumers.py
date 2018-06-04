@@ -31,6 +31,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.transcript.save()
             s = self.transcript
             print('made room')
+            self.room.transcript = self.transcript
         else:
             self.room = self.room.order_by('-id')[0]
             # ensures last_line is not null
