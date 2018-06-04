@@ -77,7 +77,7 @@
             for (q in qpks){
                 var td = document.createElement("td");
                 var txt = document.createTextNode(
-                    Object.keys(results.question_details[qpks[q]])[1]
+                    Object.values(results.question_details[qpks[q]])[0]
                     )
                 th.appendChild(txt);
                 tr.appendChild(th)
