@@ -51,6 +51,7 @@
             var resultsTable = document.getElementById("resultsTable")
             var players = Object.keys(results)
             qpks = Object.keys(results.question_details);
+
             //Header row
             var tr = document.createElement("tr");
             var th = document.createElement("th");
@@ -65,7 +66,7 @@
                 th.appendChild(txt);
                 tr.appendChild(th)
             }
-
+            resultsTable.appendChild(tr);
             // //Answers row
             // var tr = document.createElement("tr");
             // var td = document.createElement("td");
