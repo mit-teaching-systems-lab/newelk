@@ -66,21 +66,21 @@
                 tr.appendChild(th)
             }
 
-            //Answers row
-            var tr = document.createElement("tr");
-            var td = document.createElement("td");
-            var txt = document.createTextNode("Correct Answer");
-            td.appendChild(txt);
-            tr.appendChild(td)
-            for (q in qpks){
-                var td = document.createElement("td");
-                var txt = document.createTextNode(
-                    Object.keys(results.question_details[qpks[q]])[1]
-                    )
-                th.appendChild(txt);
-                tr.appendChild(th)
-            }
-            resultsTable.appendChild(tr);
+            // //Answers row
+            // var tr = document.createElement("tr");
+            // var td = document.createElement("td");
+            // var txt = document.createTextNode("Correct Answer");
+            // td.appendChild(txt);
+            // tr.appendChild(td)
+            // for (q in qpks){
+            //     var td = document.createElement("td");
+            //     var txt = document.createTextNode(
+            //         Object.keys(results.question_details[qpks[q]])[1]
+            //         )
+            //     th.appendChild(txt);
+            //     tr.appendChild(th)
+            // }
+            // resultsTable.appendChild(tr);
 
             //Player results
             for (p in players){
