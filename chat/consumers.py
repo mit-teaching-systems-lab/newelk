@@ -29,7 +29,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.transcript = Transcript(room_name=self.room_name)
             self.transcript.scenario = Scenario.objects.get(pk=self.scenario)
             self.transcript.save()
-            self.room.transcript = self.transcript
+            s = self.transcript
             print('made room')
         else:
             self.room = self.room.order_by('-id')[0]
@@ -85,7 +85,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
             # self.room.transcript.transcript += message + '\n'
-            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.transcript)
+            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             self.msg_obj.save()
             self.room.transcript.save()
 
