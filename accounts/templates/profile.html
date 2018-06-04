@@ -69,7 +69,24 @@
             resultsTable.appendChild(tr);
 
             for (p in players){
-                player = results[players[p]]
+                var player = players[p]
+                if (players[p]!="question_details") {
+                    var details = results[player]
+
+                    var tr = document.createElement("tr");
+                    var td = document.createElement("td");
+                    var txt = document.createTextNode(players[p]);
+                    td.appendChild(txt)
+                    tr.appendChild(td)
+                    for (q in qpks){
+                        var td = document.createElement("td");
+                        var txt = document.createTextNode(details[qpks[q]]);
+                        td.appendChild(txt)
+                        tr.appendChild(td)
+                    }
+                    resultsTable.appendChild(tr);
+                }
+
             }
 
 
