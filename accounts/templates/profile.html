@@ -12,21 +12,11 @@
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSeMtlVq-_gx-7-Jv3VDo_FSeXHcPcVxUToDzbqR1a0waUyINg/viewform?entry.1379461190={{ user.username }}" target="_blank">
   Just finish a quiz? Please complete a post-survey. Thank you!
 </a></strong>
-
-
+        
         <p>Your quiz results:</p>
-        <!--<div id="dataBlock">-->
-            <!--{{ quiz_results }}-->
-
-        <!--</div>-->
-
-        <!--Updating new styling here..-->
         <table id="resultsTable">
-
         </table>
 
-
-        <br>
         <p>Your transcripts:</p>
         {% for t in transcripts %}
             <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
