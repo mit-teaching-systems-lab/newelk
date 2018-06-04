@@ -29,9 +29,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.transcript = Transcript(room_name=self.room_name)
             self.transcript.scenario = Scenario.objects.get(pk=self.scenario)
             self.transcript.save()
-            s = self.transcript
-            print('made room')
             self.room.transcript = self.transcript
+            print('made room')
+
         else:
             self.room = self.room.order_by('-id')[0]
             # ensures last_line is not null
@@ -84,12 +84,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = event['message']
 
         if self.room.transcript.last_line != message:
-            self.room.transcript.last_line = message
             # self.room.transcript.transcript += message + '\n'
             self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             self.msg_obj.save()
             self.room.transcript.save()
-
+        self.room.transcript.last_line = message
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message

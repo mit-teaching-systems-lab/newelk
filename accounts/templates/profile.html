@@ -37,7 +37,7 @@
 <script>
     // window.onload=function() {
         var results = {{ quiz_results|safe }};
-        if (Object.keys(results).length < 2){
+        if (Object.keys(results).length < 3){
             console.log('awaiting results, reloading in 30s')
             setTimeout(function(){ location.reload(true) }, 30000);
         } else {
