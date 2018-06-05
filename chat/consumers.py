@@ -88,11 +88,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from room group
     async def chat_message(self, event):
         message = event['message']
-
+        logger.warning(message)
+        logger.warning(self.room.transcript.last_line)
         if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
             self.room.transcript.save()
-            logger.debug(self.room.transcript.last_line)
+
             self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             self.msg_obj.save()
 
