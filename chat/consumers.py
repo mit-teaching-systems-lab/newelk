@@ -25,10 +25,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if not self.room:
             self.room = ChatRoom(name=self.room_name)
-            self.room.transcript = Transcript(room_name=self.room_name)
-            self.room.transcript.scenario = Scenario.objects.get(pk=self.scenario)
-            self.room.transcript.save()
             self.room.save()
+
+            ts = Transcript(room_name=self.room_name)
+            ts.scenario = Scenario.objects.get(pk=self.scenario)
+            ts.save()
+
+            self.room.transcript = ts
+            self.room.save()
+
         else:
             self.room = self.room.order_by('-id')[0]
             print(self.room)
