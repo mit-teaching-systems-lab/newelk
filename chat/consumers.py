@@ -3,7 +3,9 @@ import json
 from research.models import Transcript, Message
 from chat.models import ChatRoom, Scenario
 import re
-import sys
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -37,8 +39,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         else:
             self.room = self.room.order_by('-id')[0]
-            print(self.room)
-            print(self.room.transcript)
+            # print(self.room)
+            # print(self.room.transcript)
             if not self.room.transcript:
                 ts = Transcript(room_name=self.room_name)
                 ts.scenario = Scenario.objects.get(pk=self.scenario)
@@ -90,7 +92,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
             self.room.transcript.save()
-            sys.stdout.write(self.room.transcript.last_line)
+            logger.debug(self.room.transcript.last_line)
             self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             self.msg_obj.save()
 
@@ -103,7 +105,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         self.room.transcript.users.add(self.user)
         self.room.users.remove(self.user)
-        print(self.room.users)
+        # print(self.room.users)
         if not self.room.users.all():
             # self.room.transcript.
             print('deleting')
