@@ -89,7 +89,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if self.room.transcript.last_line != message:
             self.room.transcript.last_line = message
             self.room.transcript.save()
-            print(self.room.transcript.last_line)
+            sys.stdout.write(self.room.transcript.last_line)
             self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             self.msg_obj.save()
 
