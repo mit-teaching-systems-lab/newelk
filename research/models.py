@@ -43,7 +43,7 @@ class Message(models.Model):
     transcript = models.ForeignKey(Transcript, on_delete=models.SET_NULL, null=True)
     creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
-        transcript_id = str(self.transcript.id) if str(self.transcript.id) else 'no_transcript_id'
+        transcript_id = str(self.transcript.id) if self.transcript else 'no_transcript_id'
         room = self.transcript.room_name if self.transcript.room_name else 'no_room_name'
         scenario = str(self.transcript.scenario) if self.transcript.scenario else 'no_scenario'
         username = self.user.username if self.user else 'System'
