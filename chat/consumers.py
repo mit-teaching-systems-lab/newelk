@@ -50,7 +50,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room.users.add(self.user)
         self.room.save()
 
-        # self.room.transcript = Transcript(room_name=self.room_name)
+        logger.info(self.room.transcript)
 
         # Join room group
         await self.channel_layer.group_add(
@@ -78,10 +78,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         logger.info(self.room.transcript.last_line)
         logger.info(message)
-        # if self.room.transcript.last_line != message:
-        #     msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
-        #     msg_obj.save()
-        #     self.room.transcript.last_line = message
+        if self.room.transcript.last_line != message:
+            msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
+            msg_obj.save()
+            self.room.transcript.last_line = message
 
         await self.channel_layer.group_send(
             self.room_group_name,
