@@ -82,51 +82,27 @@
                 var player = players[p]
                 if (players[p]!="question_details") {
                     var details = results[player]
-
                     var tr = document.createElement("tr");
                     var td = document.createElement("td");
                     var txt = document.createTextNode(players[p]);
                     td.appendChild(txt)
                     tr.appendChild(td)
                     for (q in qpks){
-                        var td = document.createElement("td");
+                        var td = document.createElement("td")
+                        // console.log(q)
+                        // console.log(qpks)
+                        // console.log(qpks[q])
+                        // console.log(details)
+                        // console.log(details[qpks[q]])
                         var txt = document.createTextNode(details[qpks[q]]);
                         td.appendChild(txt)
                         tr.appendChild(td)
                     }
                     resultsTable.appendChild(tr);
                 }
-
             }
-
-
-
-
-            // for (p=0;p++;p<=players.length) {
-            //     player = results[players[p]]
-            //     if (player!="question_details"){
-            //         var tr = document.createElement("tr");
-            //         var txt = document.createTextNode(players);
-            //         tr.appendChild(txt);
-            //         for (q in qpks){
-            //
-            //         }
-            //     }
-            // }
-            // resultsTable.appendChild(th);
-
-
-            // var tr = document.createElement("tr");
-            // var td = document.createElement("td");
-            // var txt = document.createTextNode("some value");
-            // td.appendChild(txt);
-            // tr.appendChild(td);
-            // table.appendChild(tr);
         }
-        // var dataBlock = document.querySelector("dataBlock")
-        // for (key in results) {
-        //     dataBlock.append(key: results.key)
-    // }
+
 </script>
 <style>
 table, th, td {

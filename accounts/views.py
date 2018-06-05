@@ -20,8 +20,8 @@ def profile(request):
                 quiz_results[person.username] = {}
                 quiz_results["question_details"] = {}
                 for answer in answers:
-                    quiz_results[person.username][answer.pk] = answer.user_answer
-                    quiz_results["question_details"][answer.pk] = { answer.question.question : answer.correct_answer }
+                    quiz_results[person.username][answer.question.pk] = answer.user_answer
+                    quiz_results["question_details"][answer.question.pk] = { answer.question.question : answer.correct_answer }
     else:
         transcripts = None
     return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results})
