@@ -94,8 +94,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room.transcript.last_line = message
             self.room.transcript.save()
             logger.warning(self.room.transcript.last_line)
-            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
-            self.msg_obj.save()
+            msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
+            msg_obj.save()
 
 
         # Send message to WebSocket
