@@ -3,6 +3,7 @@ import json
 from research.models import Transcript, Message
 from chat.models import ChatRoom, Scenario
 import re
+import sys
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
