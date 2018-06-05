@@ -76,7 +76,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = self.user.username if self.user.username != "" else "Anonymous"
         message =  username + ": " + text_data_json['message']
         if self.room.transcript.last_line != message:
-            msg_obj = Message(text=message, user=self.user, role=self.role, transcript=ts)
+            msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
             msg_obj.save()
             self.room.transcript.last_line = message
 
