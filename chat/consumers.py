@@ -17,31 +17,29 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_name = re.sub(' ', '-', self.room_name)
         self.room_name = re.sub('_', '-', self.room_name)
         self.room_name = re.sub('!', '-', self.room_name)
+        self.room_name = self.room_name.lower()
 
         self.room_group_name = 'chat_%s_%s' % (self.room_name, self.scenario)
 
-
-
         self.room = ChatRoom.objects.filter(name=self.room_name)
+
         if not self.room:
             self.room = ChatRoom(name=self.room_name)
             self.room.save()
             self.transcript = Transcript(room_name=self.room_name)
             self.transcript.scenario = Scenario.objects.get(pk=self.scenario)
             self.transcript.save()
-            self.room.transcript = self.transcript
-            print('made room')
+            # self.room.transcript = self.transcript
+            # print('made room')
 
         else:
             self.room = self.room.order_by('-id')[0]
             # ensures last_line is not null
-            if not self.room.transcript or not self.room.transcript.last_line:
+            if not self.transcript or not self.transcript.last_line:
                 self.transcript = Transcript(room_name=self.room_name)
                 self.transcript.scenario = Scenario.objects.get(pk=self.scenario)
                 self.transcript.save()
-                self.room.transcript = self.transcript
         self.room.users.add(self.user)
-        # self.room.transcript.users.add(self.user)
         self.room.save()
 
         # self.room.transcript = Transcript(room_name=self.room_name)
@@ -83,19 +81,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def chat_message(self, event):
         message = event['message']
 
-        if self.room.transcript.last_line != message:
+        if self.transcript.last_line != message:
             # self.room.transcript.transcript += message + '\n'
-            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
+            self.msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.transcript)
             self.msg_obj.save()
-            self.room.transcript.save()
-        self.room.transcript.last_line = message
+
+        self.transcript.last_line = message
+        self.transcript.save()
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
             'message': message
         }))
 
     async def disconnect(self, close_code):
-        self.room.transcript.users.add(self.user)
+        self.transcript.users.add(self.user)
         self.room.users.remove(self.user)
         print(self.room.users)
         if not self.room.users.all():
