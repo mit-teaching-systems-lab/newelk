@@ -31,16 +31,17 @@ def filtered_data_as_http_response(rows, headers, filename):
 
 def streaming_chat_csv(request):
     """A view that streams a large CSV file."""
-    # rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
-    yesterday = timezone.now() - timedelta(days=1)
-    rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
+    # yesterday = timezone.now() - timedelta(days=1)
+    # rows = Message.objects.filter(creation_time__gt=yesterday).order_by("transcript", "creation_time")
+    rows = Message.objects.all().order_by("transcript", "creation_time")
     return filtered_data_as_http_response(rows,
                          "group_id,room_name,scenario,username,role,message_id,message_text,time",
                          "chatlogs.csv")
 
 def streaming_answers_view(request):
-    yesterday = timezone.now() - timedelta(days=1)
-    rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
+    # yesterday = timezone.now() - timedelta(days=1)
+    # rows = TFAnswer.objects.filter(creation_time__gt=yesterday).order_by("transcript")
+    rows = TFAnswer.objects.all().order_by("transcript")
     return filtered_data_as_http_response(rows,
                          "group_id,username,question_id,question,correct_answer,user_response",
                          "answerlogs.csv")
