@@ -90,6 +90,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     'message': message
                 }
             )
+        else:
+            logger.info(text_data_json.keys())
 
     # Receive message from room group
     async def chat_message(self, event):
