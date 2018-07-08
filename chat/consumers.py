@@ -90,6 +90,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     'message': message
                 }
             )
+        elif 'ready' in text_data_json:
+            # Player is ready to begin
+            # First set player ready flag
+
+            # If all players in the room are ready, begin timer
         else:
             logger.info(text_data_json.keys())
 
