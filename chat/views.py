@@ -36,7 +36,7 @@ def quiz(request, role, scenario, room_name):
                 answer.save()
         return redirect('/accounts/profile')
     else:
-        room_details = get_room_details()
+        room_details = get_room_details(role, scenario, room_name)
         return render(request, 'chat/quiz.html', {'transcript':transcript, 'questions':questions})
 
 def get_room_details(role, scenario, room_name):
