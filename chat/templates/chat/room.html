@@ -94,8 +94,8 @@
     <p class="lead">Use the scenario to the left to guide your conversation:</p>
     <textarea id="chat-log" cols="50" rows="10" disabled="disabled" ></textarea><br/>
     <input id="chat-message-input" placeholder="Chat here" type="text" size="40"/><br/>
-    </p><input id="chat-message-submit" class="btn btn-primary btn-lg" type="button" value="Send Message"/></p></br>
-        <p>When the 7 minute round is finished, take the quiz.<br/> <button type="button" class="btn btn-primary btn-sm" onclick='window.location="quiz/"'>Take Quiz</button></p>
+    <input id="chat-message-submit" class="btn btn-primary btn-lg" type="button" value="Send Message"/></br>
+    <p>When the 7 minute round is finished, take the quiz.<br/> <button type="button" class="btn btn-primary btn-sm" onclick='window.location="quiz/"'>Take Quiz</button></p>
     </div>
     
   </div>
@@ -152,10 +152,12 @@
     document.querySelector('#chat-message-submit').onclick = function(e) {
         var messageInputDom = document.querySelector('#chat-message-input');
         var message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'message': message
-        }));
-        messageInputDom.value = '';
+        if (message != '') {
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
     };
 </script>
 </html>
