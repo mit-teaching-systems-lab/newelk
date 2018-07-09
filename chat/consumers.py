@@ -9,9 +9,6 @@ logger = logging.getLogger(__name__)
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        # y = dir(self.scope["user"])
-        # for x in y:
-        #     print(x)
         self.user = self.scope["user"]
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
@@ -96,9 +93,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room.ready_users.add(self.user)
             # If all players in the room are ready, begin timer
             logger.info(self.user)
-            logger.info(self.room.ready_users.list())
-            logger.info(self.room.users.list())
-            if (self.room.ready_users.list() == self.room.users.list()):
+            logger.info(self.room.ready_users.all())
+            logger.info(self.room.users.all())
+            if (self.room.ready_users.all() == self.room.users.all()):
                 # Notify everyone that the timer has begun
                 await self.channel_layer.group_send(
                     self.room_group_name,
@@ -126,7 +123,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         self.room.transcript.users.add(self.user)
         self.room.users.remove(self.user)
-        # print(self.room.users)
         if not self.room.users.all():
             # self.room.transcript.
             print('deleting')
