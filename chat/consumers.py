@@ -90,10 +90,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     'message': message
                 }
             )
-        # elif 'ready' in text_data_json:
+        elif 'ready' in text_data_json:
             # Player is ready to begin
-            # First set player ready flag
+            # First add player to pool of ready players in the room
+            self.room.ready_users.add(self.user)
             # If all players in the room are ready, begin timer
+            if (self.room.ready_users == self.room.users):
+                # Notify everyone that the timer has begun
+                await self.channel_layer.group_send(
+                    self.room_group_name,
+                    {
+                        'type': 'chat_message',
+                        'message': "***All players are ready, beginning timer***",
+                        'begin_timer': 'true'
+                    }
+                )
+            else:
+                logger.info('Not all players ready')
         else:
             logger.info(text_data_json.keys())
 
