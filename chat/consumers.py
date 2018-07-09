@@ -103,7 +103,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         {
                             'type': 'chat_message',
                             'message': "***All players are ready, beginning timer***",
-                            'begin_timer': 'true'
+                            'begin_timer': 'true',
+                            'time': '420'
                         }
                     )
                 else:

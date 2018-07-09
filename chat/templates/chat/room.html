@@ -140,10 +140,13 @@
             var data = JSON.parse(e.data);
             var message = data['message'];
             var begin_timer = data['begin_timer'] || false;
-            console.log(begin_timer)
+            var time = data['time'] || 0;
             var textarea = document.querySelector('#chat-log');
             textarea.value += (message + '\n');
             textarea.scrollTop = textarea.scrollHeight;
+            if (begin_timer) {
+                beginRound(time)
+            }
         };
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
@@ -168,9 +171,22 @@
             chatSocket.send(JSON.stringify({
                     'ready': 'true'
                 }));
-            document.querySelector('#begin-button').disabled = true;
-
         };
+    };
+    function beginRound(time)
+    {
+        var button = document.querySelector('#begin-button');
+        button.disabled = true;
+        var countdown = new Date(null);
+        countdown.setSeconds(time);
+        var interval = setInterval(function(){
+            button.value = countdown.toISOString().substr(15, 4);
+            if (countdown.getSeconds() == 0){
+                button.value = "Time's up!"
+                clearInterval(interval);
+            }
+            countdown.setSeconds(countdown.getSeconds() - 1);
+        }, 1000);
     };
 </script>
 </html>
