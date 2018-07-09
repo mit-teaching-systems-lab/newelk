@@ -96,9 +96,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room.ready_users.add(self.user)
             # If all players in the room are ready, begin timer
             logger.info(self.user)
-            logger.info(self.room.ready_users)
-            logger.info(self.room.users)
-            if (self.room.ready_users == self.room.users):
+            logger.info(self.room.ready_users.list())
+            logger.info(self.room.users.list())
+            if (self.room.ready_users.list() == self.room.users.list()):
                 # Notify everyone that the timer has begun
                 await self.channel_layer.group_send(
                     self.room_group_name,
