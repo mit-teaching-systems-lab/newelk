@@ -185,6 +185,7 @@
             button.value = countdown.toISOString().substr(15, 4);
             if (time == 0){
                 button.value = "Time's up!";
+                document.querySelector('#chat-message-submit').disabled = true;
                 clearInterval(interval);
             }
             countdown.setSeconds(countdown.getSeconds() - 1);
