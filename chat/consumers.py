@@ -87,7 +87,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     'message': message
                 }
             )
-        elif 'ready' in text_data_json:
+
+        if 'ready' in text_data_json:
             # Player is ready to begin
             # First add player to pool of ready players in the room
             self.room.ready_users.add(self.user)
@@ -125,8 +126,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         'message': "***Not enough users to begin a round***"
                     }
                 )
-        else:
-            logger.info(text_data_json.keys())
 
     # Receive message from room group
     async def chat_message(self, event):
