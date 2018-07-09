@@ -182,15 +182,15 @@
         var button = document.querySelector('#begin-button');
         button.disabled = true;
         var countdown = new Date(null);
-        console.log(time)
+        console.log(time);
         countdown.setSeconds(time);
-        console.log(countdown.getSeconds())
+        console.log(countdown.getSeconds());
         var interval = setInterval(function(){
-            console.log(countdown.getSeconds())
+            console.log(countdown.getSeconds());
             button.value = countdown.toISOString().substr(15, 4);
-            console.log(countdown.getSeconds())
+            console.log(countdown.getSeconds());
             if (countdown.getSeconds() == 0){
-                button.value = "Time's up!"
+                button.value = "Time's up!";
                 clearInterval(interval);
             }
             countdown.setSeconds(countdown.getSeconds() - 1);
