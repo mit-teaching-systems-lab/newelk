@@ -182,7 +182,7 @@
         var button = document.querySelector('#begin-button');
         button.disabled = true;
         var countdown = new Date(null);
-        console.log(time);
+        console.log(countdown.getSeconds());
         countdown.setSeconds(time);
         console.log(countdown.getSeconds());
         var interval = setInterval(function(){
