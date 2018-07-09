@@ -189,12 +189,12 @@
         var interval = setInterval(function(){
             console.log(countdown.getSeconds());
             button.value = countdown.toISOString().substr(15, 4);
-            console.log(countdown.getSeconds());
-            if (countdown.getSeconds() == 0){
+            if (time == 0){
                 button.value = "Time's up!";
                 clearInterval(interval);
             }
             countdown.setSeconds(countdown.getSeconds() - 1);
+            time -= 0;
         }, 1000);
     };
 </script>
