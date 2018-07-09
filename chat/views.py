@@ -24,7 +24,7 @@ def quiz(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
-    transcript.messages = Message.objects.filter(transcript=transcript).order_by("-creation_time")
+    transcript.messages = Message.objects.filter(transcript=transcript).order_by("creation_time")
     if request.method == 'POST':
         for pk in request.POST:
             if not pk == "csrfmiddlewaretoken":

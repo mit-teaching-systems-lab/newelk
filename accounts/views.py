@@ -10,7 +10,7 @@ def profile(request):
     quiz_results = {}
     if transcripts:
             for t in transcripts:
-                t.messages = Message.objects.filter(transcript=t).order_by("-creation_time")
+                t.messages = Message.objects.filter(transcript=t).order_by("creation_time")
             latest_transcript = transcripts.latest("creation_time")
             participants = latest_transcript.users.distinct()
             scenario = latest_transcript.scenario
