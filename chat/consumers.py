@@ -110,6 +110,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     )
                 else:
                     logger.info('Not all players ready')
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'chat_message',
+                            'message': "***Waiting for all players to be ready***"
+                        }
+                    )
             else:
                 await self.channel_layer.group_send(
                     self.room_group_name,

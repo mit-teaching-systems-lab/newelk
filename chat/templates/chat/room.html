@@ -137,7 +137,6 @@
         var chatSocket = new WebSocket(
             ws_scheme + window.location.host + '/ws/chat/' + role + '/' + scenario + '/' + roomName + '/');
         chatSocket.onmessage = function(e) {
-            console.log(e.data)
             var data = JSON.parse(e.data);
             var message = data['message'];
             var begin_timer = data['begin_timer'] || false;
@@ -145,10 +144,8 @@
             var textarea = document.querySelector('#chat-log');
             textarea.value += (message + '\n');
             textarea.scrollTop = textarea.scrollHeight;
-            console.log(begin_timer)
             if (begin_timer) {
                 console.log('beginning timer')
-                console.log(time)
                 beginRound(time)
             }
         };
@@ -182,12 +179,9 @@
         var button = document.querySelector('#begin-button');
         button.disabled = true;
         var countdown = new Date(null);
-        console.log(countdown.getSeconds());
         countdown.setSeconds(time % 60);
         countdown.setMinutes(Math.floor(time / 60))
-        console.log(countdown.getSeconds());
         var interval = setInterval(function(){
-            console.log(countdown.getSeconds());
             button.value = countdown.toISOString().substr(15, 4);
             if (time == 0){
                 button.value = "Time's up!";
