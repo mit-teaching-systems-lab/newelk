@@ -45,7 +45,6 @@ def quiz(request, role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
-    print(transcript.transcript)
     if request.method == 'POST':
         for pk in request.POST:
             if not pk == "csrfmiddlewaretoken":
@@ -58,4 +57,4 @@ def quiz(request, role, scenario, room_name):
                 answer.save()
         return redirect('/accounts/profile')
     else:
-        return render(request, 'chat/quiz.html', {'questions':questions})
+        return render(request, 'chat/quiz.html', {'transcript':transcript, 'questions':questions})

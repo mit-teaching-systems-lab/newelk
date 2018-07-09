@@ -32,7 +32,45 @@
     <div class="col-sm-6">
     <h1 class="mt-5">Eliciting Learner Knowledge</h1>
           <p class="lead">Teaching Systems Lab</p>
-    </div>                
+
+        <h1>Transcript</h1>
+        {% for m in transcript.messages %}
+                {% if m.user %}
+                    {{ m.user }}:
+                {% endif %}
+                {{ m.text }}
+            {% endfor %}
+
+        <h1>{{ scenario_name }}</h1>
+        <br><br>
+
+        {% if student_background %}
+            {{ student_background|safe }}
+            <br><br>
+            <h5>Your Student Profile:</h5>
+                  {{ student_profile|safe }}
+            <br><br>
+            {% if student_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ student_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+        {% if teacher_background %}
+            <h5>Your Background:</h5>
+                  {{ teacher_background|safe }}
+            <br><br>
+            <h5>Your Objective:</h5>
+                  {{ teacher_objective|safe }}
+            <br><br>
+            {% if teacher_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ teacher_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+
+    </div>
 
     <div class="col-sm-6">
         </br></br>
