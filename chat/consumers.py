@@ -95,18 +95,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
             logger.info(self.user)
             logger.info(self.room.ready_users.all())
             logger.info(self.room.users.all())
-            if (list(self.room.ready_users.all()) == list(self.room.users.all())):
-                # Notify everyone that the timer has begun
+            if self.room.users.count > 1:
+                if (list(self.room.ready_users.all()) == list(self.room.users.all())):
+                    # Notify everyone that the timer has begun
+                    await self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'chat_message',
+                            'message': "***All players are ready, beginning timer***",
+                            'begin_timer': 'true'
+                        }
+                    )
+                else:
+                    logger.info('Not all players ready')
+            else:
                 await self.channel_layer.group_send(
                     self.room_group_name,
                     {
                         'type': 'chat_message',
-                        'message': "***All players are ready, beginning timer***",
-                        'begin_timer': 'true'
+                        'message': "***Not enough users to begin a round***"
                     }
                 )
-            else:
-                logger.info('Not all players ready')
         else:
             logger.info(text_data_json.keys())
 
