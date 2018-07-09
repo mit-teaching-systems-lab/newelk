@@ -184,7 +184,9 @@
         var countdown = new Date(null);
         console.log(time)
         countdown.setSeconds(time);
+        console.log(countdown.getSeconds())
         var interval = setInterval(function(){
+            console.log(countdown.getSeconds())
             button.value = countdown.toISOString().substr(15, 4);
             console.log(countdown.getSeconds())
             if (countdown.getSeconds() == 0){
