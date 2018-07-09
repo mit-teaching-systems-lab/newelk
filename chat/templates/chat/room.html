@@ -183,7 +183,8 @@
         button.disabled = true;
         var countdown = new Date(null);
         console.log(countdown.getSeconds());
-        countdown.setSeconds(10);
+        countdown.setSeconds(time % 60);
+        countdown.setMinutes(Math.floor(time / 60))
         console.log(countdown.getSeconds());
         var interval = setInterval(function(){
             console.log(countdown.getSeconds());
