@@ -37,8 +37,9 @@ def quiz(request, role, scenario, room_name):
                 answer.save()
         return redirect('/accounts/profile')
     else:
-        room_details = get_room_details(role, scenario, room_name)
-        return render(request, 'chat/quiz.html', {'transcript':transcript, 'questions':questions})
+        quiz_context = get_room_details(role, scenario, room_name)
+        quiz_context.update({'transcript':transcript, 'questions':questions})
+        return render(request, 'chat/quiz.html', quiz_context)
 
 def get_room_details(role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
