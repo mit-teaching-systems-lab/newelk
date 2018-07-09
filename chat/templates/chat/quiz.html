@@ -35,11 +35,7 @@
 
         <h1>Transcript</h1>
         {% for m in transcript.messages %}
-                {% if m.user %}
-                    {{ m.user }}:
-                {% endif %}
-                {{ m.text }}
-            <br>
+                {{ m.text }} <br>
             {% endfor %}
 
         <h1>{{ scenario_name }}</h1>

@@ -22,9 +22,6 @@
             <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
             <br>
             {% for m in t.messages %}
-                {% if m.user %}
-                    {{ m.user }}:
-                {% endif %}
                 {{ m.text }}
             {% endfor %}
 
