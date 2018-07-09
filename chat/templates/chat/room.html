@@ -182,9 +182,11 @@
         var button = document.querySelector('#begin-button');
         button.disabled = true;
         var countdown = new Date(null);
+        console.log(time)
         countdown.setSeconds(time);
         var interval = setInterval(function(){
             button.value = countdown.toISOString().substr(15, 4);
+            console.log(countdown.getSeconds())
             if (countdown.getSeconds() == 0){
                 button.value = "Time's up!"
                 clearInterval(interval);
