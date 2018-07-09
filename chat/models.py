@@ -32,8 +32,8 @@ class TFQuestion(models.Model):
 from research.models import Transcript
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
-    users = models.ManyToManyField(User)
-    ready_users = models.ManyToManyField(User)
+    users = models.ManyToManyField(User, related_name='+')
+    ready_users = models.ManyToManyField(User, related_name='+')
     transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
     def __str__(self):
         return self.name
