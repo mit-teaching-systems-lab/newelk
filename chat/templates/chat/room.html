@@ -141,13 +141,14 @@
             var data = JSON.parse(e.data);
             var message = data['message'];
             var begin_timer = data['begin_timer'] || false;
-            var time = data['time'] || 0;
+            var time = parseInt(data['time']) || 0;
             var textarea = document.querySelector('#chat-log');
             textarea.value += (message + '\n');
             textarea.scrollTop = textarea.scrollHeight;
             console.log(begin_timer)
             if (begin_timer) {
                 console.log('beginning timer')
+                console.log(time)
                 beginRound(time)
             }
         };
