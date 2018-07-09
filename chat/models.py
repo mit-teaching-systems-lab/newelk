@@ -15,7 +15,7 @@ class Scenario(models.Model):
         choices=BOOL_CHOICES,
         default=False,
     )
-    previous_version = models.ForeignKey('self', on_delete=models.SET_NULL,null=True)
+    previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
     def __str__(self):
         return self.scenario_name
 
