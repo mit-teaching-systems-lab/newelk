@@ -78,8 +78,8 @@
 {% for q in questions %}
     {{ q.question }}
     <br>
-    <input type="radio" name="{{ q.id }}" value="True">True<br>
-    <input type="radio" name="{{ q.id }}" value="False">False<br>
+    <input type="radio" name="{{ q.id }}" value="True" required>True<br>
+    <input type="radio" name="{{ q.id }}" value="False" required>False<br>
     <br>
 {% endfor %}
     <input type="submit" value="Submit">
