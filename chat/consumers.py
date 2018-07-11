@@ -99,7 +99,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             logger.info(self.room.users.all())
             # The user count should be modified to something better than a generic int
             if self.room.users.count() > 0:
-                if (list(self.room.ready_users.all()) == list(self.room.users.all())):
+                if (set(self.room.ready_users.all()) == set(self.room.users.all())):
                     # Notify everyone that the timer has begun
                     await self.channel_layer.group_send(
                         self.room_group_name,
