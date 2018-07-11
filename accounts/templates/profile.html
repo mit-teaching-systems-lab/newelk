@@ -13,20 +13,23 @@
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScmnq80xcPL0Fthmz2QgAD8mqeId8Xxmq44qbj0lb6jy6S0qA/viewform?entry.1379461190={{ user.username }}" target="_blank">
   Just finish a quiz? Please complete a post-survey. Thank you!
 </a></strong>
-        
-        <p>Your quiz results:</p>
-        <table id="resultsTable">
-        </table>
+        <!--{% if transcripts is not None %}-->
+            <p>Your quiz results:</p>
+            <table id="resultsTable">
+            </table>
+            <p>Your transcripts:</p>
+            {% for t in transcripts %}
+                <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
+                <br>
+                {% for m in t.messages %}
+                    {{ m.text }}<br>
+                {% endfor %}
 
-        <p>Your transcripts:</p>
-        {% for t in transcripts %}
-            <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
-            <br>
-            {% for m in t.messages %}
-                {{ m.text }}<br>
-            {% endfor %}
+            <!--{% endfor %}-->
+        <!--{% else %}-->
+            <!--<strong>Waiting for results, try refreshing</strong>-->
+        <!--{% endif %}-->
 
-        {% endfor %}
     </div>
     {% else %}
         <h5>You are not logged in</h5>

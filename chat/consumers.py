@@ -46,7 +46,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 self.room.save()
         self.room.users.add(self.user)
         self.room.save()
-
+        self.room.transcript.users.add(self.user)
         logger.info(self.room.transcript)
 
         # Join room group
@@ -73,8 +73,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         username = self.user.username if self.user.username != "" else "Anonymous"
         if 'message' in text_data_json:
             message = username + ": " + text_data_json['message']
-            logger.info(self.room.transcript.last_line)
-            logger.info(message)
+            # logger.info(self.room.transcript.last_line)
+            # logger.info(message)
             if self.room.transcript.last_line != message:
                 msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
                 msg_obj.save()
@@ -94,9 +94,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # First add player to pool of ready players in the room
             self.room.ready_users.add(self.user)
             # If all players in the room are ready, begin timer
-            logger.info(self.user)
-            logger.info(self.room.ready_users.all())
-            logger.info(self.room.users.all())
+            # logger.info(self.user)
+            # logger.info(self.room.ready_users.all())
+            # logger.info(self.room.users.all())
             # The user count should be modified to something better than a generic int
             if self.room.users.count() > 0:
                 if (set(self.room.ready_users.all()) == set(self.room.users.all())):
@@ -141,11 +141,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps(broadcast))
 
     async def disconnect(self, close_code):
-        self.room.transcript.users.add(self.user)
         self.room.transcript.save()
         self.room.users.remove(self.user)
         if not self.room.users.all():
-            # self.room.transcript.
             print('deleting')
             ChatRoom.objects.filter(pk=self.room.pk).delete()
         else:
