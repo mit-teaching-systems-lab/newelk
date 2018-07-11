@@ -24,4 +24,4 @@ def profile(request):
                     quiz_results["question_details"][answer.question.pk] = { answer.question.question : answer.correct_answer }
     else:
         transcripts = None
-    return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results})
+    return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results, "participant_count": participants.count})
