@@ -72,13 +72,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         username = self.user.username if self.user.username != "" else "Anonymous"
         if 'message' in text_data_json:
-            message =  username + ": " + text_data_json['message']
+            message = username + ": " + text_data_json['message']
             logger.info(self.room.transcript.last_line)
             logger.info(message)
             if self.room.transcript.last_line != message:
                 msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
                 msg_obj.save()
                 self.room.transcript.last_line = message
+                self.room.transcript.save()
 
             await self.channel_layer.group_send(
                 self.room_group_name,

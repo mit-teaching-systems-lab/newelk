@@ -35,9 +35,9 @@
 <script>
     // window.onload=function() {
         var results = {{ quiz_results|safe }};
-        if (Object.keys(results).length < 3){
-            console.log('awaiting results, reloading in 30s')
-            setTimeout(function(){ location.reload(true) }, 30000);
+        if (Object.keys(results).length < 2){
+            console.log('awaiting results, reloading in 15s')
+            setTimeout(function(){ location.reload(true) }, 15000);
         } else {
             var resultsTable = document.getElementById("resultsTable")
             var players = Object.keys(results)
