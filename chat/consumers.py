@@ -141,6 +141,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def disconnect(self, close_code):
         self.room.transcript.users.add(self.user)
+        self.room.transcript.save()
         self.room.users.remove(self.user)
         if not self.room.users.all():
             # self.room.transcript.
