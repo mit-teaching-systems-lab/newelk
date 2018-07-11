@@ -169,6 +169,7 @@
             };
         };
         document.querySelector('#begin-button').onclick = function(e) {
+            document.querySelector('#begin-button').value = "Waiting";
             chatSocket.send(JSON.stringify({
                     'ready': 'true'
                 }));
