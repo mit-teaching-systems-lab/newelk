@@ -184,9 +184,9 @@
     };
     function beginRound(time)
     {
-        document.querySelector('#chat-message-input').disabled = false;
 
         var chatBox = document.getElementById("chat-message-input");
+        chatBox.disabled = false;
         var windowFocus = setInterval(function(){
          chatBox.focus();
         }, 50);
