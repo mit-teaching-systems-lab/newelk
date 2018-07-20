@@ -7,19 +7,33 @@
  <div class="col-sm-6">
     <h1 class="mt-5">Eliciting Learner Knowledge</h1>
           <p class="lead">Teaching Systems Lab</p>
+
+<div id="toc" class="toc"><div class=""><h2>Contents</h2></div>
+<ul>
+<li ><a href="#survey">1. Complete Survey</a></li>
+<li ><a href="#results">2. Results</a></li>
+<li ><a href="#transcripts">3. Transcripts</a></li>
+{% for t in transcripts %}
+    <li ><a href="#t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time }}</a></li>
+{% endfor %}
+
+</ul>
+</div>
+
+
     </div>
 
 
     <div class="col-sm-6">
       </br></br>
     <main>
-    {% if user.is_authenticated %}
+    <!--{% if user.is_authenticated %}-->
     <!--<div style="white-space: pre-line">-->
         <div>
         <br>
         <h5>Hello, {{ user.username }}!</h5>
 
-<strong>
+<strong id="survey">
 <a href="https://docs.google.com/forms/d/e/1FAIpQLScmnq80xcPL0Fthmz2QgAD8mqeId8Xxmq44qbj0lb6jy6S0qA/viewform?entry.1379461190={{ user.username }}" target="_blank">
   Just finish a quiz? Please complete a post-survey. Thank you!
 </a></strong>
@@ -27,9 +41,9 @@
             <p id="results">Your quiz results:</p>
             <table id="resultsTable">
             </table>
-            <p>Your transcripts:</p>
+            <p id="transcripts">Your transcripts:</p>
             {% for t in transcripts %}
-                <strong>{{ t.room_name }} at {{ t.creation_time }}</strong>
+                <strong id="t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time }}</strong>
                 <br>
                 {% for m in t.messages %}
                     {{ m.text }}<br>
@@ -41,10 +55,10 @@
         <!--{% endif %}-->
 
     </div>
-    {% else %}
-        <h5>You are not logged in</h5>
-        <button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>
-    {% endif %}
+    <!--{% else %}-->
+        <!--<h5>You are not logged in</h5>-->
+        <!--<button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>-->
+    <!--{% endif %}-->
 <script>
     // window.onload=function() {
         var results = {{ quiz_results|safe }};
