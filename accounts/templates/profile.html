@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
 
+ <div class="col-sm-6">
+    <h1 class="mt-5">Eliciting Learner Knowledge</h1>
+          <p class="lead">Teaching Systems Lab</p>
+    </div>
+
+
+    <div class="col-sm-6">
+      </br></br>
+    <main>
+
 {% block title %}Account Profile{% endblock %}
 
 {% block content %}
@@ -14,7 +24,7 @@
   Just finish a quiz? Please complete a post-survey. Thank you!
 </a></strong>
         <!--{% if transcripts is not None %}-->
-            <p>Your quiz results:</p>
+            <p id="results">Your quiz results:</p>
             <table id="resultsTable">
             </table>
             <p>Your transcripts:</p>
