@@ -126,6 +126,11 @@
     </style>
 <script>
     window.onload = function() {
+        var chatBox = document.getElementById("chat-message-input");
+        var windowFocus = setInterval(function(){
+         chatBox.focus();
+        }, 50);
+
         var roomName = {{ room_name_json }};
         var role = "{{ role }}";
         var scenario = "{{ scenario }}";
