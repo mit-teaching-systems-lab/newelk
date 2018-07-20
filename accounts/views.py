@@ -11,6 +11,9 @@ def profile(request):
     if transcripts:
             for t in transcripts:
                 t.messages = Message.objects.filter(transcript=t).order_by("creation_time")
+                if not t.messages:
+                    t.messages = {}
+                    t.['text'] = "no text found!"
             latest_transcript = transcripts.latest("creation_time")
             participants = latest_transcript.users.distinct()
             scenario = latest_transcript.scenario
