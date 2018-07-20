@@ -126,10 +126,6 @@
     </style>
 <script>
     window.onload = function() {
-        var chatBox = document.getElementById("chat-message-input");
-        var windowFocus = setInterval(function(){
-         chatBox.focus();
-        }, 50);
 
         var roomName = {{ room_name_json }};
         var role = "{{ role }}";
@@ -139,6 +135,8 @@
         } else {
           var ws_scheme = "ws://"
         };
+
+
         var chatSocket = new WebSocket(
             ws_scheme + window.location.host + '/ws/chat/' + role + '/' + scenario + '/' + roomName + '/');
         chatSocket.onmessage = function(e) {
@@ -157,7 +155,8 @@
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
         };
-        document.querySelector('#chat-message-input').focus();
+
+        // document.querySelector('#chat-message-input').focus();
         document.querySelector('#chat-message-input').onkeyup = function(e) {
             if (e.keyCode === 13) {  // enter, return
                 document.querySelector('#chat-message-submit').click();
@@ -180,9 +179,18 @@
                     'ready': 'true'
                 }));
         };
+
+        document.querySelector('#chat-message-submit').disabled = true;
     };
     function beginRound(time)
     {
+        document.querySelector('#chat-message-submit').disabled = false;
+
+        var chatBox = document.getElementById("chat-message-input");
+        var windowFocus = setInterval(function(){
+         chatBox.focus();
+        }, 50);
+
         var button = document.querySelector('#begin-button');
         button.disabled = true;
         var countdown = new Date(null);
@@ -194,6 +202,7 @@
                 button.value = "Time's up!";
                 document.querySelector('#chat-message-submit').disabled = true;
                 clearInterval(interval);
+                clearInterval(windowFocus)
             }
             countdown.setSeconds(countdown.getSeconds() - 1);
             time -= 1;
