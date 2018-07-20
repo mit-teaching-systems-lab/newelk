@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}Account Profile{% endblock %}
+
+{% block content %}
+
  <div class="col-sm-6">
     <h1 class="mt-5">Eliciting Learner Knowledge</h1>
           <p class="lead">Teaching Systems Lab</p>
@@ -9,10 +13,6 @@
     <div class="col-sm-6">
       </br></br>
     <main>
-
-{% block title %}Account Profile{% endblock %}
-
-{% block content %}
     {% if user.is_authenticated %}
     <!--<div style="white-space: pre-line">-->
         <div>
