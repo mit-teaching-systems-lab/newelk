@@ -180,11 +180,11 @@
                 }));
         };
 
-        document.querySelector('#chat-message-submit').disabled = true;
+        document.querySelector('#chat-message-input').disabled = true;
     };
     function beginRound(time)
     {
-        document.querySelector('#chat-message-submit').disabled = false;
+        document.querySelector('#chat-message-input').disabled = false;
 
         var chatBox = document.getElementById("chat-message-input");
         var windowFocus = setInterval(function(){
