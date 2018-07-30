@@ -78,14 +78,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             message = username + text_data_json['message']
             # logger.info(self.room.transcript.last_line)
             # logger.info(message)
-            if self.room.transcript.last_line != message:
-                print(message)
-                user = self.user if self.user else None
-                msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
-                msg_obj.save()
-                print(msg_obj)
-                self.room.transcript.last_line = message
-                self.room.transcript.save()
+            # if self.room.transcript.last_line != message:
+            #     print(message)
+            #     user = self.user if self.user else None
+            #     msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
+            #     msg_obj.save()
+            #     print(msg_obj)
+            #     self.room.transcript.last_line = message
+            #     self.room.transcript.save()
 
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -140,7 +140,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         print(event)
         broadcast = {}
         if 'message' in event:
-            broadcast['message'] = event['message']
+            message = event['message']
+            broadcast['message'] = message
+            if self.room.transcript.last_line != message:
+                print(message)
+                user = self.user if self.user else None
+                msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
+                msg_obj.save()
+                print(msg_obj)
+                self.room.transcript.last_line = message
+                self.room.transcript.save()
         if 'begin_timer' in event:
             broadcast['begin_timer'] = event['begin_timer']
             broadcast['time'] = event['time']
