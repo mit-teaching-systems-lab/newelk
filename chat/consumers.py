@@ -70,13 +70,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        username = self.user.username if self.user.username != "" else "Anonymous"
+        username = self.user.username  + ": " if self.user.username != "" else "Anonymous: "
         if 'message' in text_data_json:
-            message = username + ": " + text_data_json['message']
+            message = username + text_data_json['message']
             # logger.info(self.room.transcript.last_line)
             # logger.info(message)
             if self.room.transcript.last_line != message:
-                msg_obj = Message(text=message, user=self.user, role=self.role, transcript=self.room.transcript)
+                user = self.user if self.user else None
+                msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
                 msg_obj.save()
                 self.room.transcript.last_line = message
                 self.room.transcript.save()
