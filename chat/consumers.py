@@ -136,12 +136,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Receive message from room group
     async def chat_message(self, event):
+        print('event:')
+        print(event)
         broadcast = {}
         if 'message' in event:
             broadcast['message'] = event['message']
         if 'begin_timer' in event:
             broadcast['begin_timer'] = event['begin_timer']
             broadcast['time'] = event['time']
+        # msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
+        # msg_obj.save()
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps(broadcast))
