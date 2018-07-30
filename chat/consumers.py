@@ -4,6 +4,7 @@ from research.models import Transcript, Message
 from chat.models import ChatRoom, Scenario
 import re
 import threading
+import asyncio
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -91,7 +92,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if self.room.users.count() > 0:
                 if (set(self.room.ready_users.all()) == set(self.room.users.all())):
                     # Notify everyone that the timer has begun
-                    time = 420
+                    time = 10
                     await self.channel_layer.group_send(
                         self.room_group_name,
                         {
@@ -101,13 +102,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             'time': str(time)
                         }
                     )
-                    threading.Timer(time, lambda: self.channel_layer.group_send(
+                    loop = asyncio.get_running_loop()
+                    timeout_task = loop.create_task(self.channel_layer.group_send(
                         self.room_group_name,
                         {
                             'type': 'chat_message',
                             'message': "***Time has run out***"
                         }
-                    )).start()
+                    ))
+                    threading.Timer(time, loop.run_until_complete(timeout_task) ).start()
 
                 else:
                     print('Not all players ready')
