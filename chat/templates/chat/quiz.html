@@ -76,7 +76,7 @@
 <form action="" method="POST">
 {% csrf_token %}
 {% for q in questions %}
-    {{ q.question }}
+    {{ q.question|safe }}
     <br>
     <input type="radio" name="{{ q.id }}" value="True" required>True<br>
     <input type="radio" name="{{ q.id }}" value="False" required>False<br>
