@@ -3,9 +3,7 @@ import json
 from research.models import Transcript, Message
 from chat.models import ChatRoom, Scenario
 import re
-import logging
-
-logger = logging.getLogger(__name__)
+import threading
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -47,7 +45,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room.users.add(self.user)
         self.room.save()
         self.room.transcript.users.add(self.user)
-        logger.info(self.room.transcript)
+        print(self.room.transcript)
 
         # Join room group
         await self.channel_layer.group_add(
@@ -76,16 +74,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if 'message' in text_data_json:
             print('msg found')
             message = username + text_data_json['message']
-            # logger.info(self.room.transcript.last_line)
-            # logger.info(message)
-            # if self.room.transcript.last_line != message:
-            #     print(message)
-            #     user = self.user if self.user else None
-            #     msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
-            #     msg_obj.save()
-            #     print(msg_obj)
-            #     self.room.transcript.last_line = message
-            #     self.room.transcript.save()
 
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -99,25 +87,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # Player is ready to begin
             # First add player to pool of ready players in the room
             self.room.ready_users.add(self.user)
-            # If all players in the room are ready, begin timer
-            # logger.info(self.user)
-            # logger.info(self.room.ready_users.all())
-            # logger.info(self.room.users.all())
             # The user count should be modified to something better than a generic int
             if self.room.users.count() > 0:
                 if (set(self.room.ready_users.all()) == set(self.room.users.all())):
                     # Notify everyone that the timer has begun
+                    time = 420
                     await self.channel_layer.group_send(
                         self.room_group_name,
                         {
                             'type': 'chat_message',
                             'message': "***All players are ready, beginning timer***",
                             'begin_timer': 'true',
-                            'time': '420'
+                            'time': str(time)
                         }
                     )
+                    threading.Timer(time, lambda: self.channel_layer.group_send(
+                        self.room_group_name,
+                        {
+                            'type': 'chat_message',
+                            'message': "***Time has run out***"
+                        }
+                    )).start()
+
                 else:
-                    logger.info('Not all players ready')
+                    print('Not all players ready')
                     await self.channel_layer.group_send(
                         self.room_group_name,
                         {
@@ -153,8 +146,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if 'begin_timer' in event:
             broadcast['begin_timer'] = event['begin_timer']
             broadcast['time'] = event['time']
-        # msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
-        # msg_obj.save()
+
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps(broadcast))
