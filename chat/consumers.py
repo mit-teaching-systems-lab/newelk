@@ -102,15 +102,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             'time': str(time)
                         }
                     )
-                    loop = asyncio.get_running_loop()
-                    timeout_task = loop.create_task(self.channel_layer.group_send(
-                        self.room_group_name,
-                        {
-                            'type': 'chat_message',
-                            'message': "***Time has run out***"
-                        }
-                    ))
-                    threading.Timer(time, loop.run_until_complete(timeout_task) ).start()
+                    # loop = asyncio.get_running_loop()
+                    # timeout_task = loop.create_task(self.channel_layer.group_send(
+                    #     self.room_group_name,
+                    #     {
+                    #         'type': 'chat_message',
+                    #         'message': "***Time has run out***"
+                    #     }
+                    # ))
+                    # threading.Timer(time, loop.run_until_complete(timeout_task) ).start()
 
                 else:
                     print('Not all players ready')
