@@ -11,7 +11,7 @@ class ScenarioAdmin(admin.ModelAdmin):
         print(obj)
         print(obj.pk)
         print(type(form))
-        print(form.changed_data)
+        # print(form.changed_data)
         # for x in form:
         #     print(x)
         # super.save_model(request, obj, form, change)
