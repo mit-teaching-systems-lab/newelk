@@ -4,14 +4,14 @@ from .models import Scenario, TFQuestion, ChatRoom
 class ScenarioAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # if change:
-            newobj =
+        #     newobj =
         print(str(change))
         print('in admin')
         print(request)
         print(obj)
         print(obj.pk)
         print(type(form))
-        # print(form.changed_data)
+        print(form.changed_data)
         # for x in form:
         #     print(x)
         # super.save_model(request, obj, form, change)
