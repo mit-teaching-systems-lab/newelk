@@ -3,13 +3,13 @@ from .models import Scenario, TFQuestion, ChatRoom
 
 class ScenarioAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
+        # if change:
+        print(str(change))
         print('in admin')
         print(self)
         print(request)
         print(obj)
         for x in form:
-            print(x)
-        for x in change:
             print(x)
         # super.save_model(request, obj, form, change)
 
