@@ -7,8 +7,10 @@ class ScenarioAdmin(admin.ModelAdmin):
         print(self)
         print(request)
         print(obj)
-        print(form)
-        print(change)
+        for x in form:
+            print(x)
+        for x in change:
+            print(x)
         # super.save_model(request, obj, form, change)
 
 admin.site.register(ChatRoom)
