@@ -37,6 +37,9 @@ When you have finished, close the survey and begin below.
 
 
 <script>
+    if (navigator.userAgent.indexOf("Chrome") == -1) {
+            alert('ELK currenlty supports only Chrome.\nPlease change to a supported browser.')
+        }
   // document.querySelector("login").onclick = function(){window.location="{% url 'login' %}"};
   // document.querySelector("chat_select").onclick = function(){window.location="{% url 'chat_select' %}"};
 </script>
