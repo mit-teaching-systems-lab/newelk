@@ -23,24 +23,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room = ChatRoom.objects.filter(name=self.room_name)
 
         if not self.room:
-            self.room = ChatRoom(name=self.room_name)
-            self.room.save()
+            self.room = ChatRoom.objects.create(name=self.room_name)
 
-            ts = Transcript(room_name=self.room_name)
+            ts = Transcript.objects.create(room_name=self.room_name)
             ts.scenario = Scenario.objects.get(pk=self.scenario)
             ts.save()
 
             self.room.transcript = ts
-            self.room.save()
+            # self.room.save()
 
         else:
             self.room = self.room.order_by('-id')[0]
             # print(self.room)
             # print(self.room.transcript)
             if not self.room.transcript:
-                ts = Transcript(room_name=self.room_name)
+                ts = Transcript.objects.create(room_name=self.room_name)
                 ts.scenario = Scenario.objects.get(pk=self.scenario)
-                ts.save()
+                # ts.save()
                 self.room.transcript = ts
                 self.room.save()
         self.room.users.add(self.user)
@@ -106,7 +105,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     # loop = asyncio.get_running_loop()
                     # timeout_task = loop.create_task(self.channel_layer.group_send(
                     #     self.room_group_name,
-                    #     {
+                    #     {.
                     #         'type': 'chat_message',
                     #         'message': "***Time has run out***"
                     #     }
@@ -142,8 +141,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if self.room.transcript.last_line != message:
                 print(message)
                 user = self.user if self.user else None
-                msg_obj = Message(text=message, user=user, role=self.role, transcript=self.room.transcript)
-                msg_obj.save()
+                msg_obj = Message.objects.create(text=message, user=user, role=self.role, transcript=self.room.transcript)
                 print(msg_obj)
                 self.room.transcript.last_line = message
                 self.room.transcript.save()
