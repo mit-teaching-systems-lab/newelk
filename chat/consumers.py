@@ -159,7 +159,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': "***" + username + " has joined the room***"
+                'message': "***" + username + " has left the room***"
             }
         )
         self.room.transcript.save()
