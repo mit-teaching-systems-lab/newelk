@@ -154,6 +154,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps(broadcast))
 
     async def disconnect(self, close_code):
+        username = self.user.username if self.user.username != "" else "Anonymous"
+        await self.channel_layer.group_send(
+            self.room_group_name,
+            {
+                'type': 'chat_message',
+                'message': "***" + username + " has joined the room***"
+            }
+        )
         self.room.transcript.save()
         self.room.users.remove(self.user)
         if not self.room.users.all():
