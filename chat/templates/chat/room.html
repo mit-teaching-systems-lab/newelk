@@ -205,6 +205,7 @@
             if (time == 0){
                 button.value = "Time's up!";
                 document.querySelector('#chat-message-submit').disabled = true;
+                document.querySelector('#chat-message-input').disabled = true;
                 clearInterval(interval);
                 clearInterval(windowFocus)
             }
