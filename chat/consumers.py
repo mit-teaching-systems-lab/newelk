@@ -7,8 +7,6 @@ import threading
 import asyncio
 
 class ChatConsumer(AsyncWebsocketConsumer):
-    last_line = ""
-
     async def connect(self):
         self.user = self.scope["user"]
         self.role = self.scope['url_route']['kwargs']['role']
@@ -140,15 +138,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if 'message' in event:
             message = event['message']
             broadcast['message'] = message
-            if self.last_line != message:
+            self.room.transcript = Transcript.objects.get(pk=self.room.transcript.pk)
+            if self.room.transcript.last_line != message:
                 print('message not matching last line')
                 print(message)
                 print('last line:')
-                print(self.last_line)
+                print(self.room.transcript.last_line)
                 user = self.user if self.user else None
                 msg_obj = Message.objects.create(text=message, user=user, role=self.role, transcript=self.room.transcript)
                 print(msg_obj)
-                self.last_line = message
+                self.room.transcript.last_line = message
                 self.room.transcript.save()
         if 'begin_timer' in event:
             broadcast['begin_timer'] = event['begin_timer']
