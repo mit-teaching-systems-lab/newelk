@@ -67,12 +67,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Receive message from WebSocket
     async def receive(self, text_data):
-        print('receive')
-        print(text_data)
+        # print('receive')
+        # print(text_data)
         text_data_json = json.loads(text_data)
         username = self.user.username  + ": " if self.user.username != "" else "Anonymous: "
         if 'message' in text_data_json:
-            print('msg found')
+            # print('msg found')
             message = username + text_data_json['message']
 
             await self.channel_layer.group_send(
@@ -113,7 +113,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     # threading.Timer(time, loop.run_until_complete(timeout_task) ).start()
 
                 else:
-                    print('Not all players ready')
+                    # print('Not all players ready')
                     await self.channel_layer.group_send(
                         self.room_group_name,
                         {
@@ -140,13 +140,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
             broadcast['message'] = message
             self.room.transcript = Transcript.objects.get(pk=self.room.transcript.pk)
             if self.room.transcript.last_line != message:
-                print('message not matching last line')
-                print(message)
-                print('last line:')
-                print(self.room.transcript.last_line)
+                # print('message not matching last line')
+                # print(message)
+                # print('last line:')
+                # print(self.room.transcript.last_line)
                 user = self.user if self.user else None
                 msg_obj = Message.objects.create(text=message, user=user, role=self.role, transcript=self.room.transcript)
-                print(msg_obj)
+                # print(msg_obj)
                 self.room.transcript.last_line = message
                 self.room.transcript.save()
         if 'begin_timer' in event:
