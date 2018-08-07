@@ -10,7 +10,9 @@ class ScenarioAdmin(admin.ModelAdmin):
             obj.visible_to_players = False
             obj.save()
             print(obj.pk)
+            previous_pk = obj.pk
             obj.pk = None
+            obj.previous_verion = Scenario.objects.get(pk=previous_pk)
             obj.save()
             print(obj.pk)
 
