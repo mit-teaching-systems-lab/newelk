@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
@@ -16,6 +17,7 @@ class Scenario(models.Model):
         default=False,
     )
     previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
+    creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.scenario_name
 
