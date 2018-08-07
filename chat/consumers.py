@@ -83,6 +83,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
 
+        # if 'typing' in text_data_json:
+        #     message = username + ' is typing...'
+        #
+        #     await self.channel_layer.group_send(
+        #         self.room_group_name,
+        #         {
+        #             'type': 'chat_message',
+        #             'message': message
+        #         }
+        #     )
+
         if 'ready' in text_data_json:
             # Player is ready to begin
             # First add player to pool of ready players in the room
@@ -102,15 +113,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             'time': str(time)
                         }
                     )
-                    # loop = asyncio.get_running_loop()
-                    # timeout_task = loop.create_task(self.channel_layer.group_send(
-                    #     self.room_group_name,
-                    #     {.
-                    #         'type': 'chat_message',
-                    #         'message': "***Time has run out***"
-                    #     }
-                    # ))
-                    # threading.Timer(time, loop.run_until_complete(timeout_task) ).start()
+
 
                 else:
                     # print('Not all players ready')
