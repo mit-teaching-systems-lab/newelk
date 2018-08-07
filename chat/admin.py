@@ -3,7 +3,7 @@ from .models import Scenario, TFQuestion, ChatRoom
 
 class ScenarioAdmin(admin.ModelAdmin):
     readonly_fields = ('creation_time',)
-
+    ModelAdmin.save_as = True
     def save_model(self, request, obj, form, change):
         if change:
             print('new scenario')
