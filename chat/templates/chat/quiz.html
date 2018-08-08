@@ -35,7 +35,7 @@
 
         <h1>Transcript</h1>
         {% for m in transcript.messages %}
-                {{ m.creation_time }}: {{ m.text }} <br>
+                {{ m.creation_time|date:"g:i:s" }}: {{ m.text }} <br>
             {% endfor %}
 
         <h1>{{ scenario_name }}</h1>
