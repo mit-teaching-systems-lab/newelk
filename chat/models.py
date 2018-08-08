@@ -19,7 +19,7 @@ class Scenario(models.Model):
     previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
     creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
-        return self.pk + ' ' + self.scenario_name + ' ' + str(self.creation_time)
+        return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)
 
 class TFQuestion(models.Model):
     scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE)
