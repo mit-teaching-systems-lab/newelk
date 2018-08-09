@@ -6,6 +6,7 @@ import re
 import threading
 import asyncio
 
+
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.user = self.scope["user"]
@@ -70,7 +71,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # print('receive')
         # print(text_data)
         text_data_json = json.loads(text_data)
-        username = self.user.username  + ": " if self.user.username != "" else "Anonymous: "
+        username = self.user.username + ": " if self.user.username != "" else "Anonymous: "
         if 'message' in text_data_json:
             # print('msg found')
             message = username + text_data_json['message']
@@ -148,14 +149,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # print('last line:')
                 # print(self.room.transcript.last_line)
                 user = self.user if self.user else None
-                msg_obj = Message.objects.create(text=message, user=user, role=self.role, transcript=self.room.transcript)
+                msg_obj = Message.objects.create(text=message, user=user, role=self.role,
+                                                 transcript=self.room.transcript)
                 # print(msg_obj)
                 self.room.transcript.last_line = message
                 self.room.transcript.save()
         if 'begin_timer' in event:
             broadcast['begin_timer'] = event['begin_timer']
             broadcast['time'] = event['time']
-
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps(broadcast))

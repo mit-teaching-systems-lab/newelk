@@ -4,20 +4,26 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
- <div class="col-sm-6">
-    <h1 class="mt-5">Eliciting Learner Knowledge</h1>
-          <p class="lead">Teaching Systems Lab</p>
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <h1 class="mt-5">Eliciting Learner Knowledge</h1>
+            <p class="lead">Teaching Systems Lab</p>
+        </div>
+
+
+        <div class="col-sm-6">
+            </br></br>
+
+            <h2>Login</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+        </div>
     </div>
-
-
-    <div class="col-sm-6">
-      </br></br>
-    <main>
-
-<h2>Login</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
+</div>
 {% endblock %}
