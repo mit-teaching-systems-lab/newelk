@@ -28,3 +28,6 @@ def profile(request):
     else:
         transcripts = None
     return render(request, 'profile.html',{"transcripts": transcripts, "quiz_results": quiz_results, "participant_count": participants.count})
+
+def about(request):
+    return render(request, 'about.html')
