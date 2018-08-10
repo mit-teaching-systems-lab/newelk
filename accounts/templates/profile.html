@@ -49,7 +49,7 @@
                     <strong id="t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time|localtime }}</strong>
                     <br>
                     {% for m in t.messages %}
-                    {{ m.creation_time|ingdate:"g:i:s" }}: {{ m.text }}<br>
+                    {{ m.creation_time|date:"g:i:s" }}: {{ m.text }}<br>
                     {% endfor %}
 
                 {% endfor %}
