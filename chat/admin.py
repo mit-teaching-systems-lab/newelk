@@ -4,12 +4,12 @@ from django.contrib.admin.sites import AdminSite
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
-        return True
+        return request.user.is_active
 
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(admin.ModelAdmin):
-    readonly_fields = ('creation_time',)
+    readonly_fields = ('creation_time', 'previous_version')
     save_as = True
     def save_model(self, request, obj, form, change):
         if change:
@@ -30,5 +30,4 @@ nonstaff_admin_site.register(TFQuestion)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
-# admin.site.register(Scenario)
 admin.site.register(TFQuestion)
