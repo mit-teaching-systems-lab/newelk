@@ -24,6 +24,7 @@ class ScenarioAdmin(admin.ModelAdmin):
             # print(obj.pk)
 
 scenario_admin_site.register(Scenario, ScenarioAdmin)
+scenario_admin_site.register(TFQuestion)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
