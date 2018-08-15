@@ -23,8 +23,8 @@ class ScenarioAdmin(admin.ModelAdmin):
             obj.save()
             # print(obj.pk)
 
-# nonstaff_admin_site.register(Scenario, ScenarioAdmin)
-nonstaff_admin_site.register(TFQuestion, ScenarioAdmin)
+nonstaff_admin_site.register(Scenario, ScenarioAdmin)
+nonstaff_admin_site.register(TFQuestion, admin.ModelAdmin)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
