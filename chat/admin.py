@@ -2,11 +2,11 @@ from django.contrib import admin
 from .models import Scenario, TFQuestion, ChatRoom
 from django.contrib.admin.sites import AdminSite
 
-class ScenarioAdmin(AdminSite):
+class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         return request.user.is_active
 
-scenario_admin_site = ScenarioAdmin(name='scenariossadmin')
+scenario_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(admin.ModelAdmin):
     readonly_fields = ('creation_time',)
@@ -23,8 +23,8 @@ class ScenarioAdmin(admin.ModelAdmin):
             obj.save()
             # print(obj.pk)
 
-scenario_admin_site.register(Scenario, ScenarioAdmin)
-scenario_admin_site.register(TFQuestion)
+scenario_admin_site.register(Scenario, NonStaffAdmin)
+scenario_admin_site.register(TFQuestion, NonStaffAdmin)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
