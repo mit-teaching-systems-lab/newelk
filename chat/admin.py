@@ -27,8 +27,8 @@ nonstaff_admin_site.register(ChatRoom)
 nonstaff_admin_site.register(Scenario)
 nonstaff_admin_site.register(TFQuestion)
 
-
-admin.site.register(ChatRoom)
-admin.site.register(Scenario, ScenarioAdmin)
-# admin.site.register(Scenario)
-admin.site.register(TFQuestion)
+#
+# admin.site.register(ChatRoom)
+# admin.site.register(Scenario, ScenarioAdmin)
+# # admin.site.register(Scenario)
+# admin.site.register(TFQuestion)
