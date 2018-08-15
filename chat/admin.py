@@ -24,6 +24,8 @@ class ScenarioAdmin(admin.ModelAdmin):
             print(obj.previous_version)
             obj.save()
             # print(obj.pk)
+        else:
+            print('no change')
 
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
