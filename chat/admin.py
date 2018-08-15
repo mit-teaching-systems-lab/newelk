@@ -13,10 +13,10 @@ class ScenarioAdmin(admin.ModelAdmin):
     save_as = True
     def save_model(self, request, obj, form, change):
         if change:
-            # print('new scenario')
+            print('new scenario')
             obj.visible_to_players = False
             obj.save()
-            # print(obj.pk)
+            print(obj.pk)
             previous_pk = obj.pk
             obj.pk = None
             print(previous_pk)
