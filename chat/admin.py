@@ -10,7 +10,7 @@ nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(admin.ModelAdmin):
     # readonly_fields = ('creation_time',)
-    # save_as = True
+    save_as = True
     # def save_model(self, request, obj, form, change):
     #     if change:
     #         # print('new scenario')
