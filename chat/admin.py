@@ -19,14 +19,14 @@ class ScenarioAdmin(admin.ModelAdmin):
             # print(obj.pk)
             previous_pk = obj.pk
             obj.pk = None
+            print(previous_pk)
             obj.previous_verion = Scenario.objects.get(pk=previous_pk)
+            print(obj.previous_version)
             obj.save()
             # print(obj.pk)
 
-nonstaff_admin_site.register(ChatRoom)
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
-
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
