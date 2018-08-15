@@ -9,22 +9,24 @@ class NonStaffAdmin(AdminSite):
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(admin.ModelAdmin):
-    # readonly_fields = ('creation_time',)
+    readonly_fields = ('creation_time',)
     save_as = True
-    # def save_model(self, request, obj, form, change):
-    #     if change:
-    #         # print('new scenario')
-    #         obj.visible_to_players = False
-    #         obj.save()
-    #         # print(obj.pk)
-    #         previous_pk = obj.pk
-    #         obj.pk = None
-    #         obj.previous_verion = Scenario.objects.get(pk=previous_pk)
-    #         obj.save()
+    def save_model(self, request, obj, form, change):
+        if change:
+            # print('new scenario')
+            obj.visible_to_players = False
+            obj.save()
+            # print(obj.pk)
+            previous_pk = obj.pk
+            obj.pk = None
+            obj.previous_verion = Scenario.objects.get(pk=previous_pk)
+            obj.save()
             # print(obj.pk)
 
+nonstaff_admin_site.register(ChatRoom)
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
-nonstaff_admin_site.register(TFQuestion, admin.ModelAdmin)
+nonstaff_admin_site.register(TFQuestion)
+
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
