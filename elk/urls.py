@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
 # from django.contrib.auth.views import login, logout
-from chat.admin import scenario_admin_site
+from chat.admin import nonstaff_admin_site
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
@@ -25,7 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('csv/', include('research.urls')),
-    path('scenarios/', scenario_admin_site.urls),
+    path('scenarios/', nonstaff_admin_site.urls),
 ]
 
 # path('accounts/login/', LoginView.as_view(), name='login'),
