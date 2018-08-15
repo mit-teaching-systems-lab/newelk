@@ -6,7 +6,7 @@ class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         return request.user.is_active
 
-nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
+nonstaff_admin_site = NonStaffAdmin()
 
 class ScenarioAdmin(admin.ModelAdmin):
     readonly_fields = ('creation_time',)
