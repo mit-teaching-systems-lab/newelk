@@ -8,7 +8,7 @@ def index(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     scenarios = Scenario.objects.all()
-    return render(request, 'chat/index.html', {'scenarios': scenarios})
+    return render(request, 'chat/select_scenario.html', {'scenarios': scenarios})
 
 def room(request, role, scenario, room_name):
     if not request.user.is_authenticated:
