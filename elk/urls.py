@@ -20,7 +20,7 @@ from django.views.generic.base import TemplateView
 from chat.admin import nonstaff_admin_site
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='landing_page.html'), name='home'),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
