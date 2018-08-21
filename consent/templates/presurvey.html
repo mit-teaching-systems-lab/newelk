@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Pre-survey{% endblock %}
+
+{% block content %}
+
+<br><br>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSewRWzdIEeIBj9jkknq5U4_4mCht3TNQ5ha5HO5wV1oqMBctg/viewform?entry.1124560802={{ user.username }}"
+<br>
+When you have finished, close the survey and begin below.
+<br><br>
+<input id="chat_select" type="button" class="btn btn-primary btn-lg" value="Play ELK" onclick=location.href="{% url 'chat_select' %}";>
+
+{% endblock %}

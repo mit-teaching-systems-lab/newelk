@@ -21,6 +21,7 @@ from chat.admin import nonstaff_admin_site
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='landing_page.html'), name='home'),
+    path('c/', include('consent.urls')),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
