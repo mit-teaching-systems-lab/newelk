@@ -5,14 +5,14 @@
 {% block content %}
 
 <br><br>
-<iframe frameborder="0" style="overflow:hidden; width: 100%; height: 500px" scrolling="no"
+<iframe frameborder="0" style="overflow:hidden; width: 100%; height: 200%" scrolling="no"
         src="https://docs.google.com/forms/d/e/1FAIpQLSewRWzdIEeIBj9jkknq5U4_4mCht3TNQ5ha5HO5wV1oqMBctg/viewform?entry.1124560802={{ user.username }}"
         >
         Your browser doesn't support iframes.
 </iframe>
 <br>
 Take the survey and then click the Play Elk button below
-<br><br>
+<br>
 <input id="chat_select" type="button" class="btn btn-primary btn-lg" value="Play ELK"
        onclick=location.href="{% url 'chat_select' %}";>
 
