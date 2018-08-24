@@ -66,12 +66,7 @@
 <!--{% endif %}-->
 <script>
     // window.onload=function() {
-    var results = {
-    {
-        quiz_results | safe
-    }
-    }
-    ;
+    var results = {{ quiz_result|safe }};
     if (Object.keys(results).length <= {{
         participant_count
     }
