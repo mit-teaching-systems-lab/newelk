@@ -4,38 +4,21 @@
 
 {% block content %}
 
+<main>
 <div class="container">
 
-    <div class="row">
-
-
-        <div class="col-sm-6">
             <h1 class="mt-5">Eliciting Learner Knowledge</h1>
-            <p class="lead">Teaching Systems Lab</p>
-        </div>
-
-
-        <div class="col-sm-6">
-            </br></br>
+            <p class="lead"> A conversational role-playing game for pre-service teachers to practice understanding student preconceptions and questioning strategies. </p>
 
             {% if user.is_authenticated %}
-            <br>
-            <h5>Hello, {{ user.username }}!</h5>
-            <p>Ready to begin?</p>
-            <br>
-            Let's start with a pre-survey.
-            <br>
             <input id="chat_select" type="button" class="btn btn-primary btn-lg" value="Take pre-survey" onclick=location.href="{% url 'presurvey' %}";>
             {% else %}
-            <h5>You are not logged in</h5>
-            <p>You will receive your login information from the ELK facilitators.</p>
             <input id="login" type="button" class="btn btn-primary btn-lg" value="Login" onclick=location.href="{% url 'login' %}";> 
 
             {% endif %}
 
-        </div>
-    </div>
 </div>
+</main>
 
 <script>
     if (navigator.userAgent.indexOf("Chrome") == -1) {
