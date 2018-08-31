@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'research',
     'consent',
     'accounts',
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
