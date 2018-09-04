@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import ELKUser as User
+from django.contrib.auth.models import User
 from chat.models import Scenario
 from django.utils import timezone
 
