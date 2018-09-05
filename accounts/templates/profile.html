@@ -18,7 +18,7 @@
                     <li><a href="#results">2. Results</a></li>
                     <li><a href="#transcripts">3. Transcripts</a></li>
                     {% for t in transcripts %}
-                    <li><a href="#t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time|localtime }}</a></li>
+                    <li><a href="#t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time }}</a></li>
                     {% endfor %}
 
                 </ul>
@@ -45,7 +45,7 @@
                 </table>
                 <p id="transcripts">Your transcripts:</p>
                 {% for t in transcripts %}
-                    <strong id="t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time|localtime }}</strong>
+                    <strong id="t{{ forloop.counter }}">{{ t.room_name }} at {{ t.creation_time }}</strong>
                     <br>
                     {% for m in t.messages %}
                     {{ m.creation_time|date:"g:i:s" }}: {{ m.text }}<br>
