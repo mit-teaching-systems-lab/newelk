@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load tz %}
 
 {% block title %}Account Profile{% endblock %}
 
@@ -41,7 +40,6 @@
                        target="_blank">
                         Just finish a quiz? Please complete a post-survey. Thank you!
                     </a></strong>
-                <!--{% if transcripts is not None %}-->
                 <p id="results">Your quiz results:</p>
                 <table id="resultsTable">
                 </table>
@@ -60,10 +58,7 @@
     </div>
 </div>
 
-<!--{% else %}-->
-<!--<h5>You are not logged in</h5>-->
-<!--<button type="button" class="btn btn-primary btn-lg"> <a style="font-color:white;" href="{% url 'login' %}">Login</a></button>-->
-<!--{% endif %}-->
+
 <script>
     // window.onload=function() {
     var results = {{ quiz_result|safe }};
