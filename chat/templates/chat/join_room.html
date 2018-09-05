@@ -57,11 +57,17 @@
     window.onload = function() {
         var chatlist = document.querySelector('#chatselect');
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", "api/chatroom/");
+        xhr.open("GET", "/api/chatroom/");
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                var rooms = JSON.parse(xhr.response);
+                for (room in rooms[0]) {
+                    console.log(room)
+                }
+            }
+        };
         xhr.send()
-        for (room in xhr.response) {
-            console.log(room)
-        }
+
     }
 
 </script>
