@@ -10,7 +10,7 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = ChatRoom.objects.all().order_by('-date_joined')
+    queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
 
 def index(request):
