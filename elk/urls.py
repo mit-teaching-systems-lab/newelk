@@ -18,8 +18,14 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 # from django.contrib.auth.views import login, logout
 from chat.admin import nonstaff_admin_site
+from chat.views import ChatRoomViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'chatroom', ChatRoomViewSet)
 
 urlpatterns = [
+    path('api/', include(router.urls)),
     path('', TemplateView.as_view(template_name='landing_page.html'), name='home'),
     path('c/', include('consent.urls')),
     path('chat/', include('chat.urls')),

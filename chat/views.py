@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
-from .models import Scenario, TFQuestion
+from .models import Scenario, TFQuestion, ChatRoom
 from research.models import TFAnswer, Transcript, Message
+from rest_framework import viewsets
+from .serializers import ChatRoomSerializer
+
+class ChatRoomViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = ChatRoom.objects.all().order_by('-date_joined')
+    serializer_class = ChatRoomSerializer
 
 def index(request):
     if not request.user.is_authenticated:
