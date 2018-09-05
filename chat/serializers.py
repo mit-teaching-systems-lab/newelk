@@ -5,4 +5,5 @@ from rest_framework import serializers
 class ChatRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatRoom
-        fields = ('__all__')
+        # fields = ('__all__')
+        fields = ('name')
