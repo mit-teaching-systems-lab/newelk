@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+         
+<!-- Bootstrap core CSS, hosted: Latest compiled and minified CSS 
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<style>
+    .btn {background-color: teal; border-color: teal; text-decoration: none;}
+    .btn:hover {background-color: slategray; border-color: teal; text-decoration: none;}
+  body {
+    padding-top: 54px;
+  }
+  @media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+  }
+</style>
+</head>
+<body>
+                     
+    
+<div class="container"> 
+    
+  <div class="row">
+      
+    <div class="col-sm-6">
+    <h1 class="mt-5">Eliciting Learner Knowledge</h1>
+          <p class="lead">Teaching Systems Lab</p>
+
+        <h1>Transcript</h1>
+        {% for m in transcript.messages %}
+                {{ m.creation_time|localtime|date:"g:i:s" }}: {{ m.text }} <br>
+            {% endfor %}
+
+        <h1>{{ scenario_name }}</h1>
+        <br><br>
+
+        {% if student_background %}
+            {{ student_background|safe }}
+            <br><br>
+            <h5>Your Student Profile:</h5>
+                  {{ student_profile|safe }}
+            <br><br>
+            {% if student_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ student_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+        {% if teacher_background %}
+            <h5>Your Background:</h5>
+                  {{ teacher_background|safe }}
+            <br><br>
+            <h5>Your Objective:</h5>
+                  {{ teacher_objective|safe }}
+            <br><br>
+            {% if teacher_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ teacher_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+    <div class="col-sm-6">
+        </br></br>
+       <h2>Quiz Instructions</h2>
+            <p>Please answer the following questions as the <b> student </b> would have answered them <b> prior to </b> this conversation.</p>
+<form action="" method="POST">
+{% csrf_token %}
+{% for q in questions %}
+    {{ q.question|safe }}
+    <br>
+    <input type="radio" name="{{ q.id }}" value="True" required>True<br>
+    <input type="radio" name="{{ q.id }}" value="False" required>False<br>
+    <br>
+{% endfor %}
+    <input type="submit" value="Submit">
+</form>               
+     </div>
+      
+ </div>
+</div>
+                
+</body>
+                
+<!-- Latest compiled and minified Bootstrap JavaScript, hosted -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+                
+                
+</html>

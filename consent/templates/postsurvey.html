@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Pre-survey{% endblock %}
+
+{% block content %}
+
+<br><br>
+<iframe frameborder="0" style="overflow:hidden; width: 100%; height: 200%" scrolling="no"
+        src=""
+        >
+        Your browser doesn't support iframes.
+</iframe>
+<br>
+Take the survey and then click the Play Elk button below
+<br>
+<input id="chat_select" type="button" class="btn btn-primary btn-lg" value="Play ELK"
+       onclick=location.href="{% url 'chat_select' %}";>
+
+{% endblock %}
