@@ -63,7 +63,7 @@ MIDDLEWARE = [
 
 if DEBUG:
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
-    INTERNAL_IPS = ['127.0.0.1', '10.0.2.2']
+    INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', '54.208.247.255', 'newelk.herokuapp.com']
 
 ROOT_URLCONF = 'elk.urls'
 
