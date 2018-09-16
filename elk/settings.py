@@ -37,8 +37,6 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-AUTH_USER_MODEL = 'core.CustomUser'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -76,6 +74,8 @@ MIDDLEWARE = [
 if DEBUG:
     MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
     INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', '54.208.247.255', 'newelk.herokuapp.com']
+
+AUTH_USER_MODEL = 'core.CustomUser'
 
 ROOT_URLCONF = 'elk.urls'
 
