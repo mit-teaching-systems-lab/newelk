@@ -13,7 +13,7 @@
             {% if user.is_authenticated %}
             <input id="chat_select" type="button" class="btn btn-primary btn-lg" value="Take pre-survey" onclick=location.href="{% url 'presurvey' %}";>
             {% else %}
-            <input id="login" type="button" class="btn btn-primary btn-lg" value="Login" onclick=location.href="{% url 'login' %}";> 
+            <input id="login" type="button" class="btn btn-primary btn-lg" value="Login" onclick=location.href="{% url 'account_login' %}";>
 
             {% endif %}
 
