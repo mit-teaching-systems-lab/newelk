@@ -196,6 +196,8 @@ SERVER_EMAIL = 'ELK Admin <bhanks@mit.edu>'
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 EMAIL_SUBJECT_PREFIX = '[Elk]'
 
+DEFAULT_FROM_DOMAIN = 'Elk.com'
+
 # Anymail (Mailgun)
 # ------------------------------------------------------------------------------
 # https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
