@@ -30,7 +30,7 @@ urlpatterns = [
     path('c/', include('consent.urls')),
     path('chat/', include('chat.urls')),
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
+    path('accounts', include('accounts.urls')),
     path('csv/', include('research.urls')),
     path('scenarios/', nonstaff_admin_site.urls),
 ]
