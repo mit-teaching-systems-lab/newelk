@@ -86,7 +86,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'global_templates'),
-                 os.path.join(BASE_DIR, 'accounts/templates/allauth')],
+                 os.path.join(BASE_DIR, 'accounts/templates/accounts')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -186,6 +186,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # EMAIL
 # ------------------------------------------------------------------------------
