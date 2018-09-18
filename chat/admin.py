@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Scenario, TFQuestion, ChatRoom
 from django.contrib.admin.sites import AdminSite
-from mptt.admin import MPTTModelAdmin
+from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 import copy
 
 class NonStaffAdmin(AdminSite):
@@ -10,10 +10,9 @@ class NonStaffAdmin(AdminSite):
 
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
-class ScenarioAdmin(MPTTModelAdmin):
-    # readonly_fields = ('creation_time', 'parent')
+class ScenarioAdmin(DraggableMPTTAdmin):
+    readonly_fields = ('creation_time', 'parent')
     # save_as = True
-    # mptt_level_indent = 200
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
