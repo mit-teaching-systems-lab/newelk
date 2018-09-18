@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Scenario, TFQuestion, ChatRoom
 from django.contrib.admin.sites import AdminSite
+from mptt.admin import MPTTModelAdmin
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -8,7 +9,7 @@ class NonStaffAdmin(AdminSite):
 
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
-class ScenarioAdmin(admin.ModelAdmin):
+class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'previous_version')
     save_as = True
     def save_model(self, request, obj, form, change):
