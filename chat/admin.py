@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Scenario, TFQuestion, ChatRoom
 from django.contrib.admin.sites import AdminSite
 from mptt.admin import MPTTModelAdmin
+import copy
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -16,18 +17,19 @@ class ScenarioAdmin(MPTTModelAdmin):
         print('new scenario')
 
         if change:
+            # editing an object
             print('change')
-            obj.visible_to_players = False
-            obj.save()
-            print(obj.pk)
-            previous_pk = obj.pk
-            obj.pk = None
-            print(previous_pk)
-            obj.previous_verion = Scenario.objects.get(pk=previous_pk)
-            print(obj.previous_version)
-            obj.save()
-            # print(obj.pk)
+            old_obj = Scenario.objects.get(pk=obj.pk)
+            new_obj = copy.deepcopy(old_obj)
+            new_obj.pk = None
+            new_obj.parent = old_obj
+            new_obj.save()
+
+            old_obj.visible_to_players = False
+            old_obj.save()
+            
         else:
+            # new object
             obj.save()
             print('no change')
 
