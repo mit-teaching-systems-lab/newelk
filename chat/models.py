@@ -21,8 +21,8 @@ class Scenario(MPTTModel):
     # previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
     parent =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     creation_time = models.DateTimeField(default=timezone.now)
-    # def __str__(self):
-    #     return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)
+    def __str__(self):
+        return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)
 
 class TFQuestion(models.Model):
     scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE)
