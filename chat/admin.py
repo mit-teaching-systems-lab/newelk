@@ -12,10 +12,12 @@ nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent')
-    mptt_indent_field = "title"
+    # mptt_indent_field = "name"
     # save_as = True
     def response_change(self, request, obj):
-        return redirect(obj.get_absolute_url())
+        from django.urls import reverse
+        return reverse('people.views.details', args=[str(self.id)])
+        # return redirect(obj.get_absolute_url())
     def save_model(self, request, obj, form, change):
         print('new scenario')
 

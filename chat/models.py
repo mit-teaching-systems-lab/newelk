@@ -7,7 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
 class Scenario(MPTTModel):
-    scenario_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
     student_background = models.TextField()
     student_profile = models.TextField()
     student_hints = models.TextField(blank=True)
