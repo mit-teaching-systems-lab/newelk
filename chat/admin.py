@@ -4,11 +4,6 @@ from django.contrib.admin.sites import AdminSite
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.http import HttpResponseRedirect
-from django.utils.html import format_html
-from urllib.parse import quote as urlquote
-from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
-from django.contrib import messages
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -21,24 +16,11 @@ class ScenarioAdmin(MPTTModelAdmin):
     # mptt_indent_field = "name"
     # save_as = True
     def response_change(self, request, obj):
-        opts = self.model._meta
-        preserved_filters = self.get_preserved_filters(request)
-        redirect_url = reverse('admin:chat_scenario_change', args=(obj.id,))
-        msg_dict = {
-            'name': opts.verbose_name,
-            'obj': format_html('<a href="{}">{}</a>', urlquote(request.path), obj),
-        }
-        if "_continue" in request.POST:
-            msg = format_html(
-                _('The {name} "{obj}" was changed successfully. You may edit it again below.'),
-                **msg_dict
-            )
-            self.message_user(request, msg, messages.SUCCESS)
-
-            redirect_url = add_preserved_filters({'preserved_filters': preserved_filters, 'opts': opts}, redirect_url)
-        return HttpResponseRedirect(redirect_url)
+        change_url = reverse('admin:chat_scenario_change', args=(obj.id,))
+        return redirect(change_url)
     def save_model(self, request, obj, form, change):
         print('new scenario')
+
         if change:
             # editing an object
             print('scene edited')
@@ -50,6 +32,7 @@ class ScenarioAdmin(MPTTModelAdmin):
 
             old_obj.visible_to_players = False
             old_obj.save()
+
         else:
             # new object
             print('new scene')
