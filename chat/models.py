@@ -19,7 +19,7 @@ class Scenario(MPTTModel):
         default=False,
     )
     # previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
-    previous_version =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
+    parent =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)

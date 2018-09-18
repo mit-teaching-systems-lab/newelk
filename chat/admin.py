@@ -10,7 +10,7 @@ class NonStaffAdmin(AdminSite):
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(MPTTModelAdmin):
-    readonly_fields = ('creation_time', 'previous_version')
+    readonly_fields = ('creation_time', 'parent')
     save_as = True
     def save_model(self, request, obj, form, change):
         if change:
