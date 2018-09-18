@@ -20,14 +20,14 @@ class ScenarioAdmin(MPTTModelAdmin):
             # editing an object
             print('change')
             old_obj = Scenario.objects.get(pk=obj.pk)
-            new_obj = copy.deepcopy(old_obj)
+            new_obj = obj
             new_obj.pk = None
             new_obj.parent = old_obj
             new_obj.save()
 
             old_obj.visible_to_players = False
             old_obj.save()
-            
+
         else:
             # new object
             obj.save()
