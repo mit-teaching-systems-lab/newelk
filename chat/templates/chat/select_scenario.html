@@ -63,7 +63,7 @@
 <script>
     document.querySelector('#room-name-submit').onclick = function(e) {
         var scene = document.querySelector('input[name = "scenario"]:checked').value;
-        window.location.pathname += String(scene) + '/' + {% user.username %} + '/';
+        window.location.pathname += String(scene) + '/' + {% user %} + '/';
     };
 </script>
 
