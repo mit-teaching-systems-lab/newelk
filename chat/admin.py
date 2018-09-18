@@ -16,8 +16,8 @@ class ScenarioAdmin(MPTTModelAdmin):
     # mptt_indent_field = "name"
     # save_as = True
     def response_change(self, request, obj):
-        # request.path_info = reverse('admin:chat_scenario_change', args=(obj.id,))
-        super().response_change(request, obj)
+        request.path_info = reverse('admin:chat_scenario_change', args=(obj.id,))
+        return super().response_change(request, obj)
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
