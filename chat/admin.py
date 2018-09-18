@@ -17,7 +17,7 @@ class ScenarioAdmin(MPTTModelAdmin):
     # save_as = True
     def response_change(self, request, obj):
         request.path = reverse('admin:chat_scenario_change', args=(obj.id,))
-        super().response_change(self, request, obj)
+        super().response_change(request, obj)
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
