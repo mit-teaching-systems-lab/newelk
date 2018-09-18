@@ -16,8 +16,8 @@ class ScenarioAdmin(MPTTModelAdmin):
     # save_as = True
     def response_change(self, request, obj):
         from django.urls import reverse
-        return reverse('people.views.details', args=[str(self.id)])
-        # return redirect(obj.get_absolute_url())
+        change_url = reverse('admin:chat_scenario_change', args=(obj.id,))
+        return redirect(change_url)
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
