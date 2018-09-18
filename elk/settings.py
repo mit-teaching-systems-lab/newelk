@@ -191,7 +191,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = 'ELK Admin <bhanks@mit.edu>'
+DEFAULT_FROM_EMAIL = 'ELK Admin <bhanks>'
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = 'ELK Admin <bhanks>'
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
