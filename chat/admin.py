@@ -10,7 +10,7 @@ class NonStaffAdmin(AdminSite):
 
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
-class ScenarioAdmin(DraggableMPTTAdmin):
+class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent')
     mptt_indent_field = "scenario_name"
     # save_as = True
