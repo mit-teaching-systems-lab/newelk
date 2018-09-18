@@ -2,10 +2,11 @@ from django.db import models
 from django.utils import timezone
 # from django.contrib.auth.models import User
 from accounts.models import CustomUser as User
+from mptt.models import MPTTModel, TreeForeignKey
 
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
-class Scenario(models.Model):
+class Scenario(MPTTModel):
     scenario_name = models.CharField(max_length=50)
     student_background = models.TextField()
     student_profile = models.TextField()
@@ -17,7 +18,8 @@ class Scenario(models.Model):
         choices=BOOL_CHOICES,
         default=False,
     )
-    previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
+    # previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
+    previous_version =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)
