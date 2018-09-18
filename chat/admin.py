@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Scenario, TFQuestion, ChatRoom
 from django.contrib.admin.sites import AdminSite
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
-import copy
+from django.shortcuts import redirect
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -15,9 +15,7 @@ class ScenarioAdmin(MPTTModelAdmin):
     mptt_indent_field = "title"
     # save_as = True
     def response_change(self, request, obj):
-        # return redirect('/admin/sales/invoice')
-        print(obj)
-        super.response_change()
+        return redirect(obj.get_absolute_url())
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
