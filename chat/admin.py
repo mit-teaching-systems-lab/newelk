@@ -33,11 +33,9 @@ class ScenarioAdmin(MPTTModelAdmin):
                 **msg_dict
             )
             self.message_user(request, msg, messages.SUCCESS)
-            redirect_url = request.path
+            redirect_url = reverse('admin:chat_scenario_change', args=(obj.id,))
             redirect_url = add_preserved_filters({'preserved_filters': preserved_filters, 'opts': opts}, redirect_url)
-        change_url = reverse('admin:chat_scenario_change', args=(obj.id,))
         return HttpResponseRedirect(redirect_url)
-        return redirect(change_url)
     def save_model(self, request, obj, form, change):
         print('new scenario')
         if change:
