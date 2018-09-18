@@ -13,8 +13,10 @@ class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent')
     save_as = True
     def save_model(self, request, obj, form, change):
+        print('new scenario')
+
         if change:
-            print('new scenario')
+            print('change')
             obj.visible_to_players = False
             obj.save()
             print(obj.pk)
@@ -26,6 +28,7 @@ class ScenarioAdmin(MPTTModelAdmin):
             obj.save()
             # print(obj.pk)
         else:
+            obj.save()
             print('no change')
 
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
