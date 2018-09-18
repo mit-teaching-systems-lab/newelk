@@ -13,6 +13,7 @@ nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent')
     save_as = True
+    mptt_level_indent = 20
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
