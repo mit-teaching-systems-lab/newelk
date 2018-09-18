@@ -14,6 +14,10 @@ class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent')
     mptt_indent_field = "title"
     # save_as = True
+    def response_change(self, request, obj):
+        # return redirect('/admin/sales/invoice')
+        print(obj)
+        super.response_change()
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
