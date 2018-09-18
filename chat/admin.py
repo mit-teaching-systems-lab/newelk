@@ -11,15 +11,15 @@ class NonStaffAdmin(AdminSite):
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(MPTTModelAdmin):
-    readonly_fields = ('creation_time', 'parent')
-    save_as = True
-    mptt_level_indent = 200
+    # readonly_fields = ('creation_time', 'parent')
+    # save_as = True
+    # mptt_level_indent = 200
     def save_model(self, request, obj, form, change):
         print('new scenario')
 
         if change:
             # editing an object
-            print('change')
+            print('scene edited')
             old_obj = Scenario.objects.get(pk=obj.pk)
             new_obj = obj
             new_obj.pk = None
@@ -31,8 +31,8 @@ class ScenarioAdmin(MPTTModelAdmin):
 
         else:
             # new object
+            print('new scene')
             obj.save()
-            print('no change')
 
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
