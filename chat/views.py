@@ -13,11 +13,23 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
 
-def index(request):
+def select_role(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+    scenarios = Scenario.objects.all()
+    return render(request, 'chat/select_role.html')
+
+def select_scenario(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     scenarios = Scenario.objects.all()
     return render(request, 'chat/select_scenario.html', {'scenarios': scenarios})
+
+def join_scenario(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+    chatrooms = ChatRoom.objects.all()
+    return render(request, 'chat/join_scenario.html', {'chatrooms': chatrooms})
 
 def room(request, role, scenario, room_name):
     if not request.user.is_authenticated:

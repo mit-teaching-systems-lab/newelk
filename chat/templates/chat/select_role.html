@@ -26,12 +26,13 @@
          
 
     <div>
-        <strong>2. Select a role:</strong>
+        <strong>Select a role:</strong>
         <br>
         <input type="radio" name="role" value="t" checked="checked">Teacher<br>
         <input type="radio" name="role" value="s">Student<br>
         <!--<input type="radio" name="role" value="o">Observer<br>-->
     </div>
+        <input id="submit" class="btn btn-primary btn-lg" type="button" value="Continue"/>
 
     </br>
 
@@ -52,20 +53,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    document.querySelector('#room-name-input').focus();
-    document.querySelector('#room-name-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#room-name-submit').click();
-        }
-    };
-    document.querySelector('#room-name-submit').onclick = function(e) {
-        var roomName = document.querySelector('#room-name-input').value;
+    document.querySelector('#submit').onclick = function(e) {
         var role = document.querySelector('input[name = "role"]:checked').value;
-        var scene = document.querySelector('input[name = "scenario"]:checked').value;
-        window.location.pathname = '/chat/' + role + '/' + String(scene) + '/' + roomName + '/';
+        window.location.pathname = '/chat/' + role;
     };
-    var initialSelection = document.querySelector("input")
-    initialSelection.checked = "checked"
+
 </script>
 
 {% endblock %}
