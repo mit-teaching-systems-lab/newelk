@@ -38,6 +38,7 @@ class ScenarioAdmin(MPTTModelAdmin):
             # new object
             print('new scene')
             obj.owner = request.user
+            obj.visible_to_players = True
             obj.save()
 
         Scenario.objects.partial_rebuild(obj.tree_id)
