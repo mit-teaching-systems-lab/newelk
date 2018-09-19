@@ -70,13 +70,15 @@
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     var chatlist = document.querySelector('#chatselect');
+                    chatlist.options.length = 0; // clear the old list
                     var rooms = JSON.parse(xhr.response);
                     console.log(rooms)
                     for (i in rooms) {
                         var option = document.createElement("option");
                         option.text = toString(rooms[i].name);
                         option.value = toString(rooms[i].scenario);
-                        
+                        console.log(option.text)
+                        console.log(option.value)
                         chatlist.add(option);
 
                     }
