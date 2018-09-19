@@ -37,7 +37,7 @@ class ScenarioAdmin(MPTTModelAdmin):
         else:
             # new object
             print('new scene')
-            obj.parent = request.user
+            obj.owner = request.user
             obj.save()
 
     def get_queryset(self, request):
