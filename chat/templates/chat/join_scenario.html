@@ -20,15 +20,15 @@
     <div class="col-sm-6">
         </br>
       </br>
-      <h2>Get Started:</h2>
-      <p>You will receive instructions on which scenario to use, your role, and your chatroom ID from the ELK facilitators.</p>
+      <h2>Choose a room</h2>
+      <p>Select a room and click the join button.</p>
       </br>
          
     
       <div>                   
         <strong>Select a room:</strong>
              <br>
-    <select name="chatselect" id="userID" size="10" style="width: 100px;">>
+    <select name="chatselect" size="10" style="width: 100px;">
     {% for x in chatrooms %}
         <option>{{ x }}</option>
         {% endfor %}
@@ -37,7 +37,9 @@
     </div>
     
     <br>
-    </br>
+    <div>
+        <input id="submit" class="btn btn-primary btn-lg" type="button" value="Join"/>
+    </div>
     
 
 
@@ -61,7 +63,7 @@
     window.onload = function() {
         var chatlist = document.querySelector('#chatselect');
 
-        var interval = SetInterval(function(){
+        var interval = setInterval(function(){
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/api/chatroom/");
@@ -71,7 +73,7 @@
                     for (room in rooms[0]) {
                         console.log(room)
                         var option = document.createElement("option");
-                        option.text = str(room);
+                        option.text = toString(room);
                         chatlist.add(option);
                     }
                 }
@@ -80,6 +82,10 @@
 
 
         }, 3000)
+        document.querySelector('#submit').onclick = function(e) {
+            var room = document.querySelector('#chatselect').options[e.selectedIndex].text;
+            window.location.pathname += String(scene) + '/' + '{{ user.username }}' + '/';
+        };
 
 
     }

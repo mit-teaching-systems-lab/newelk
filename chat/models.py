@@ -40,6 +40,7 @@ class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
     users = models.ManyToManyField(User, related_name='+')
     ready_users = models.ManyToManyField(User, related_name='+')
+    scenario = models.ForeignKey(Scenario,on_delete=models.SET_NULL,null=True)
     transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
     def __str__(self):
         return self.name
