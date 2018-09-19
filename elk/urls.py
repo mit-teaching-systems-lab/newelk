@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('csv/', include('research.urls')),
-    path('scenarios/', nonstaff_admin_site.urls),
+    path('scenarios/', nonstaff_admin_site.urls, name='scenario_editor'),
 ]
 
 # path('accounts/login/', LoginView.as_view(), name='login'),
