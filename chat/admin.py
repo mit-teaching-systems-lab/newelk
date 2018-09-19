@@ -4,6 +4,7 @@ from django.contrib.admin.sites import AdminSite
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.shortcuts import redirect
 from django.urls import reverse
+from accounts.models import CustomUser as User
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -12,7 +13,7 @@ class NonStaffAdmin(AdminSite):
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(MPTTModelAdmin):
-    readonly_fields = ('creation_time', 'parent')
+    readonly_fields = ('creation_time', 'parent', 'owner')
     # mptt_indent_field = "name"
     # save_as = True
     def response_change(self, request, obj):
@@ -36,6 +37,7 @@ class ScenarioAdmin(MPTTModelAdmin):
         else:
             # new object
             print('new scene')
+            obj.parent = request.user
             obj.save()
 
     def get_queryset(self, request):
@@ -46,6 +48,8 @@ class ScenarioAdmin(MPTTModelAdmin):
 
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
+
+admin.site.register(User)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
