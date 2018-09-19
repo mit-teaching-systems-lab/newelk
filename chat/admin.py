@@ -42,5 +42,5 @@ nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
 
 admin.site.register(ChatRoom)
-admin.site.register(Scenario, MPTTModelAdmin)
+admin.site.register(Scenario, ScenarioAdmin)
 admin.site.register(TFQuestion)
