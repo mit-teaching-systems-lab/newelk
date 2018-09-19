@@ -88,8 +88,10 @@
 
         }, 6000);
         document.querySelector('#submit').onclick = function(e) {
-            var room = document.querySelector('#chatselect').options[e.selectedIndex].text;
-            window.location.pathname += String(scene) + '/' + '{{ user.username }}' + '/';
+            var chatselect = document.querySelector('#chatselect')
+            var room = chatselect.options[chatselect.selectedIndex].text;
+            var scene = chatselect.options[chatselect.selectedIndex].value;
+            window.location.pathname += String(scene) + '/' + String(room) + '/';
         };
 
 
