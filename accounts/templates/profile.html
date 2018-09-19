@@ -58,11 +58,10 @@
     </div>
 </div>
 
-    {{ quiz_results|safe }}
 
 <script>
     // window.onload=function() {
-    var results = {{ quiz_result|safe }} ;
+    var results = {{ quiz_results|safe }};
     if (false)
     {
         console.log('awaiting results, reloading in 10s')
