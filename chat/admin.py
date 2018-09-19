@@ -17,6 +17,7 @@ nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 
 class ScenarioAdmin(MPTTModelAdmin):
     readonly_fields = ('creation_time', 'parent', 'owner')
+    MPTT_ADMIN_LEVEL_INDENT = 20
     def response_change(self, request, obj):
         request.path = reverse('admin:chat_scenario_change', args=(obj.id,))
         return super().response_change(request, obj)
