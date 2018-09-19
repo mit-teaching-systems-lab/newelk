@@ -31,7 +31,7 @@
         {% for x in scenarios %}
           {% if x.visible_to_players %}
             <input type="radio" name="scenario" value="{{ x.pk }}">
-                {{ x.scenario_name }}
+                {{ x.name }}
             <br>
           {% endif %}
         {% endfor %}
