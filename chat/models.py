@@ -23,7 +23,7 @@ class Scenario(MPTTModel):
     owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     creation_time = models.DateTimeField(default=timezone.now)
     def __str__(self):
-        return str(self.pk) + ' ' + self.scenario_name + ' ' + str(self.creation_time)[5:19]
+        return self.scenario_name + ' | ID:' + str(self.pk) + ' | ' +  str(self.creation_time)[5:19]
 
 
 class TFQuestion(models.Model):
