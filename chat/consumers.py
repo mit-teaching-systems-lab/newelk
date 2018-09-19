@@ -24,10 +24,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room = ChatRoom.objects.filter(name=self.room_name)
 
         if not self.room:
-            self.room = ChatRoom.objects.create(name=self.room_name)
+            this_scene = Scenario.objects.get(pk=self.scenario)
+            self.room = ChatRoom.objects.create(name=self.room_name,scenario=this_scene)
 
             ts = Transcript.objects.create(room_name=self.room_name)
-            ts.scenario = Scenario.objects.get(pk=self.scenario)
+            ts.scenario = this_scene
             ts.save()
 
             self.room.transcript = ts
