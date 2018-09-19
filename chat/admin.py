@@ -40,6 +40,8 @@ class ScenarioAdmin(MPTTModelAdmin):
             obj.owner = request.user
             obj.save()
 
+        Scenario.objects.rebuild()
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
