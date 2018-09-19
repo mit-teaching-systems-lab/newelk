@@ -75,8 +75,8 @@
                     console.log(rooms)
                     for (i in rooms) {
                         var option = document.createElement("option");
-                        option.text = toString(rooms[i].name);
-                        option.value = toString(rooms[i].scenario);
+                        option.text = rooms[i].name;
+                        option.value = rooms[i].scenario;
                         console.log(option.text)
                         console.log(option.value)
                         chatlist.add(option);
