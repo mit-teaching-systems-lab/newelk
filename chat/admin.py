@@ -5,9 +5,12 @@ from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import CustomUser as User
+from django.contrib.auth.models import Group
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
+        g = Group.objects.get(name='scene_creators')
+        g.user_set.add(request.user)
         return request.user.is_active
 
 nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
