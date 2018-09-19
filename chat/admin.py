@@ -27,6 +27,7 @@ class ScenarioAdmin(MPTTModelAdmin):
             print('scene edited')
             old_obj = Scenario.objects.get(pk=obj.pk)
             new_obj = obj
+            new_obj.tree_id = None
             new_obj.pk = None
             new_obj.parent = old_obj
             new_obj.save()
@@ -40,7 +41,7 @@ class ScenarioAdmin(MPTTModelAdmin):
             obj.owner = request.user
             obj.save()
 
-        Scenario.objects.rebuild()
+        # Scenario.objects.partial_rebuild(obj.tree_id)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
