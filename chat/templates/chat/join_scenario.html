@@ -64,12 +64,12 @@
 
 
         var interval = setInterval(function(){
-            var chatlist = document.querySelector('#chatselect');
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/api/chatroom/");
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     var rooms = JSON.parse(xhr.response);
+                    var chatlist = document.querySelector('#chatselect');
                     for (room in rooms[0]) {
                         console.log(room)
                         var option = document.createElement("option");
