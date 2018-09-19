@@ -63,7 +63,7 @@
     window.onload = function() {
 
 
-        var interval = setInterval(function(){
+        // var interval = setInterval(function(){
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/api/chatroom/");
@@ -87,7 +87,7 @@
             };
             xhr.send()
 
-        }, 6000);
+        // }, 6000);
         document.querySelector('#submit').onclick = function(e) {
             var chatselect = document.querySelector('#chatselect')
             var room = chatselect.options[chatselect.selectedIndex].text;
