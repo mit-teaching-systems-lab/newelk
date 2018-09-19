@@ -27,9 +27,13 @@
     
       <div>                   
         <strong>Select a room:</strong>
-             </br>
-          <select id="chatselect">
-          </select>
+             <br>
+    <select name="chatselect" id="userID" size="10" style="width: 100px;">>
+    {% for x in chatrooms %}
+        <option>{{ x }}</option>
+        {% endfor %}
+
+  </select>
     </div>
     
     <br>
@@ -56,17 +60,27 @@
 <script>
     window.onload = function() {
         var chatlist = document.querySelector('#chatselect');
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/api/chatroom/");
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState === 4 && xhr.status === 200) {
-                var rooms = JSON.parse(xhr.response);
-                for (room in rooms[0]) {
-                    console.log(room)
+
+        var interval = SetInterval(function(){
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/chatroom/");
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    var rooms = JSON.parse(xhr.response);
+                    for (room in rooms[0]) {
+                        console.log(room)
+                        var option = document.createElement("option");
+                        option.text = str(room);
+                        chatlist.add(option);
+                    }
                 }
-            }
-        };
-        xhr.send()
+            };
+            xhr.send()
+
+
+        }, 3000)
+
 
     }
 
