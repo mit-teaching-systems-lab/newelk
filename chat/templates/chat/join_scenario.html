@@ -61,10 +61,10 @@
 
 <script>
     window.onload = function() {
-        var chatlist = document.querySelector('#chatselect');
+
 
         var interval = setInterval(function(){
-
+            var chatlist = document.querySelector('#chatselect');
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/api/chatroom/");
             xhr.onreadystatechange = function () {
