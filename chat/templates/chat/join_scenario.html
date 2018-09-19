@@ -69,6 +69,7 @@
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     var rooms = JSON.parse(xhr.response);
+                    console.log(rooms)
                     var chatlist = document.querySelector('#chatselect');
                     for (room in rooms[0]) {
                         console.log(room)
