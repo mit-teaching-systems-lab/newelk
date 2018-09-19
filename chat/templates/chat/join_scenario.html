@@ -86,7 +86,7 @@
             };
             xhr.send()
 
-        }, 3000);
+        }, 6000);
         document.querySelector('#submit').onclick = function(e) {
             var room = document.querySelector('#chatselect').options[e.selectedIndex].text;
             window.location.pathname += String(scene) + '/' + '{{ user.username }}' + '/';
