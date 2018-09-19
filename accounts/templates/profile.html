@@ -62,7 +62,7 @@
 <script>
     // window.onload=function() {
     var results = {{ quiz_result|safe }};
-    if (Object.keys(results).length <= {{ participant_count }})
+    if (false)
     {
         console.log('awaiting results, reloading in 10s')
         setTimeout(function () {
