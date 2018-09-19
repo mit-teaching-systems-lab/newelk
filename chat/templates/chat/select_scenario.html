@@ -61,7 +61,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    document.querySelector('#room-name-submit').onclick = function(e) {
+    document.querySelector('#submit').onclick = function(e) {
         var scene = document.querySelector('input[name = "scenario"]:checked').value;
         window.location.pathname += String(scene) + '/' + {{ user.username }} + '/';
     };
