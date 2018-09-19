@@ -7,7 +7,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
 class Scenario(MPTTModel):
-    name = models.CharField(max_length=50)
+    scenario_name = models.CharField(max_length=50)
     student_background = models.TextField()
     student_profile = models.TextField()
     student_hints = models.TextField(blank=True)
@@ -16,7 +16,7 @@ class Scenario(MPTTModel):
     teacher_hints = models.TextField(blank=True)
     visible_to_players = models.BooleanField(
         choices=BOOL_CHOICES,
-        default=False,
+        default=True,
     )
     # previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
     parent =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
