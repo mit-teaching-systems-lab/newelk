@@ -30,7 +30,7 @@
              <br>
     <select name="chatselect" size="10" style="width: 100px;">
     {% for x in chatrooms %}
-        <option value="{{ x.scenario.id }}">{{ x.name }}</option>
+        <option value="{{ x.scenario }}">{{ x.name }}</option>
         {% endfor %}
 
   </select>
