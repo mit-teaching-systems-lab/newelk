@@ -38,6 +38,12 @@ class ScenarioAdmin(MPTTModelAdmin):
             print('new scene')
             obj.save()
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(owner=request.user)
+
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
 
