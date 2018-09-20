@@ -75,6 +75,7 @@ xhr.onreadystatechange = function () {
             console.log(typeof(chatlist.selectedIndex))
             console.log(chatlist.selectedIndex)
             selection = chatlist.options[chatlist.selectedIndex].text;
+            console.log(selection)
         }
         chatlist.options.length = 0; // clear the old list
         var rooms = JSON.parse(xhr.response);
@@ -90,7 +91,9 @@ xhr.onreadystatechange = function () {
             chatlist = document.querySelector('#chatselect');
             for (x in chatlist.options){
                 if (x.text == selection) {
+                    console.log('match')
                     console.log(x)
+                    console.log(int(x))
                     chatselect.selectedIndex = x;
                 }
             }
