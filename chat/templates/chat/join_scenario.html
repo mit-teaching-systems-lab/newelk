@@ -71,7 +71,7 @@ xhr.onreadystatechange = function () {
     if(xhr.readyState === 4 && xhr.status === 200) {
         var chatlist = document.querySelector('#chatselect');
         var selection;
-        if (typeof(chatlist.selectedIndex) != "undefined" || chatlist.selectedIndex < 0) {
+        if (typeof(chatlist.selectedIndex) != "undefined" && chatlist.selectedIndex >= 0) {
             console.log(typeof(chatlist.selectedIndex))
             console.log(chatlist.selectedIndex)
             selection = chatlist.options[chatlist.selectedIndex].text;
