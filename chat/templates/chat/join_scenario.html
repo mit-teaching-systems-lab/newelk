@@ -63,31 +63,41 @@
     window.onload = function() {
 
 
-        // var interval = setInterval(function(){
+var interval = setInterval(function(){
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/chatroom/");
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    var chatlist = document.querySelector('#chatselect');
-                    if (chatlist.selectedIndex)
-                    chatlist.options.length = 0; // clear the old list
-                    var rooms = JSON.parse(xhr.response);
-                    console.log(rooms)
-                    for (i in rooms) {
-                        var option = document.createElement("option");
-                        option.text = rooms[i].name;
-                        option.value = rooms[i].scenario;
-                        console.log(option.text)
-                        console.log(option.value)
-                        chatlist.add(option);
-
-                    }
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "/api/chatroom/");
+xhr.onreadystatechange = function () {
+    if(xhr.readyState === 4 && xhr.status === 200) {
+        var chatlist = document.querySelector('#chatselect');
+        var selection;
+        if (typeof(chatlist.selectedIndex) !== "undefined") {
+            selection = chatlist.options[chatselect.selectedIndex].text;
+        }
+        chatlist.options.length = 0; // clear the old list
+        var rooms = JSON.parse(xhr.response);
+        for (i in rooms) {
+            var option = document.createElement("option");
+            option.text = rooms[i].name;
+            option.value = rooms[i].scenario;
+            console.log(option.text)
+            console.log(option.value)
+            chatlist.add(option);
+        }
+        if (selection) {
+            chatlist = document.querySelector('#chatselect');
+            for (x in chatlist.options){
+                if (x.text == selection) {
+                    chatselect.selectedIndex = x;
                 }
-            };
-            xhr.send()
+            }
+        }
 
-        // }, 6000);
+    }
+};
+xhr.send()
+
+}, 3000);
         document.querySelector('#submit').onclick = function(e) {
             var chatselect = document.querySelector('#chatselect')
             var room = chatselect.options[chatselect.selectedIndex].text;
