@@ -71,7 +71,7 @@ xhr.onreadystatechange = function () {
     if(xhr.readyState === 4 && xhr.status === 200) {
         var chatlist = document.querySelector('#chatselect');
         var selection;
-        if (typeof(chatlist.selectedIndex) !== "undefined") {
+        if (typeof(chatlist.selectedIndex) != "undefined" || chatlist.selectedIndex < 0) {
             selection = chatlist.options[chatselect.selectedIndex].text;
         }
         chatlist.options.length = 0; // clear the old list
