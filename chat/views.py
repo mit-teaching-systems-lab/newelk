@@ -22,7 +22,8 @@ def select_role(request):
 def select_scenario(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
-    scenarios = Scenario.objects.filter(children__isnull=True).filter(visible_to_players=True)
+    # scenarios = Scenario.objects.filter(children__isnull=True).filter(visible_to_players=True)
+    scenarios = Scenario.objects.filter(visible_to_players=True)
     return render(request, 'chat/select_scenario.html', {'scenarios': scenarios})
 
 def join_scenario(request):
