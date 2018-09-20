@@ -88,8 +88,6 @@ xhr.onreadystatechange = function () {
             for (x in chatlist.options){
 
                 if (chatlist.options[x].text == selection) {
-                    console.log('match')
-                    console.log(x)
                     chatlist = document.querySelector('#chatselect');
                     chatselect.selectedIndex = x;
                 }
