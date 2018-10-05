@@ -101,7 +101,7 @@ def get_room_details(role, scenario, room_name):
 def scenario_editor(request, pk):
     scenario = get_object_or_404(Scenario, pk=pk)
     # AuthorFormSet = modelformset_factory(Author, fields=('name', 'title'))
-    ScenarioFormSet = modelformset_factory(Scenario)
+    ScenarioFormSet = modelformset_factory(Scenario, exclude=('parent','owner','creation_time'))
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
