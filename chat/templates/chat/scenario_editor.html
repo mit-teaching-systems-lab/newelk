@@ -10,25 +10,6 @@
     <input type="submit" value="Submit">
 </form>
 
-    scenario_name = forms.CharField(max_length=50)
-    student_background = forms.CharField(widget=forms.Textarea)
-    student_profile = forms.CharField(widget=forms.Textarea)
-    teacher_background = forms.CharField(widget=forms.Textarea)
-    teacher_objective = forms.CharField(widget=forms.Textarea)
-    visible_to_players = forms.BooleanField()
-
-<form method="post">
-{% csrf_token %}
-{{ form.non_field_errors }}
-<div class="fieldWrapper">
-    {{ form.scenario_name.errors }}
-    <label for="{{ form.scenario_name.id_for_label }}">Scenario Name:</label>
-    {{ form.scenario_name }}
-
-
-<input type="submit" value="OK">
-</div>
-</form>
 
 
 
