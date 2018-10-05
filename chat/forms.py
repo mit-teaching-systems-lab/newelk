@@ -2,7 +2,7 @@ from django import forms
 
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
-class ContactForm(forms.Form):
+class ScenarioForm(forms.Form):
     scenario_name = forms.CharField(max_length=50)
     student_background = forms.TextField()
     student_profile = forms.TextField()

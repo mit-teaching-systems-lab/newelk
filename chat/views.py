@@ -5,6 +5,8 @@ from .models import Scenario, TFQuestion, ChatRoom
 from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
 from .serializers import ChatRoomSerializer
+from django.shortcuts import get_object_or_404
+from .forms import ScenarioForm
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
     """
@@ -92,3 +94,32 @@ def get_room_details(role, scenario, room_name):
         room_details.pop('student_hints', None)
 
     return room_details
+
+
+def scenario_editor(request, pk):
+    scenario = get_object_or_404(Scenario, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        scenario_form = ScenarioForm(request.POST)
+
+        # Check if the form is valid:
+        if scenario_form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('all-borrowed'))
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        book_renewal_form = ScenarioForm()
+
+    context = {
+        'form': scenario_form,
+        'scenario': scenario,
+    }
+
+    return render(request, 'select_scenario.html', context)
