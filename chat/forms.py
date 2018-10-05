@@ -8,7 +8,4 @@ class ScenarioForm(forms.Form):
     student_profile = forms.CharField(widget=forms.Textarea)
     teacher_background = forms.CharField(widget=forms.Textarea)
     teacher_objective = forms.CharField(widget=forms.Textarea)
-    visible_to_players = forms.BooleanField(
-        choices=BOOL_CHOICES,
-        default=True,
-    )
+    visible_to_players = forms.BooleanField()
