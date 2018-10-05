@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from .serializers import ChatRoomSerializer
 from django.shortcuts import get_object_or_404
 from .forms import ScenarioForm
+from django.http import HttpResponseRedirect
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
     """
@@ -111,7 +112,7 @@ def scenario_editor(request, pk):
 
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('all-borrowed'))
+            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % scenario.pk)
 
     # If this is a GET (or any other method) create the default form.
     else:
