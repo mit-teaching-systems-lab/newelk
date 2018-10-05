@@ -120,7 +120,7 @@ def scenario_editor(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
         # scenario_form = ScenarioForm()
-        scenario_form = ScenarioFormSet()
+        scenario_form = ScenarioFormSet(queryset=Scenario.objects.get(pk=pk))
 
     context = {
         'form': scenario_form,
