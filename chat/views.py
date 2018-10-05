@@ -115,7 +115,7 @@ def scenario_editor(request, pk):
 
     # If this is a GET (or any other method) create the default form.
     else:
-        book_renewal_form = ScenarioForm()
+        scenario_form = ScenarioForm()
 
     context = {
         'form': scenario_form,
