@@ -123,4 +123,4 @@ def scenario_editor(request, pk):
         'scenario': scenario,
     }
 
-    return render(request, 'select_scenario.html', context)
+    return render(request, 'chat/select_scenario.html', context)
