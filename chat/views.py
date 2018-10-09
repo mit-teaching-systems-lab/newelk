@@ -120,11 +120,12 @@ def scenario_editor(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
         # scenario_form = ScenarioForm()
-        scenario_form = ScenarioFormSet(queryset=Scenario.objects.get(pk=pk))
+        scenario_form = ScenarioFormSet(queryset=Scenario.objects.filter(pk=pk))
 
     context = {
         'form': scenario_form,
         'scenario': scenario,
     }
+    print(scenario_form)
 
     return render(request, 'chat/scenario_editor.html', context)
