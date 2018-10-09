@@ -32,7 +32,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('csv/', include('research.urls')),
-    path('scenarios/chat/scenario/<int:pk>/change/', scenario_editor, name='scenario_editor'),
+    # path('scenarios/chat/scenario/<int:pk>/change/', scenario_editor, name='scenario_editor'),
     path('scenarios/', nonstaff_admin_site.urls, name='scenario_editor'),
 ]
 
