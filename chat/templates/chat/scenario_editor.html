@@ -4,13 +4,29 @@
 
 {% block content %}
 
-<form action="/your-name/" method="post">
+<form method="post">
     {% csrf_token %}
-    {{ form.as_ul }}
+
+    <ul>
+        <li>{{ form.scenario_name }}</li>
+        <li>{{ form.student_background }}</li>
+        <li>{{ form.student_profile }}</li>
+        <li>{{ form.teacher_background }}</li>
+        <li>{{ form.teacher_objective }}</li>
+        <li>{{ form.visible_to_players }}</li>
+        <li>{{ form.age }}</li>
+        <li>{{ form.age }}</li>
+
+
+    </ul>
+
     <input type="submit" value="Submit">
 </form>
 
-
+    
+{#    parent =  TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)#}
+{#    owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)#}
+{#    creation_time#}
 
 
 {% endblock %}
