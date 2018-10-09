@@ -18,6 +18,7 @@ nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
 class ScenarioAdmin(MPTTModelAdmin):
     list_display = ('__str__', 'visible_to_players')
     readonly_fields = ('creation_time', 'parent', 'owner')
+    exclude = ('student_hints','teacher_hints',)
     mptt_indent_field = "__str__"
     MPTT_ADMIN_LEVEL_INDENT = 20
     def response_change(self, request, obj):
