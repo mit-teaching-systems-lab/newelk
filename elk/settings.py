@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -128,10 +129,8 @@ try:
         }
     }
     # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    dbconfig = dj_database_url.config()
-    if dbconfig:
-        DATABASES['default'] = dbconfig
+    env = environ.Env()
+    DATABASES['default'] = env.db('DATABASE_URL')
 except KeyError:
     # Development settings -------------------------------------------------
     REDIS = "redis://localhost:6379"
