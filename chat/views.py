@@ -121,8 +121,8 @@ def scenario_editor(request, pk):
             new_scene.parent = scenario
             new_scene.save()
 
-            Scenario.objects.rebuild()
-            # Scenario.objects.partial_rebuild(scenario.tree_id)
+            # Scenario.objects.rebuild()
+            Scenario.objects.partial_rebuild(scenario.tree_id)
 
             # redirect to a new URL:
             return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
