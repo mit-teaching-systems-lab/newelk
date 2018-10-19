@@ -113,8 +113,8 @@ def scenario_editor(request, pk):
         if scenario_form.is_valid():
             # process the data in form.cleaned_data
             # new_scene = Scenario.objects.create(scenario_form.cleaned_data)
-            scenario.pk = None
-            scenario.save()
+            # scenario.pk = None
+            # scenario.save()
 
             new_scene = scenario
             new_scene.pk = None
