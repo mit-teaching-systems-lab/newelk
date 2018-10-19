@@ -8,17 +8,16 @@
     {% csrf_token %}
 
     <ul>
-        <li>{{ form.scenario_name }}</li>
-        <li>{{ form.student_background }}</li>
-        <li>{{ form.student_profile }}</li>
-        <li>{{ form.teacher_background }}</li>
-        <li>{{ form.teacher_objective }}</li>
-        <li>{{ form.visible_to_players }}</li>
+        <li>Scenario Name: {{ form.scenario_name }}</li>
+        <li>Student Background: {{ form.student_background }}</li>
+        <li>Student Profile:{{ form.student_profile }}</li>
+        <li>Teacher Background: {{ form.teacher_background }}</li>
+        <li>Teacher Objective: {{ form.teacher_objective }}</li>
+        <li>Visible to Players: {{ form.visible_to_players }}</li>
 
 
     </ul>
-    next
-    {{ form.as_ul }}
+
 
     <input type="submit" value="Submit">
 </form>
