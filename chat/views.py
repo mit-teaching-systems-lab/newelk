@@ -128,8 +128,7 @@ def scenario_editor(request, pk):
         'scenario': scenario,
     }
 
-    for key in scenario_form.keys():
-        print(key)
+    
 
     print(scenario_form)
 
