@@ -126,6 +126,10 @@ def scenario_editor(request, pk):
         'form': scenario_form,
         'scenario': scenario,
     }
+
+    for key in scenario_form.keys():
+        print(key)
+
     print(scenario_form)
 
     return render(request, 'chat/scenario_editor.html', context)
