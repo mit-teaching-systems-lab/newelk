@@ -128,7 +128,7 @@ def scenario_editor(request, pk):
         'scenario': scenario,
     }
 
-    
+
 
     print(scenario_form)
 
