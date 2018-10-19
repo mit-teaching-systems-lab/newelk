@@ -107,16 +107,16 @@ def scenario_editor(request, pk):
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        scenario_form = ScenarioForm(request.POST, instance=scenario)
-
+        # scenario_form = ScenarioForm(request.POST, instance=scenario)
+        scenario_form = ScenarioForm(request.POST)
         # Check if the form is valid:
         if scenario_form.is_valid():
             # process the data in form.cleaned_data
             # new_scene = Scenario.objects.create(scenario_form.cleaned_data)
             # scenario.pk = None
             # scenario.save()
-
-            new_scene = scenario
+            print(request.POST)
+            new_scene = scenario_form.save(commit=False)
             new_scene.pk = None
             new_scene.parent = scenario
             new_scene.save()
