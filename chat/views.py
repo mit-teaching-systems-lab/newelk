@@ -112,7 +112,9 @@ def scenario_editor(request, pk):
         # Check if the form is valid:
         if scenario_form.is_valid():
             # process the data in form.cleaned_data
-            new_scene = Scenario.objects.create(scenario_form.cleaned_data)
+            # new_scene = Scenario.objects.create(scenario_form.cleaned_data)
+            scenario.pk = None
+            scenario.save()
 
             # redirect to a new URL:
             return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
