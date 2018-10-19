@@ -118,7 +118,6 @@ def scenario_editor(request, pk):
             print(request.POST)
             new_scene = scenario_form.save(commit=False)
             new_scene.pk = None
-            new_scene.save()
             new_scene.parent = scenario
             new_scene.save()
 
