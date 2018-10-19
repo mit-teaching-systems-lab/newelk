@@ -107,7 +107,7 @@ def scenario_editor(request, pk):
     if request.method == 'POST':
 
         # Create a form instance and populate it with data from the request (binding):
-        scenario_form = ScenarioForm(request.POST)
+        scenario_form = ScenarioForm(request.POST, instance=scenario)
 
         # Check if the form is valid:
         if scenario_form.is_valid():
@@ -119,9 +119,9 @@ def scenario_editor(request, pk):
 
     # If this is a GET (or any other method) create the default form.
     else:
-        # scenario_form = ScenarioForm()
+        scenario_form = ScenarioForm()
         # scenario_form = ScenarioFormSet(queryset=Scenario.objects.filter(pk=pk))
-        scenario_form = ScenarioForm(request.POST, instance=scenario)
+        # scenario_form = ScenarioForm(request.POST, instance=scenario)
 
     context = {
         'form': scenario_form,
