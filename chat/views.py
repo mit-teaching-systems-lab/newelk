@@ -117,7 +117,7 @@ def scenario_editor(request, pk):
             scenario.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
+            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % scenario.pk)
 
     # If this is a GET (or any other method) create the default form.
     else:
