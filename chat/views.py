@@ -111,11 +111,11 @@ def scenario_editor(request, pk):
 
         # Check if the form is valid:
         if scenario_form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-
+            # process the data in form.cleaned_data
+            new_scene = Scenario.objects.create(scenario_form.cleaned_data)
 
             # redirect to a new URL:
-            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % scenario.pk)
+            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
 
     # If this is a GET (or any other method) create the default form.
     else:
