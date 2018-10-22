@@ -7,19 +7,25 @@
 <form method="post">
     {% csrf_token %}
 
-    <ul>
-        <li><b>Scenario Name:</b> {{ form.scenario_name }}</li>
+    <dl>
+        <dt><b>Scenario Name:</b> </dt>
+        <dd>{{ form.scenario_name }}</dd>
         some instructions here for example from github
-        <li><b>Student Background:</b> {{ form.student_background }}</li>
-        <li><b>Student Profile:</b> {{ form.student_profile }}</li>
-        <li><b>Teacher Background:</b> {{ form.teacher_background }}</li>
-        <li><b>Teacher Objective:</b> {{ form.teacher_objective }}</li>
-        <li><b>Visible to Players:</b> {{ form.visible_to_players }}</li>
+        <dt><b>Student Background:</b></dt>
+        <dd>{{ form.student_background }}</dd>
+        <dt><b>Student Profile:</b></dt>
+        <dd>{{ form.student_profile }}</dd>
+        <dt><b>Teacher Background:</b></dt>
+        <dd>{{ form.teacher_background }}</dd>
+        <dt><b>Teacher Objective:</b><dt>
+        <dd>{{ form.teacher_objective }}</dd>
+        <dt><b>Visible to Players:</b></dt>
+        <dd> {{ form.visible_to_players }}</dd>
 
-        <li>Previous version: {{ scenario.parent }}</li>
+        <dt>Previous version: {{ scenario.parent }}</dt>
 
 
-    </ul>
+    </dl>
 
 
     <input type="submit" value="Submit">
