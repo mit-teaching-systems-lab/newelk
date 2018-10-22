@@ -8,13 +8,13 @@
     {% csrf_token %}
 
     <ul>
-        <li>Scenario Name: {{ form.scenario_name }}</li>
+        <li><b>Scenario Name:</b> {{ form.scenario_name }}</li>
         some instructions here for example from github
-        <li>Student Background: {{ form.student_background }}</li>
-        <li>Student Profile:{{ form.student_profile }}</li>
-        <li>Teacher Background: {{ form.teacher_background }}</li>
-        <li>Teacher Objective: {{ form.teacher_objective }}</li>
-        <li>Visible to Players: {{ form.visible_to_players }}</li>
+        <li><b>Student Background:</b> {{ form.student_background }}</li>
+        <li><b>Student Profile:</b> {{ form.student_profile }}</li>
+        <li><b>Teacher Background:</b> {{ form.teacher_background }}</li>
+        <li><b>Teacher Objective:</b> {{ form.teacher_objective }}</li>
+        <li><b>Visible to Players:</b> {{ form.visible_to_players }}</li>
 
         <li>Previous version: {{ scenario.parent }}</li>
 
