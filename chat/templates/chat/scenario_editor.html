@@ -18,10 +18,6 @@
         <dd>{{ form.student_background }}</dd>
         <dt><b>Student Profile:</b></dt>
         <dd>{{ form.student_profile }}</dd>
-        <dt><b>Teacher Background:</b></dt>
-        <dd>{{ form.teacher_background }}</dd>
-        <dt><b>Teacher Objective:</b><dt>
-        <dd>{{ form.teacher_objective }}</dd>
         <dt><b>Visible to Players:</b></dt>
         <dd> {{ form.visible_to_players }}</dd>
 
@@ -29,6 +25,17 @@
 
 
     </dl>
+    <table style="width:100%">
+        <tr>
+            <td><b>Teacher Background:</b></td>
+            <td>{{ form.teacher_background }}</td>
+        </tr>
+        <tr>
+            <td><b>Teacher Objective:</b></td>
+            <td>{{ form.teacher_objective }}</td>
+        </tr>
+    </table>
+        
 
 
     <input type="submit" value="Submit">
