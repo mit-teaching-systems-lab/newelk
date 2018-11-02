@@ -47,6 +47,9 @@ def room(request, role, scenario, room_name):
 def join_room(request):
     return render(request, 'chat/join_scenario.html')
 
+def result(request):
+    return render(request, 'chat/result.html')
+
 def quiz(request, role, scenario, room_name):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
