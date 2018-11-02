@@ -138,8 +138,6 @@ def scenario_editor(request, pk):
         'scenario': scenario,
     }
 
-
-
     print(scenario_form)
 
     return render(request, 'chat/scenario_editor.html', context)

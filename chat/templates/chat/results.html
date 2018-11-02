@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Results{% endblock %}
+
+{% block content %}
+
+Here are your results!
+
+
+
+
+Would you like to play again?
+<button id="yes">yes</button> <button id="no">no</button>
+
+<script>
+    document.querySelector('#yes').onclick = function(e) {
+        window.location.pathname = '/chat/';
+    };
+    document.querySelector('#no').onclick = function(e) {
+        window.location.pathname = '/accounts/profile';
+    };
+
+</script>
+
+{% endblock %}
