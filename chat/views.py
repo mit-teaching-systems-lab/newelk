@@ -64,7 +64,7 @@ def quiz(request, role, scenario, room_name):
                                   user=request.user,
                                   transcript=transcript)
                 answer.save()
-        return redirect('/accounts/profile')
+        return redirect('/chat/result')
     else:
         quiz_context = get_room_details(role, scenario, room_name)
         quiz_context.update({'transcript':transcript, 'questions':questions})
