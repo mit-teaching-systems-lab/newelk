@@ -8,6 +8,7 @@ def profile(request):
         return redirect('/accounts/login/')
     transcripts = Transcript.objects.filter(users=request.user).order_by("-creation_time")
     quiz_results = {}
+    playercount = 0
     if transcripts:
         for t in transcripts:
             t.messages = Message.objects.filter(transcript=t).order_by("creation_time")
@@ -25,12 +26,13 @@ def profile(request):
             for answer in answers:
                 quiz_results[person.username][answer.question.pk] = answer.user_answer
                 quiz_results["question_details"][answer.question.pk] = {answer.question.question: answer.correct_answer}
+        playercount = participants.count
     else:
         transcripts = None
     print('showing profile')
     print(quiz_results)
     return render(request, 'profile.html',
-                  {"transcripts": transcripts, "quiz_results": quiz_results, "participant_count": participants.count})
+                  {"transcripts": transcripts, "quiz_results": quiz_results, "participant_count": playercount})
 
 
 def about(request):
