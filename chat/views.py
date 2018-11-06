@@ -100,6 +100,20 @@ def get_room_details(role, scenario, room_name):
 
     return room_details
 
+def scenario_creator(request):
+    if request.method == 'POST':
+        scenario_form = ScenarioForm(request.POST)
+        if scenario_form.is_valid():
+            new_scene = scenario_form.save()
+            Scenario.objects.partial_rebuild(new_scene)
+            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
+    else:
+        scenario_form = ScenarioForm()
+        context = {
+            'form': scenario_form,
+        }
+        return render(request, 'chat/scenario_editor.html', context)
+
 
 def scenario_editor(request, pk):
     scenario = get_object_or_404(Scenario, pk=pk)
