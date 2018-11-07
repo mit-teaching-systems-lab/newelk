@@ -106,6 +106,8 @@ def scenario_creator(request):
         if scenario_form.is_valid():
             new_scene = scenario_form.save()
             Scenario.objects.partial_rebuild(new_scene)
+            print('testing')
+            print(new_scene)
             print(new_scene.pk)
             return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
     else:
