@@ -7,13 +7,11 @@
 <form method="post">
     {% csrf_token %}
 
+    <center><em>HTML formatting and special characters are generally permitted.</em></center>
     <table style="width:100%, padding: 75px">
         <tr>
             <td><b>Scenario Name:</b></td>
             <td>{{ form.scenario_name }}</td>
-        </tr>
-        <tr>
-            <td> HTML formatting and special characters are generally permitted.
         </tr>
         <tr>
             <td style="width:50%">
