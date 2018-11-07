@@ -136,6 +136,8 @@ def scenario_editor(request, pk):
             new_scene.pk = None
             new_scene.parent = scenario
             new_scene.save()
+            scenario.visible_to_players = False
+            scenario.save()
 
             # Scenario.objects.rebuild()
             Scenario.objects.partial_rebuild(scenario.tree_id)
