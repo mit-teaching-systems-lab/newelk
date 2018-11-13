@@ -185,4 +185,4 @@ def onboard1(request):
         *bell rings*
     """
     messages = text.split("\n")
-    return render(request, 'chat/coding_onboarding.html', messages)
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages)
