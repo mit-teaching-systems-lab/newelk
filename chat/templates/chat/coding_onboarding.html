@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-</head>
-<>
+    <style>
 
+    </style>
+</head>
 <FORM METHOD="POST">
 <table style="width:100%">
 <col width="60%">
@@ -19,11 +20,29 @@
 
             <td>
                 {% if "T:" in m %}
-                    Priming <input type="checkbox" name="priming" id="priming{{ forloop.counter }}" value="Priming">
-                    Eliciting <input type="checkbox" name="eliciting" value="Eliciting">
-                    Evaluating <input type="checkbox" name="evaluating" value="Evaluating">
-                    Probing <input type="checkbox" name="probing" value="Probing">
-                    Telling <input type="checkbox" name="telling" value="Telling">
+                    <div id="checkgroup">
+                        <div class="checkbox">
+                            <label for="priming{{ forloop.counter }}">Priming</label>
+                            <input type="checkbox" name="priming" id="priming{{ forloop.counter }}" value="Priming">
+                        </div>
+                        <div class="checkbox">
+                            <label for="eliciting{{ forloop.counter }}">Eliciting</label>
+                            <input type="checkbox" name="eliciting" id="eliciting{{ forloop.counter }}" value="Eliciting">
+                        </div>
+                        <div class="checkbox">
+                            <label for="evaluating{{ forloop.counter }}">Evaluating</label>
+                            <input type="checkbox" name="evaluating" id="evaluating{{ forloop.counter }}" value="Evaluating">
+                        </div>
+                        <div class="checkbox">
+                            <label for="probing{{ forloop.counter }}">Probing</label>
+                            <input type="checkbox" name="probing" id="probing{{ forloop.counter }}" value="Probing">
+                        </div>
+                        <div class="checkbox">
+                            <label for="tellling{{ forloop.counter }}">Telling</label>
+                            <input type="checkbox" name="telling" id="telling{{ forloop.counter }}" value="Telling">
+                        </div>
+                    </div>
+
             <br>
                 {% endif %}
             </td>

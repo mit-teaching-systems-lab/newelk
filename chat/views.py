@@ -185,4 +185,9 @@ def onboard1(request):
         *bell rings*
     """
     messages = text.split("\n")
+
+    if request.method == 'POST':
+        for item in request.POST:
+            print(item)
+
     return render(request, 'chat/coding_onboarding.html', {"messages":messages})
