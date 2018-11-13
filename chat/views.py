@@ -160,3 +160,29 @@ def scenario_editor(request, pk):
     print(scenario_form)
 
     return render(request, 'chat/scenario_editor.html', context)
+
+def onboard1(request):
+    text = """T: What do you know about continents? Eliciting
+        S: There’s like... America... and England... and Africa... and maybe India?
+        T: Well, some of those are continents. Evaluating/Telling
+        S: I know that there are 7 continents!
+        T: Very good. What do you know about oceans? Evaluating, Eliciting
+        S: There’s the Atlantic Ocean, that’s the one I go swimming in sometimes.
+        T: That’s right. Evaluating
+        S: And there’s the Pacific Ocean, that’s on the other side of the country.
+        T: Yep. N/A
+        S: Polar bears live in the Arctic Ocean so that’s another one. I think there’s one more, but I don’t remember what it is.
+        T: You’re probably thinking of the Indian Ocean. Telling
+        S: Oh, okay. Does that mean India is not a continent?
+        T: No, it isn’t, but that’s okay. Evaluating
+        T: Do you know what countries border the mainland United States? Eliciting
+        S: There’s Canada to the north and Mexico to the south.
+        T: Very good. What about Hawaii? Evaluating, Eliciting/Probing
+        S: That’s an island in the Pacific Ocean.
+        T: I see. What about Alaska? Eliciting/Probing
+        S: That’s also an island... somewhere.
+        T: Interesting. N/A
+        *bell rings*
+    """
+    messages = text.split("\n")
+    return render(request, 'chat/coding_onboarding.html', messages)
