@@ -182,8 +182,7 @@ def onboard1(request):
         T: I see. What about Alaska? Eliciting/Probing
         S: That’s also an island... somewhere.
         T: Interesting. N/A
-        *bell rings*
-    """
+        *bell rings*"""
     messages = text.split("\n")
 
     if request.method == 'POST':
