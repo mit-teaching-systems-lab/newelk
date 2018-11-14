@@ -185,6 +185,7 @@ def onboard1(request):
         T: Interesting.
         *bell rings*"""
     messages = text.split("\n")
+    checked = []
     if request.method == 'POST':
         checked = process_codes(request)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard2","checked":checked})
@@ -211,6 +212,7 @@ def onboard2(request):
         T: I’m not going to answer that right now because I would like to know what you remember before class starts.
         *bell rings*"""
     messages = text.split("\n")
+    checked = []
     if request.method == 'POST':
         checked = process_codes(request)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard3","checked":checked})
@@ -239,6 +241,7 @@ def onboard3(request):
         T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.
         *bell rings*"""
     messages = text.split("\n")
+    checked = []
     if request.method == 'POST':
         checked = process_codes(request)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard4","checked":checked})
@@ -269,6 +272,7 @@ def onboard4(request):
         S: You’re welcome
         *bell rings*"""
     messages = text.split("\n")
+    checked = []
     if request.method == 'POST':
         checked = process_codes(request)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked})
