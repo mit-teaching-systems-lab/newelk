@@ -12,10 +12,9 @@
             display: flex;
             flex-direction: row;
             text-align: center;
+            justify-content: space-evenly;
         }
-        .checkbox {
-            border: 1px dotted black;
-        }
+
         .checkbox label {
             display: block;
         }
@@ -24,7 +23,7 @@
 
 <body>
 <form lang="en" METHOD="POST">
-<table style="width:100%">
+<table style="width:100%" cellpadding="10">
 <col width="60%">
 <col width="40%">
     {% for m in messages %}
