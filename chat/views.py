@@ -189,7 +189,7 @@ def onboard1(request):
         for item in request.POST:
             print(item)
             print('x:')
-            for x in item:
-                print(x)
+            print(item[0])
+            print(type(item))
 
     return render(request, 'chat/coding_onboarding.html', {"messages":messages})
