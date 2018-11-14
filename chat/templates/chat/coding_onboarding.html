@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
+{% block title %}Onboarding{% endblock %}
+
+{% block content %}
+
+<style>
         table, tr {
             border-collapse: collapse;
             border: 1px solid black;
@@ -18,10 +19,8 @@
         .checkbox label {
             display: block;
         }
-    </style>
-</head>
+</style>
 
-<body>
 <form lang="en" METHOD="POST">
 {% csrf_token %}
 <table style="width:100%" cellpadding="10">
@@ -76,5 +75,6 @@
         {% endfor %}
     }
 </script>
-</body>
-</html>
+
+
+{% endblock %}
