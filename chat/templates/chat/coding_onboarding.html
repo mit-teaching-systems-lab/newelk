@@ -72,7 +72,7 @@
 <script>
     window.onload=function(){
         {% for c in checked %}
-            document.querySelector('input[name={{ c }}]').checked = true;
+            document.querySelector('input[name="{{ c }}"]').checked = true;
         {% endfor %}
     }
 </script>
