@@ -36,7 +36,7 @@ class TFQuestion(models.Model):
     def __str__(self):
         return "Scenario: " + self.scenario.scenario_name + " Q: " + self.question
 
-from research.models import Transcript
+from research.models import Transcript, Message
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
     users = models.ManyToManyField(User, related_name='+')
@@ -45,3 +45,10 @@ class ChatRoom(models.Model):
     transcript = models.ForeignKey(Transcript,on_delete=models.SET_NULL,null=True)
     def __str__(self):
         return self.name
+
+class MessageCode(models.Model):
+    message = models.ForeignKey(Message,on_delete=models.SET_NULL,null=True,blank=True)
+    other_id = models.CharField(max_length=20)
+    code = models.CharField(max_length=20)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+
