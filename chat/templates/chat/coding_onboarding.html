@@ -9,11 +9,15 @@
             border: 1px solid black;
         }
         #checkgroup {
-          display: inline-block;
-          text-align: center;
+            display: flex;
+            flex-direction: row;
+            text-align: center;
+        }
+        .checkbox {
+            border: 1px dotted black;
         }
         .checkbox label {
-          display: block;
+            display: block;
         }
     </style>
 </head>
@@ -25,11 +29,7 @@
 <col width="40%">
     {% for m in messages %}
         <tr>
-
             <td>{{ m }}</td>
-
-
-
             <td id="checkgroup">
                 {% if "T:" in m %}
 
