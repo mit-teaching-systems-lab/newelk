@@ -34,23 +34,23 @@
                 {% if "T:" in m %}
                         <div class="checkbox">
                             <label for="priming{{ forloop.counter }}">Priming</label>
-                            <input type="checkbox" name="priming" id="priming{{ forloop.counter }}" value="Priming">
+                            <input type="checkbox" name="priming_{{ forloop.counter }}" id="priming{{ forloop.counter }}" value="Priming">
                         </div>
                         <div class="checkbox">
                             <label for="eliciting{{ forloop.counter }}">Eliciting</label>
-                            <input type="checkbox" name="eliciting" id="eliciting{{ forloop.counter }}" value="Eliciting">
-                        </div>
-                        <div class="checkbox">
-                            <label for="evaluating{{ forloop.counter }}">Evaluating</label>
-                            <input type="checkbox" name="evaluating" id="evaluating{{ forloop.counter }}" value="Evaluating">
+                            <input type="checkbox" name="eliciting_{{ forloop.counter }}" id="eliciting{{ forloop.counter }}" value="Eliciting">
                         </div>
                         <div class="checkbox">
                             <label for="probing{{ forloop.counter }}">Probing</label>
-                            <input type="checkbox" name="probing" id="probing{{ forloop.counter }}" value="Probing">
+                            <input type="checkbox" name="probing_{{ forloop.counter }}" id="probing{{ forloop.counter }}" value="Probing">
+                        </div>
+                        <div class="checkbox">
+                            <label for="evaluating{{ forloop.counter }}">Evaluating</label>
+                            <input type="checkbox" name="evaluating_{{ forloop.counter }}" id="evaluating{{ forloop.counter }}" value="Evaluating">
                         </div>
                         <div class="checkbox">
                             <label for="tellling{{ forloop.counter }}">Telling</label>
-                            <input type="checkbox" name="telling" id="telling{{ forloop.counter }}" value="Telling">
+                            <input type="checkbox" name="telling_{{ forloop.counter }}" id="telling{{ forloop.counter }}" value="Telling">
                         </div>
                 </td>
                 {% else %}

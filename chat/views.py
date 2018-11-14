@@ -188,8 +188,5 @@ def onboard1(request):
     if request.method == 'POST':
         for item in request.POST:
             print(item)
-            print('x:')
-            print(item[0])
-            print(type(item))
 
     return render(request, 'chat/coding_onboarding.html', {"messages":messages})
