@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
-from .models import Scenario, TFQuestion, ChatRoom
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode
 from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
 from .serializers import ChatRoomSerializer
@@ -189,6 +189,9 @@ def onboard1(request):
         for item in request.POST:
             print(item)
             checked.append(item)
-
-
+            u, c, n = item.split("_")
+            if request.user.is_authenticated:
+                MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
+            else:
+                MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked})
