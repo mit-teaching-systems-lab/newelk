@@ -162,26 +162,137 @@ def scenario_editor(request, pk):
     return render(request, 'chat/scenario_editor.html', context)
 
 def onboard1(request):
-    text = """T: What do you know about continents? Eliciting
+    text = """T: What do you know about continents?
         S: There’s like... America... and England... and Africa... and maybe India?
-        T: Well, some of those are continents. Evaluating/Telling
+        T: Well, some of those are continents.
         S: I know that there are 7 continents!
-        T: Very good. What do you know about oceans? Evaluating, Eliciting
+        T: Very good. What do you know about oceans?
         S: There’s the Atlantic Ocean, that’s the one I go swimming in sometimes.
-        T: That’s right. Evaluating
+        T: That’s right.
         S: And there’s the Pacific Ocean, that’s on the other side of the country.
-        T: Yep. N/A
+        T: Yep.
         S: Polar bears live in the Arctic Ocean so that’s another one. I think there’s one more, but I don’t remember what it is.
-        T: You’re probably thinking of the Indian Ocean. Telling
+        T: You’re probably thinking of the Indian Ocean.
         S: Oh, okay. Does that mean India is not a continent?
-        T: No, it isn’t, but that’s okay. Evaluating
-        T: Do you know what countries border the mainland United States? Eliciting
+        T: No, it isn’t, but that’s okay.
+        T: Do you know what countries border the mainland United States?
         S: There’s Canada to the north and Mexico to the south.
-        T: Very good. What about Hawaii? Evaluating, Eliciting/Probing
+        T: Very good. What about Hawaii?
         S: That’s an island in the Pacific Ocean.
-        T: I see. What about Alaska? Eliciting/Probing
+        T: I see. What about Alaska?
         S: That’s also an island... somewhere.
-        T: Interesting. N/A
+        T: Interesting.
+        *bell rings*"""
+    messages = text.split("\n")
+    checked = []
+    if request.method == 'POST':
+        for item in request.POST:
+            if not item == "csrfmiddlewaretoken":
+                print(item)
+                checked.append(item)
+                u, c, n = item.split("_")
+                if request.user.is_authenticated:
+                    MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
+                else:
+                    MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard2","checked":checked})
+
+
+def onboard2(request):
+    text = """T: Hi! Do you know what we are learning today?
+        S: Something about writing sentences?
+        T: What do you know about parts of speech?
+        S: I know that there are nouns, which are things, and verbs, which are actions, and description words, but I don’t remember what they are called.
+        T: Very good. Can you tell me more about nouns? Is “school” a noun?
+        S: Yeah, a school is a type of thing.
+        T: What about “idea” or “Eastern High School”? Are they nouns?
+        S: Idea is a thing, so yeah. But Eastern High School isn’t a noun because it’s capitalized.
+        T: Not quite.
+        S: What did I get wrong?
+        T: Nouns can be capitalized. “Eastern High School” is a ‘thing,’ right? Capitalized nouns are called proper nouns.
+        S: Okay
+        T: Do all words have a part of speech?
+        S: I don’t know
+        T: Okay.
+        T: Let’s look at the sentence “I quickly ate a delicious cupcake.” What words can you classify as parts of speech?
+        S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?
+        T: I’m not going to answer that right now because I would like to know what you remember before class starts.
+        *bell rings*"""
+    messages = text.split("\n")
+    checked = []
+    if request.method == 'POST':
+        for item in request.POST:
+            if not item == "csrfmiddlewaretoken":
+                print(item)
+                checked.append(item)
+                u, c, n = item.split("_")
+                if request.user.is_authenticated:
+                    MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
+                else:
+                    MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard3","checked":checked})
+
+
+def onboard3(request):
+    text = """T: Hello, Matthew. I’m hoping you can help me with something for a minute.
+        T: I know you did a dinosaur project with Mr. Jones last year in first grade. Can you tell me what you remember about dinosaurs and fossils?
+        S: I made a velociraptor like in Jurassic Park and I put feathers on mine. Mine was the only one like that!
+        T: That sounds really cool. Do you think there are still dinosaurs today?
+        S: No, they all died. 
+        T: How did that happen?
+        S: Umm... I’m not sure. Maybe humans needed more space?
+        T: Does that mean that humans and dinosaurs existed at the same time?
+        S: I guess so. Before the Ice Age, right?
+        T: I’ll be happy to tell you during class today.
+        S: Oh... Okay.
+        T: What do you know about fossils?
+        S: They’re leftovers of dead animals.
+        T: So a fossil of a bone is made of bone?
+        S: Yeah!
+        T: Can fossils be only of bones?
+        S: No... They can be of feathers, too, and seashells.
+        T: Very good. Is there any connection between fossils and extinct species?
+        S: Not really...
+        T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.
+        *bell rings*"""
+    messages = text.split("\n")
+    checked = []
+    if request.method == 'POST':
+        for item in request.POST:
+            if not item == "csrfmiddlewaretoken":
+                print(item)
+                checked.append(item)
+                u, c, n = item.split("_")
+                if request.user.is_authenticated:
+                    MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
+                else:
+                    MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard4","checked":checked})
+
+
+def onboard4(request):
+    text = """T: Hi, Sarah! Is it okay if I ask you a few questions about negative numbers before class? I want to get an idea of what you already know.
+        S: Okay, Mr. Thomas. What do you want to know?
+        T: Can you tell me what a negative number is?
+        S: It’s like if you owe someone something or have to give someone stuff. 
+        T: Very good. Do you know how to write a negative number?
+        S: Yeah, you just take the number and put a minus sign in front of it.
+        T: So, if I write “-3,” what does that mean?
+        S: It means negative three or that someone owes 3 of something.
+        T: That’s right. Is negative three more or less than zero?
+        S: Less. Because having nothing is better than owing someone stuff.
+        T: That’s right, Sarah. What about -2 and -3? Which do you think is bigger?
+        S: Well, 3 is bigger than 2, but I would rather owe someone 2 things than 3. So I’m not sure.
+        T: That’s very good thinking.
+        S: So which one is right?
+        T: I’ll tell you in class, okay?
+        S: Okay.
+        T: So what happens in we add -3 and 2?
+        S: Well, if you owe someone 3 apples and then get 2 apples, then you can give them away and only owe 1 apple. So -1, Mr. Thomas?
+        T: That’s right. What about if we add -3 and -2?
+        S: Well if you owe someone 3 apples and owe someone else 2 apples, then together you owe 5 apples. So -5.
+        T: Nice job! Thanks for talking to me, Sarah.
+        S: You’re welcome
         *bell rings*"""
     messages = text.split("\n")
     checked = []
