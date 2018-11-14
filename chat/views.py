@@ -187,11 +187,12 @@ def onboard1(request):
     checked = []
     if request.method == 'POST':
         for item in request.POST:
-            print(item)
-            checked.append(item)
-            u, c, n = item.split("_")
-            if request.user.is_authenticated:
-                MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
-            else:
-                MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
+            if not item == "csrfmiddlewaretoken":
+                print(item)
+                checked.append(item)
+                u, c, n = item.split("_")
+                if request.user.is_authenticated:
+                    MessageCode.objects.create(other_id="url: " + str(u)+" #"+str(n),code=c,user=request.user)
+                else:
+                    MessageCode.objects.create(other_id="url: " + str(u) + " #" + str(n), code=c)
     return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked})
