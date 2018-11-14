@@ -68,5 +68,13 @@
     <input onclick="onclick=window.location.href='{{ nextpage }}'" value="Continue" type="button">
 </p>
 </form>
+
+<script>
+    window.onload=function(){
+        {% for c in checked %}
+            document.querySelector('input[name={{ c }}]').checked = true;
+        {% endfor %}
+    }
+</script>
 </body>
 </html>

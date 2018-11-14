@@ -184,9 +184,11 @@ def onboard1(request):
         T: Interesting. N/A
         *bell rings*"""
     messages = text.split("\n")
-
+    checked = []
     if request.method == 'POST':
         for item in request.POST:
             print(item)
+            checked.append(item)
 
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/"})
+
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked})
