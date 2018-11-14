@@ -30,9 +30,9 @@
 
 
 
-            <td>
+            <td id="checkgroup">
                 {% if "T:" in m %}
-                    <div id="checkgroup">
+
                         <div class="checkbox">
                             <label for="priming{{ forloop.counter }}">Priming</label>
                             <input type="checkbox" name="priming" id="priming{{ forloop.counter }}" value="Priming">
@@ -53,7 +53,6 @@
                             <label for="tellling{{ forloop.counter }}">Telling</label>
                             <input type="checkbox" name="telling" id="telling{{ forloop.counter }}" value="Telling">
                         </div>
-                    </div>
                 </td>
             <br>
                 {% endif %}
