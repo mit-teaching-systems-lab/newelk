@@ -189,4 +189,4 @@ def onboard1(request):
         for item in request.POST:
             print(item)
 
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages})
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/"})
