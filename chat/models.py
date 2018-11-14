@@ -48,7 +48,8 @@ class ChatRoom(models.Model):
 
 class MessageCode(models.Model):
     message = models.ForeignKey(Message,on_delete=models.SET_NULL,null=True,blank=True)
-    other_id = models.CharField(max_length=50)
+    other_id = models.CharField(max_length=50,blank=True,null=True)
+    url = models.CharField(max_length=50,blank=True,null=True)
     code = models.CharField(max_length=50)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True)
 
