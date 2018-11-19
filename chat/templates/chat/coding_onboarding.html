@@ -51,6 +51,10 @@
                             <label for="tellling_{{ forloop.counter }}">Telling</label>
                             <input type="checkbox" name="{{ request.path }}_telling_{{ forloop.counter }}" id="telling_{{ forloop.counter }}" value="Telling">
                         </div>
+                        <div class="checkbox">
+                            <label for="none_{{ forloop.counter }}">None</label>
+                            <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
+                        </div>
                 </td>
                 {% else %}
                     <p></p>
@@ -73,6 +77,18 @@
         {% for c in checked %}
             document.querySelector('input[name="{{ c }}"]').checked = true;
         {% endfor %}
+        var nones = document.querySelectorAll('input[value="None"]');
+        for (n in nones) {
+            var num = n.id.split("_")[1]
+            n.onclick = function() {
+                document.querySelector('#priming'+str(num)).checked = false;
+                document.querySelector('#eliciting_'+str(num)).checked = false;
+                document.querySelector('#probing_'+str(num)).checked = false;
+                document.querySelector('#evaluating_'+str(num)).checked = false;
+                document.querySelector('#telling_'+str(num)).checked = false;
+            }
+        }
+
     }
 </script>
 
