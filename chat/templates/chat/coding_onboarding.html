@@ -90,7 +90,7 @@
                 }
             }
         });
-        var deselect = function(val) {
+        var buttonInitialize = function(val) {
             var group = document.querySelectorAll('input[value=' + val + ']');
             group.forEach(function (n) {
                 var num = n.id.split("_")[1]
@@ -101,6 +101,12 @@
                 }
             });
         }
+        buttonInitialize("Priming");
+        buttonInitialize("Eliciting");
+        buttonInitialize("Probing");
+        buttonInitialize("Evaluating");
+        buttonInitialize("Telling");
+
 
 
 
