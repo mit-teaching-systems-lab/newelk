@@ -95,10 +95,11 @@
             group.forEach(function (n) {
                 var num = n.id.split("_")[1]
                 n.onclick = function() {
-                if (n.checked) {
-                    document.querySelector('#none_' + String(num)).checked = false;
+                    if (n.checked) {
+                        document.querySelector('#none_' + String(num)).checked = false;
+                    }
                 }
-            }
+            });
         }
 
 
