@@ -78,16 +78,30 @@
             document.querySelector('input[name="{{ c }}"]').checked = true;
         {% endfor %}
         var nones = document.querySelectorAll('input[value="None"]');
-        for (n in nones) {
+        nones.forEach(function (n) {
             var num = n.id.split("_")[1]
             n.onclick = function() {
-                document.querySelector('#priming'+str(num)).checked = false;
-                document.querySelector('#eliciting_'+str(num)).checked = false;
-                document.querySelector('#probing_'+str(num)).checked = false;
-                document.querySelector('#evaluating_'+str(num)).checked = false;
-                document.querySelector('#telling_'+str(num)).checked = false;
+                if (n.checked) {
+                    document.querySelector('#priming_' + String(num)).checked = false;
+                    document.querySelector('#eliciting_' + String(num)).checked = false;
+                    document.querySelector('#probing_' + String(num)).checked = false;
+                    document.querySelector('#evaluating_' + String(num)).checked = false;
+                    document.querySelector('#telling_' + String(num)).checked = false;
+                }
+            }
+        });
+        var deselect = function(val) {
+            var group = document.querySelectorAll('input[value=' + val + ']');
+            group.forEach(function (n) {
+                var num = n.id.split("_")[1]
+                n.onclick = function() {
+                if (n.checked) {
+                    document.querySelector('#none_' + String(num)).checked = false;
+                }
             }
         }
+
+
 
     }
 </script>
