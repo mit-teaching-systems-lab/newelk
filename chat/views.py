@@ -145,6 +145,7 @@ def scenario_editor(request, pk):
                 new_scene.visible_to_players != scenario.visible_to_players
                 ):
                 scenario.visible_to_players = new_scene.visible_to_players
+                scenario.save()
                 return HttpResponseRedirect('/scenarios/chat/scenario/')
 
             new_scene.pk = None
