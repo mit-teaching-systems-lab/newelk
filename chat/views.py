@@ -123,6 +123,8 @@ def scenario_editor(request, pk):
     # If this is a POST request then process the Form data
     if request.method == 'POST':
 
+        questions = TFQuestion.objects.filter(scenario=scenario)
+
         # Create a form instance and populate it with data from the request (binding):
         # scenario_form = ScenarioForm(request.POST, instance=scenario)
         scenario_form = ScenarioForm(request.POST)
@@ -133,12 +135,27 @@ def scenario_editor(request, pk):
             # scenario.pk = None
             # scenario.save()
             print(request.POST)
+
             new_scene = scenario_form.save(commit=False)
+            if (new_scene.scenario_name == scenario.scenario_name and
+                new_scene.student_background == scenario.student_background and
+                new_scene.student_profile == scenario.student_profile and
+                new_scene.teacher_background == scenario.teacher_background and
+                new_scene.teacher_objective == scenario.teacher_objective and
+                new_scene.visible_to_players != scenario.visible_to_players
+                ):
+                scenario.visible_to_players = new_scene.visible_to_players
+                return HttpResponseRedirect('/scenarios/chat/scenario/')
+
             new_scene.pk = None
             new_scene.parent = scenario
             new_scene.save()
             scenario.visible_to_players = False
             scenario.save()
+
+            for q in questions:
+                q.scenario = new_scene
+                q.save()
 
             # Scenario.objects.rebuild()
             Scenario.objects.partial_rebuild(scenario.tree_id)
