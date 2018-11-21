@@ -179,6 +179,10 @@ def scenario_editor(request, pk):
 
     return render(request, 'chat/scenario_editor.html', context)
 
+def onboard_inst(request):
+    return render(request, 'chat/onboard_instructions.html')
+
+
 def onboard1(request):
     text = """T: What do you know about continents?
         S: There’s like... America... and England... and Africa... and maybe India?
