@@ -4,8 +4,76 @@
 
 {% block content %}
 
+<p>
+  In ELK, the third role is not one that would actually exist in a real-life conversation between a student and their teacher. 
+  This role, “the coder,” does not participate in the conversation, but rather assigns “codes,” or message types, 
+  to the teacher’s messages. The assigned codes will be used to give feedback to the teacher. Today, 
+  you will look at a few transcripts of conversations and code the teacher’s messages. In all transcripts, 
+  T is the teacher and S is the student, independent of their names. The codes and definitions are provided below. 
+</p>
+<br>
+<br>
+Each message can have any number of codes (0-5) attached to it. 
+<br>
+<ul>
+  <li> <em> Priming </em> - These are meta-messages set the context for the conversation. They might appear at the beginning
+    of the conversation or later to bring the conversation back to the topic/goal. Although useful, <em>Priming</em> messages should be
+    used in moderation. Some examples of <em>Priming</em> messages are:
+    <ul>
+      <li> Hi. Is it okay if I ask you a few questions about circles? </li>
+      <li> [after a student asks, “Is that right?”] I will tell you all about 
+        that during class today, but for now I just want to understand your ideas. </li>
+    </ul>
+  </li>
+  <li> <em> Eliciting </em> - These are questions that introduce a new topic or broaden the discussion (as opposed to follow-up 
+    questions that go deeper). For example, if the teacher is asking the student about circles, initial questions about the area or 
+    circumference would be <em>Eliciting</em> messages. Some examples of <em>Eliciting</em> messages are:
+    <ul>
+      <li> What do you know about the area of a circle? </li>
+      <li> Tell me what you remember about sentence structure. </li>
+    </ul>
+  </li>
+  <li> <em> Probing </em> - These are follow-up questions that go deeper into what the student thinks. It is often impossible to tell 
+    the difference between <em>Eliciting</em> and <em>Probing</em> messages without context. Some examples of <em>Probing</em> messages 
+    in context are:
+    <ul>
+      <li>From a conversation about circles: 
+        <ul>
+          <li>Teacher: What do you know about the circumference of a circle? <em>Eliciting</em> </li>
+          <li>Student: The circumference of a circle in 2𝜋r.</li>
+          <li>Teacher: What’s the circumference of a circle with diameter 6? <em>Probing</em> </li>
+        </ul>
+      </li>
+      <li>From a conversation about sentence structure:
+        <ul>
+          <li>Teacher: What do you know about word order? <em>Eliciting</em> </li>
+          <li>Student: The noun comes before the verb.</li>
+          <li>Teacher: Is this always true? Or are there ever nouns after verbs in a sentence? <em>Probing</em> </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li> <em> Evaluating </em> - These messages tell the student if they were right or wrong, either explicitly or implicitly. 
+    They often lead to <em>Telling</em> messages and distract the student from the goal of figuring out their preconceptions. Some 
+    examples of <em>Evaluating</em> messages are:
+    <ul>
+      <li>Nice!</li>
+      <li>Not quite.</li>
+      <li>That’s right.</li>
+      <li>You’re confusing the radius with the diameter. </li>
+    </ul>
+  </li>
+  <li> <em> Telling </em> - These are messages in which the teacher explains what’s true. While important during instruction, 
+    they are distracting while figuring out what the student already knew or believed. Some examples of <em>Telling</em> messages are:
+    <ul>
+      <li>The circumference of a circle in 2𝜋r.</li>
+      <li>You’re confusing the radius with the diameter. <em>Evaluating + Telling</em></li>
+    </ul>
+  </li>
+</ul>
+<p>Remember that each message can have anywhere between none to all the codes. For example, “That’s right! What do you remember 
+  about the area of a circle?” is both <em>Evaluating</em> because of the first part and <em>Eliciting</em> because of the second part.</p>
 
-some instructions here!
 
 <p>
 <input onclick="onclick=window.location.href='/chat/onboard1'" value="Continue" type="button">
