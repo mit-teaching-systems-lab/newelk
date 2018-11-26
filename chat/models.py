@@ -34,7 +34,7 @@ class TFQuestion(models.Model):
         default=True,
     )
     def __str__(self):
-        return "Scenario: " + self.scenario.scenario_name + " Q: " + self.question
+        return "Scenario: " + self.scenario.scenario_name + '  /  id:' + str(self.scenario.pk) +  "/ Q: " + self.question
 
 from research.models import Transcript, Message
 class ChatRoom(models.Model):
