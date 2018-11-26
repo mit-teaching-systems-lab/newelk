@@ -208,9 +208,11 @@ def onboard1(request):
         *bell rings*"""
     messages = text.split("\n")
     checked = []
+    submitted = False
     if request.method == 'POST':
         checked = process_codes(request)
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard2","checked":checked})
+        submitted = True
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard2","checked":checked,"submitted":submitted})
 
 
 def onboard2(request):
@@ -235,9 +237,11 @@ def onboard2(request):
         *bell rings*"""
     messages = text.split("\n")
     checked = []
+    submitted = False
     if request.method == 'POST':
         checked = process_codes(request)
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard3","checked":checked})
+        submitted = True
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard3","checked":checked,"submitted":submitted})
 
 
 def onboard3(request):
@@ -264,9 +268,11 @@ def onboard3(request):
         *bell rings*"""
     messages = text.split("\n")
     checked = []
+    submitted = False
     if request.method == 'POST':
         checked = process_codes(request)
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard4","checked":checked})
+        submitted = True
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard4","checked":checked,"submitted":submitted})
 
 
 def onboard4(request):
@@ -295,6 +301,8 @@ def onboard4(request):
         *bell rings*"""
     messages = text.split("\n")
     checked = []
+    submitted = False
     if request.method == 'POST':
         checked = process_codes(request)
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked})
+        submitted = True
+    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked,"submitted":submitted})

@@ -71,12 +71,22 @@ Remember that each message has any number of codes attached to it.
 
 {% endfor %}
 </table>
+
+{% if submitted %}
 <P>
-    <INPUT TYPE="SUBMIT" VALUE="Submit">
+    <INPUT TYPE="SUBMIT" VALUE="Submit" disabled>
 </P>
 <p>
     <input onclick="onclick=window.location.href='{{ nextpage }}'" value="Continue" type="button">
 </p>
+{% else %}
+<P>
+    <INPUT TYPE="SUBMIT" VALUE="Submit">
+</P>
+<p>
+    <input onclick="onclick=window.location.href='{{ nextpage }}'" value="Continue" type="button" disabled>
+</p>
+{% endif %}
 </form>
 
 <script>
