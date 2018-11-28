@@ -64,7 +64,7 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
                         </div>
                         <div class="checkbox">
-                            <input onclick="document.reportResult({{ forloop.counter }}, {{ m.1 }})" value="Submit" type="button">
+                            <input onclick="document.reportResult({{ forloop.counter }}, '{{ m.1 }}')" value="Submit" type="button">
                         </div>
                 </td>
                 {% else %}
