@@ -153,6 +153,20 @@ Remember that each message has any number of codes attached to it.
                 feedbackbox.textContent = "We thought " + feedback;
             }
             // xhr
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
             var sendData = function(id, code) {
                 var xhr = new XMLHttpRequest()
                 xhr.onreadystatechange = function() {
@@ -162,6 +176,7 @@ Remember that each message has any number of codes attached to it.
                   }
                 xhr.open('POST','/api/messagecode/')
                 xhr.setRequestHeader('content-type','application/json')
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
                 var data = { 'url' : window.location.pathname,
                  'other_id' : num,
                  'code' : code
