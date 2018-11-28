@@ -214,6 +214,7 @@ def onboard1(request):
     feedback = []
     for line in lines:
         item = line.split(";")
+        print(item)
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
