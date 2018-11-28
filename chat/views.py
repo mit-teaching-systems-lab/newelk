@@ -201,7 +201,7 @@ def onboard1(request):
         answers.append(item[1])
         feedback.append(item[2])
 
-    return render(request, 'chat/coding_onboarding.html', {"message":zip(messages,answers,feedback),"nextpage":"/chat/onboard2"})
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard2"})
 
 
 def onboard2(request):
