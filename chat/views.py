@@ -197,9 +197,26 @@ def onboard_inst(request):
 
 def onboard1(request):
     text = """T: What do you know about continents?;eliciting;Eliciting because this is the first question on the topic of continents
-    S: There’s like... America... and England... and Africa... and maybe India?;;
-    T: Well, some of those are continents.;evaluating;Evaluating because this is a rephrasing of “Partially correct,” a way of telling students if they are correct.
-    S: I know that there are 7 continents!;;"""
+        S: There’s like... America... and England... and Africa... and maybe India?;;
+        T: Well, some of those are continents.;evaluating;Evaluating because this is a rephrasing of “Partially correct,” a way of telling students if they are correct.
+        S: I know that there are 7 continents!;;
+        T: Very good. What do you know about oceans?;evaluating,eliciting;Evaluating and Eliciting because “Very good” tells the student that they are correct and then there is a question asked on a new topic, oceans. 
+        S: There’s the Atlantic Ocean, that’s the one I go swimming in sometimes.;;
+        T: That’s right.;evaluating;Evaluating because it simply tells the student that they are correct
+        S: And there’s the Pacific Ocean, that’s on the other side of the country.;;
+        T: Yep.;evaluating;Evaluating because it tell the student they are correct OR None because it conveys that the teacher heard and acknowledges what the student said without telling the student if they are correct. 
+        S: Polar bears live in the Arctic Ocean so that’s another one. I think there’s one more, but I don’t remember what it is.
+        T: You’re probably thinking of the Indian Ocean.;telling;Telling because here the teacher directly gives the student a piece of information they did not recall. 
+        S: Oh, okay. Does that mean India is not a continent?
+        T: No, it isn’t, but that’s okay.;evaluating;Evaluating because “No, it isn’t” tells the student they are incorrect. 
+        T: Do you know what countries border the mainland United States?;eliciting;Eliciting because this a question on a topic (bordering countries) which has not been asked about before. 
+        S: There’s Canada to the north and Mexico to the south.
+        T: Very good. What about Hawaii?;evaluating,probing;Evaluating and Probing because the teacher starts out by letting the student know that they are correct and then asks a question on the same topic (bordering countries) as before.
+        S: That’s an island in the Pacific Ocean.
+        T: I see. What about Alaska?;probing;Probing because the question is once again a follow-up question on bordering countries.  “I see” doesn’t tell the student whether they are correct, just that the teacher heard them so doesn’t get a code. 
+        S: That’s also an island... somewhere.
+        T: Interesting.;none;None because this once again doesn’t tell the student whether they are correct. 
+        *bell rings*"""
 
     lines = text.split("\n")
     messages = []
