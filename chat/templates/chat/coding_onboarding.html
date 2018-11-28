@@ -148,12 +148,13 @@ Remember that each message has any number of codes attached to it.
             var feedbackbox = document.querySelector('#feedbackbox_' + String(num))
 
             if (priming && eliciting && probing && evaluating && telling && none) {
-                feedbackbox.textContent = "That's what we think too. " + feedback;
+                feedbackbox.textContent = "We agree! We thought " + feedback;
             } else {
-                feedbackbox.textContent = feedback
+                feedbackbox.textContent = "We thought " + feedback;
             }
             // xhr
-            <!--alert('hi')-->
+
+
             // disable buttons & checkboxes
             document.querySelector('#submit_' + String(num)).disabled = true
             primingbox.disabled = true
