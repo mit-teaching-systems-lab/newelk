@@ -18,12 +18,12 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
 
-    class MessageCodeViewSet(viewsets.ModelViewSet):
-        """
-        API endpoint that allows users to be viewed or edited.
-        """
-        queryset = ChatRoom.objects.all()
-        serializer_class = MessageCodeSerializer
+class MessageCodeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = MessageCode.objects.all()
+    serializer_class = MessageCodeSerializer
 
 
 def select_role(request):
