@@ -153,6 +153,23 @@ Remember that each message has any number of codes attached to it.
                 feedbackbox.textContent = "We thought " + feedback;
             }
             // xhr
+            var sendData = function(id, code) {
+                var xhr = new XMLHttpRequest()
+                xhr.open('POST','/api/messagecode/')
+                xhr.setRequestHeader('content-type','application/json')
+                var data = { 'url' : window.location.pathname,
+                 'other_id' : num,
+                 'code' : code
+                 }
+                xhr.send(JSON.stringify(data))
+            }
+
+            if (priming) { sendData(num, "priming") }
+            if (eliciting) { sendData(num, "eliciting") }
+            if (probing) { sendData(num, "probing") }
+            if (evaluating) { sendData(num, "evaluating") }
+            if (telling) { sendData(num, "telling") }
+            if (none) { sendData(num, "none") }
 
 
             // disable buttons & checkboxes

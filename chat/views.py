@@ -24,6 +24,9 @@ class MessageCodeViewSet(viewsets.ModelViewSet):
     """
     queryset = MessageCode.objects.all()
     serializer_class = MessageCodeSerializer
+    def perform_create(self, serializer):
+        user = self.request.user if self.request.user else None
+        serializer.save(user=user)
 
 
 def select_role(request):
