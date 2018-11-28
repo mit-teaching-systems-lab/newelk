@@ -31,7 +31,7 @@ Remember that each message has any number of codes attached to it.
         .feedbackbox {
             display: flex;
             flex-direction: row;
-            text-align: center;
+            justify-content: center
 
 </style>
 
@@ -79,8 +79,8 @@ Remember that each message has any number of codes attached to it.
             </td>
         </tr>
         <tr style='border-top:none'>
-            <td class="feedbackbox">
-                this is a test data goes here
+            <td class="feedbackbox" id="feedbackbox_{{ forloop.counter }}">
+
             </td>
         </tr>
 
@@ -143,11 +143,13 @@ Remember that each message has any number of codes attached to it.
             var evaluating = evaluatingbox.checked == answer.includes("evaluating");
             var telling = tellingbox.checked == answer.includes("telling");
             var none = nonebox.checked == answer.includes("none");
-            console.log('ok')
+
+            var feedbackbox = document.querySelector('#feedbackbox_' + String(num))
+
             if (priming && eliciting && probing && evaluating && telling && none) {
-                alert("That's what we think too.")
+                feedbackbox.textContent = "That's what we think too."
             } else {
-                alert(feedback)
+                feedbackbox.textContent = feedback
             }
             // xhr
             <!--alert('hi')-->
