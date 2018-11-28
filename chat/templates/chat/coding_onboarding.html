@@ -21,6 +21,7 @@ Remember that each message has any number of codes attached to it.
             flex-direction: row;
             text-align: center;
             justify-content: space-evenly;
+            align-items: center;
         }
 
         .checkbox label {
@@ -63,7 +64,6 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
                         </div>
                         <div class="checkbox">
-                            <br>
                             <input onclick="alert('hello')" value="Submit" type="button">
                         </div>
                 </td>
