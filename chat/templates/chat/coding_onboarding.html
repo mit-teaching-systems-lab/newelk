@@ -64,7 +64,7 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
                         </div>
                         <div class="checkbox">
-                            <input onclick="document.reportResult({{ forloop.counter }}, '{{ m.1 }}')" value="Submit" type="button" id="submit_{{ forloop.counter }}">
+                            <input onclick="document.reportResult({{ forloop.counter }},'{{ m.1 }}','{{ m.2 }}')" value="Submit" type="button" id="submit_{{ forloop.counter }}">
                         </div>
                 </td>
                 {% else %}
@@ -115,7 +115,7 @@ Remember that each message has any number of codes attached to it.
         buttonInitialize("Evaluating");
         buttonInitialize("Telling");
 
-        document.reportResult = function (num, answer) {
+        document.reportResult = function (num, answer, feedback) {
             // check against results
             console.log(num)
             console.log(answer)
@@ -134,9 +134,9 @@ Remember that each message has any number of codes attached to it.
             var none = nonebox.checked == answer.includes("none");
             console.log('ok')
             if (priming && eliciting && probing && evaluating && telling && none) {
-                alert('correct')
+                <!--alert('correct')-->
             } else {
-                alert('wrong')
+                alert(feedback)
             }
             // xhr
             <!--alert('hi')-->
