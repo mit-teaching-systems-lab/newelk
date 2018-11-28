@@ -234,22 +234,22 @@ def onboard1(request):
 
 def onboard2(request):
     text = """T: Hi! Do you know what we are learning today?;priming;Priming because this introduces what the topic of conversation will be about.
-        S: Something about writing sentences?
+        S: Something about writing sentences?;;
         T: What do you know about parts of speech?;eliciting;Eliciting because it is the first question on the topic that the teacher wants to know about. 
-        S: I know that there are nouns, which are things, and verbs, which are actions, and description words, but I don’t remember what they are called.
+        S: I know that there are nouns, which are things, and verbs, which are actions, and description words, but I don’t remember what they are called.;;
         T: Very good. Can you tell me more about nouns? Is “school” a noun?;evaluating,probing;Evaluating and Probing because “very good” tells the student that they are correct and the question directly asks about what the student just said and so is a follow-up question. 
-        S: Yeah, a school is a type of thing.
+        S: Yeah, a school is a type of thing.;;
         T: What about “idea” or “Eastern High School”? Are they nouns?;probing;Probing because this question is meant to expand more on what the student thinks of nouns. 
-        S: Idea is a thing, so yeah. But Eastern High School isn’t a noun because it’s capitalized.
-        T: Not quite.;evaluating;Evaluating because it tells the student whether they were correct. 
-        S: What did I get wrong?
+        S: Idea is a thing, so yeah. But Eastern High School isn’t a noun because it’s capitalized.;;
+        T: Not quite.;evaluating;Evaluating because it tells the student whether they were correct.
+        S: What did I get wrong?;;
         T: Nouns can be capitalized. “Eastern High School” is a ‘thing,’ right? Capitalized nouns are called proper nouns.;telling;Telling because this sentence directly tells the student information about the topic of discussion (parts of speech/nouns).
-        S: Okay
+        S: Okay;;
         T: Do all words have a part of speech?;eliciting;Eliciting because this is a question about a “sub-topic” of parts of speech that has not been asked about before. 
-        S: I don’t know
+        S: I don’t know;;
         T: Okay.;none;None because this is not asking anything or giving the student any information, but rather an acknowledgement of having heard the student. 
         T: Let’s look at the sentence “I quickly ate a delicious cupcake.” What words can you classify as parts of speech?;eliciting;Eliciting because this asks about a different subtopic in parts of speech, namely the skill of identifying specific words as parts of speech. 
-        S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?
+        S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?;;
         T: I’m not going to answer that right now because I would like to know what you remember before class starts.;priming;Priming because this is a ‘meta-comment’ about what the purpose of the conversation is and doesn’t directly touch the topic of discussion, parts of speech. 
         *bell rings*"""
     lines = text.split("\n")
