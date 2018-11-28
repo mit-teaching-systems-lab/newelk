@@ -28,16 +28,16 @@ Remember that each message has any number of codes attached to it.
         }
 </style>
 
-<form lang="en" METHOD="POST">
-{% csrf_token %}
+<!--<form lang="en" METHOD="POST">-->
+<!--{% csrf_token %}-->
 <table style="width:100%" cellpadding="10">
 <col width="60%">
 <col width="40%">
     {% for m in messages %}
         <tr>
-            <td>{{ m }}</td>
+            <td>{{ m.0 }}</td>
             <td id="checkgroup">
-                {% if "T:" in m %}
+                {% if "T:" in m.0 %}
                         <div class="checkbox">
                             <label for="priming_{{ forloop.counter }}">Priming</label>
                             <input type="checkbox" name="{{ request.path }}_priming_{{ forloop.counter }}" id="priming_{{ forloop.counter }}" value="Priming">
@@ -55,12 +55,15 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_evaluating_{{ forloop.counter }}" id="evaluating_{{ forloop.counter }}" value="Evaluating">
                         </div>
                         <div class="checkbox">
-                            <label for="tellling_{{ forloop.counter }}">Telling</label>
+                            <label for="telling_{{ forloop.counter }}">Telling</label>
                             <input type="checkbox" name="{{ request.path }}_telling_{{ forloop.counter }}" id="telling_{{ forloop.counter }}" value="Telling">
                         </div>
                         <div class="checkbox">
                             <label for="none_{{ forloop.counter }}">None</label>
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
+                        </div>
+                        <div>
+                            <input onclick="alert('hello')" value="Submit" type="button">
                         </div>
                 </td>
                 {% else %}
@@ -72,28 +75,17 @@ Remember that each message has any number of codes attached to it.
 {% endfor %}
 </table>
 
-{% if submitted %}
-<P>
-    <INPUT TYPE="SUBMIT" VALUE="Submit" disabled>
-</P>
 <p>
     <input onclick="onclick=window.location.href='{{ nextpage }}'" value="Continue" type="button">
 </p>
-{% else %}
-<P>
-    <INPUT TYPE="SUBMIT" VALUE="Submit">
-</P>
-<p>
-    <input onclick="onclick=window.location.href='{{ nextpage }}'" value="Continue" type="button" disabled>
-</p>
-{% endif %}
+
 </form>
 
 <script>
     window.onload=function(){
-        {% for c in checked %}
-            document.querySelector('input[name="{{ c }}"]').checked = true;
-        {% endfor %}
+        <!--{% for c in checked %}-->
+            <!--document.querySelector('input[name="{{ c }}"]').checked = true;-->
+        <!--{% endfor %}-->
         var nones = document.querySelectorAll('input[value="None"]');
         nones.forEach(function (n) {
             var num = n.id.split("_")[1]
