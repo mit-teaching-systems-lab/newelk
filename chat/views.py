@@ -251,7 +251,7 @@ def onboard2(request):
         T: Let’s look at the sentence “I quickly ate a delicious cupcake.” What words can you classify as parts of speech?;eliciting;Eliciting because this asks about a different subtopic in parts of speech, namely the skill of identifying specific words as parts of speech. 
         S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?;;
         T: I’m not going to answer that right now because I would like to know what you remember before class starts.;priming;Priming because this is a ‘meta-comment’ about what the purpose of the conversation is and doesn’t directly touch the topic of discussion, parts of speech. 
-        *bell rings*"""
+        *bell rings*;;"""
     lines = text.split("\n")
     messages = []
     answers = []
@@ -268,25 +268,25 @@ def onboard2(request):
 def onboard3(request):
     text = """T: Hello, Matthew. I’m hoping you can help me with something for a minute.;priming;Priming because this is a meta-message that starts setting the tone for the conversation
         T: I know you did a dinosaur project with Mr. Jones last year in first grade. Can you tell me what you remember about dinosaurs and fossils?;priming,eliciting;Priming and Eliticing because the first sentence is another meta-message setting the tone and the question is the first question about dinosaurs and fossils. 
-        S: I made a velociraptor like in Jurassic Park and I put feathers on mine. Mine was the only one like that!
+        S: I made a velociraptor like in Jurassic Park and I put feathers on mine. Mine was the only one like that!;;
         T: That sounds really cool. Do you think there are still dinosaurs today?;probing;Probing because the first comment does not fit any category and the question is a follow-up to asking about dinosaurs. 
-        S: No, they all died. 
+        S: No, they all died.;;
         T: How did that happen?;probing;Probing because this is a follow up question to what was just said. 
-        S: Umm... I’m not sure. Maybe humans needed more space?
+        S: Umm... I’m not sure. Maybe humans needed more space?;;
         T: Does that mean that humans and dinosaurs existed at the same time?;probing;Probing because this is a follow-up question to what was just said.
-        S: I guess so. Before the Ice Age, right?
+        S: I guess so. Before the Ice Age, right?;;
         T: I’ll be happy to tell you during class today.;priming;Priming because this is a meta-message (i.e. not about dinosaurs) that sets the context of the conversation.
-        S: Oh... Okay.
+        S: Oh... Okay.;;
         T: What do you know about fossils?;eliciting;Eliciting because this is the first question asked about fossils. 
-        S: They’re leftovers of dead animals.
+        S: They’re leftovers of dead animals.;;
         T: So a fossil of a bone is made of bone?;probing;Probing because this is a follow-up question. 
-        S: Yeah!
+        S: Yeah!;;
         T: Can fossils be only of bones?;probing;Probing because this is a follow-up question. 
-        S: No... They can be of feathers, too, and seashells.
+        S: No... They can be of feathers, too, and seashells.;;
         T: Very good. Is there any connection between fossils and extinct species?;evaluating,probing;Evaluating and Probing because “very good” tell the student they were right and the question asks more details about fossils which were previously asked about
-        S: Not really...
+        S: Not really...;;
         T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.;priming;Priming because this is a meta-message about the conversation and what it was for. 
-        *bell rings*"""
+        *bell rings*;;"""
     lines = text.split("\n")
     messages = []
     answers = []
@@ -301,27 +301,27 @@ def onboard3(request):
 
 
 def onboard4(request):
-    text = """T: Hi, Sarah! Is it okay if I ask you a few questions about negative numbers before class? I want to get an idea of what you already know.
+    text = """T: Hi, Sarah! Is it okay if I ask you a few questions about negative numbers before class? I want to get an idea of what you already know. Priming because this is a meta-message telling the student what you will be discussing
         S: Okay, Mr. Thomas. What do you want to know?
-        T: Can you tell me what a negative number is?
+        T: Can you tell me what a negative number is? Eliciting because this is the first question about the definition of a negative number
         S: It’s like if you owe someone something or have to give someone stuff. 
-        T: Very good. Do you know how to write a negative number?
+        T: Very good. Do you know how to write a negative number? Evaluating and Eliciting because this tells the student they were right and then asks the first question about how negative numbers are written
         S: Yeah, you just take the number and put a minus sign in front of it.
-        T: So, if I write “-3,” what does that mean?
+        T: So, if I write “-3,” what does that mean? Probing because this is a follow-up question about how negative numbers are written
         S: It means negative three or that someone owes 3 of something.
-        T: That’s right. Is negative three more or less than zero?
+        T: That’s right. Is negative three more or less than zero? Evaluating and Eliciting because this tells the student they are correct and then asks about comparing negative numbers
         S: Less. Because having nothing is better than owing someone stuff.
-        T: That’s right, Sarah. What about -2 and -3? Which do you think is bigger?
+        T: That’s right, Sarah. What about -2 and -3? Which do you think is bigger? Evaluating and Probing because this tells the student that they are right and then asks a follow-up question about comparing negative numbers
         S: Well, 3 is bigger than 2, but I would rather owe someone 2 things than 3. So I’m not sure.
-        T: That’s very good thinking.
+        T: That’s very good thinking. Evaluating. 
         S: So which one is right?
-        T: I’ll tell you in class, okay?
+        T: I’ll tell you in class, okay? Priming because this reminds the student of the context for the conversation
         S: Okay.
-        T: So what happens in we add -3 and 2?
+        T: So what happens in we add -3 and 2? Eliciting because this is the first question about adding negative numbers.
         S: Well, if you owe someone 3 apples and then get 2 apples, then you can give them away and only owe 1 apple. So -1, Mr. Thomas?
-        T: That’s right. What about if we add -3 and -2?
+        T: That’s right. What about if we add -3 and -2? Evaluating and Probing because this first tells the student they are correct and then asks a follow-up question about adding negative numbers.
         S: Well if you owe someone 3 apples and owe someone else 2 apples, then together you owe 5 apples. So -5.
-        T: Nice job! Thanks for talking to me, Sarah.
+        T: Nice job! Thanks for talking to me, Sarah. Evaluating and Priming because it firsts tells the student they are correct and the reminds the student of the context.
         S: You’re welcome
         *bell rings*"""
     lines = text.split("\n")
