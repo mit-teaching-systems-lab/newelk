@@ -117,6 +117,8 @@ Remember that each message has any number of codes attached to it.
 
         document.reportResult = function (num, answer) {
             // check against results
+            console.log(num)
+            console.log(answer)
             var priming = document.querySelector('#priming_' + String(num)).checked == answer.includes("priming");
             var eliciting = document.querySelector('#eliciting_' + String(num)).checked == answer.includes("eliciting");
             var probing = document.querySelector('#probing_' + String(num)).checked == answer.includes("probing");
