@@ -167,8 +167,9 @@ Remember that each message has any number of codes attached to it.
                  'code' : code
                  }
                 var datastring = JSON.stringify(data)
+                console.log(datastring)
                 xhr.send(datastring)
-                console.log(
+
             }
 
             if (primingbox.checked) { sendData(num, "priming") }
