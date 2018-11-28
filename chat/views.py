@@ -4,7 +4,7 @@ import json
 from .models import Scenario, TFQuestion, ChatRoom, MessageCode
 from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
-from .serializers import ChatRoomSerializer
+from .serializers import ChatRoomSerializer, MessageCodeSerializer
 from django.shortcuts import get_object_or_404
 from .forms import ScenarioForm
 from django.http import HttpResponseRedirect
@@ -17,6 +17,14 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     """
     queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
+
+    class MessageCodeViewSet(viewsets.ModelViewSet):
+        """
+        API endpoint that allows users to be viewed or edited.
+        """
+        queryset = ChatRoom.objects.all()
+        serializer_class = MessageCodeSerializer
+
 
 def select_role(request):
     if not request.user.is_authenticated:
