@@ -84,9 +84,7 @@ Remember that each message has any number of codes attached to it.
 
 <script>
     window.onload=function(){
-        <!--{% for c in checked %}-->
-            <!--document.querySelector('input[name="{{ c }}"]').checked = true;-->
-        <!--{% endfor %}-->
+        
         var nones = document.querySelectorAll('input[value="None"]');
         nones.forEach(function (n) {
             var num = n.id.split("_")[1]
@@ -117,7 +115,7 @@ Remember that each message has any number of codes attached to it.
         buttonInitialize("Evaluating");
         buttonInitialize("Telling");
 
-        var reportResult = function (id, answer) {
+        var reportResult = function (num, answer) {
             // check against results
             var priming = document.querySelector('#priming_' + String(num)).checked == answer.includes("priming");
             var eliciting = document.querySelector('#eliciting_' + String(num)).checked == answer.includes("eliciting");
