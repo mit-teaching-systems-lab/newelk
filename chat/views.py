@@ -216,7 +216,7 @@ def onboard1(request):
         T: I see. What about Alaska?;probing;Probing because the question is once again a follow-up question on bordering countries.  “I see” doesn’t tell the student whether they are correct, just that the teacher heard them so doesn’t get a code. 
         S: That’s also an island... somewhere.;;
         T: Interesting.;none;None because this once again doesn’t tell the student whether they are correct. 
-        *bell rings*"""
+        *bell rings*;;"""
 
     lines = text.split("\n")
     messages = []
