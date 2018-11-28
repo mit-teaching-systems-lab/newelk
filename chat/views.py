@@ -301,29 +301,29 @@ def onboard3(request):
 
 
 def onboard4(request):
-    text = """T: Hi, Sarah! Is it okay if I ask you a few questions about negative numbers before class? I want to get an idea of what you already know. Priming because this is a meta-message telling the student what you will be discussing
-        S: Okay, Mr. Thomas. What do you want to know?
-        T: Can you tell me what a negative number is? Eliciting because this is the first question about the definition of a negative number
-        S: It’s like if you owe someone something or have to give someone stuff. 
-        T: Very good. Do you know how to write a negative number? Evaluating and Eliciting because this tells the student they were right and then asks the first question about how negative numbers are written
-        S: Yeah, you just take the number and put a minus sign in front of it.
-        T: So, if I write “-3,” what does that mean? Probing because this is a follow-up question about how negative numbers are written
-        S: It means negative three or that someone owes 3 of something.
-        T: That’s right. Is negative three more or less than zero? Evaluating and Eliciting because this tells the student they are correct and then asks about comparing negative numbers
-        S: Less. Because having nothing is better than owing someone stuff.
-        T: That’s right, Sarah. What about -2 and -3? Which do you think is bigger? Evaluating and Probing because this tells the student that they are right and then asks a follow-up question about comparing negative numbers
-        S: Well, 3 is bigger than 2, but I would rather owe someone 2 things than 3. So I’m not sure.
-        T: That’s very good thinking. Evaluating. 
-        S: So which one is right?
-        T: I’ll tell you in class, okay? Priming because this reminds the student of the context for the conversation
-        S: Okay.
-        T: So what happens in we add -3 and 2? Eliciting because this is the first question about adding negative numbers.
-        S: Well, if you owe someone 3 apples and then get 2 apples, then you can give them away and only owe 1 apple. So -1, Mr. Thomas?
-        T: That’s right. What about if we add -3 and -2? Evaluating and Probing because this first tells the student they are correct and then asks a follow-up question about adding negative numbers.
-        S: Well if you owe someone 3 apples and owe someone else 2 apples, then together you owe 5 apples. So -5.
-        T: Nice job! Thanks for talking to me, Sarah. Evaluating and Priming because it firsts tells the student they are correct and the reminds the student of the context.
-        S: You’re welcome
-        *bell rings*"""
+    text = """T: Hi, Sarah! Is it okay if I ask you a few questions about negative numbers before class? I want to get an idea of what you already know.;priming;Priming because this is a meta-message telling the student what you will be discussing
+        S: Okay, Mr. Thomas. What do you want to know?;;
+        T: Can you tell me what a negative number is?;eliciting;Eliciting because this is the first question about the definition of a negative number
+        S: It’s like if you owe someone something or have to give someone stuff. ;;
+        T: Very good. Do you know how to write a negative number?;evaluating,eliciting;Evaluating and Eliciting because this tells the student they were right and then asks the first question about how negative numbers are written
+        S: Yeah, you just take the number and put a minus sign in front of it.;;
+        T: So, if I write “-3,” what does that mean?;probing;Probing because this is a follow-up question about how negative numbers are written
+        S: It means negative three or that someone owes 3 of something.;;
+        T: That’s right. Is negative three more or less than zero?;evaluating,eliciting;Evaluating and Eliciting because this tells the student they are correct and then asks about comparing negative numbers
+        S: Less. Because having nothing is better than owing someone stuff.;;
+        T: That’s right, Sarah. What about -2 and -3? Which do you think is bigger?;evaluating,probing;Evaluating and Probing because this tells the student that they are right and then asks a follow-up question about comparing negative numbers
+        S: Well, 3 is bigger than 2, but I would rather owe someone 2 things than 3. So I’m not sure.;;
+        T: That’s very good thinking.;evaluating;Evaluating because it tells the student whether they are right. None might make sense too because it fits none of the categories.
+        S: So which one is right?;;
+        T: I’ll tell you in class, okay?;priming;Priming because this reminds the student of the context for the conversation
+        S: Okay.;;
+        T: So what happens in we add -3 and 2?;eliciting;Eliciting because this is the first question about adding negative numbers.
+        S: Well, if you owe someone 3 apples and then get 2 apples, then you can give them away and only owe 1 apple. So -1, Mr. Thomas?;;
+        T: That’s right. What about if we add -3 and -2?;evaluating,probing;Evaluating and Probing because this first tells the student they are correct and then asks a follow-up question about adding negative numbers.
+        S: Well if you owe someone 3 apples and owe someone else 2 apples, then together you owe 5 apples. So -5.;;
+        T: Nice job! Thanks for talking to me, Sarah.;evaluating,priming;Evaluating and Priming because it firsts tells the student they are correct and the reminds the student of the context.
+        S: You’re welcome.;;
+        *bell rings*;;"""
     lines = text.split("\n")
     messages = []
     answers = []
