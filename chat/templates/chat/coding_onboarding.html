@@ -71,7 +71,7 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
                         </div>
                         <div class="checkbox">
-                            <input onclick="document.reportResult({{ forloop.counter }},'{{ m.1 }}','{{ m.2 }}')" value="Submit" type="button" id="submit_{{ forloop.counter }}">
+                            <input onclick="document.reportResult({{ forloop.counter }},'{{ m.1 }}','{{ m.2 }}')" value="Submit" type="button" id="submit_{{ forloop.counter }}" disabled>
                         </div>
                 </td>
                 {% else %}
@@ -107,6 +107,7 @@ Remember that each message has any number of codes attached to it.
                     document.querySelector('#probing_' + String(num)).checked = false;
                     document.querySelector('#evaluating_' + String(num)).checked = false;
                     document.querySelector('#telling_' + String(num)).checked = false;
+                    document.querySelector('#submit_' + String(num)).disabled = false;
                 }
             }
         });
@@ -117,6 +118,7 @@ Remember that each message has any number of codes attached to it.
                 n.onclick = function() {
                     if (n.checked) {
                         document.querySelector('#none_' + String(num)).checked = false;
+                        document.querySelector('#submit_' + String(num)).disabled = false;
                     }
                 }
             });
