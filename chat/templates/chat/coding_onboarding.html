@@ -31,7 +31,8 @@ Remember that each message has any number of codes attached to it.
         .feedbackbox {
             display: flex;
             flex-direction: row;
-            justify-content: center
+            justify-content: center;
+            align-items: center;
 
 </style>
 
@@ -147,7 +148,7 @@ Remember that each message has any number of codes attached to it.
             var feedbackbox = document.querySelector('#feedbackbox_' + String(num))
 
             if (priming && eliciting && probing && evaluating && telling && none) {
-                feedbackbox.textContent = "That's what we think too."
+                feedbackbox.textContent = "That's what we think too. " + feedback;
             } else {
                 feedbackbox.textContent = feedback
             }
