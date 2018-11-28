@@ -186,9 +186,9 @@ def onboard_inst(request):
 
 def onboard1(request):
     text = """T: What do you know about continents?;eliciting;Eliciting because this is the first question on the topic of continents
-    S: There’s like... America... and England... and Africa... and maybe India?
+    S: There’s like... America... and England... and Africa... and maybe India?;;
     T: Well, some of those are continents.;evaluating;Evaluating because this is a rephrasing of “Partially correct,” a way of telling students if they are correct.
-    S: I know that there are 7 continents!
+    S: I know that there are 7 continents!;;
     # T: Very good. What do you know about oceans? Evaluating and Eliciting because “Very good” tells the student that they are correct and then there is a question asked on a new topic, oceans. 
     # S: There’s the Atlantic Ocean, that’s the one I go swimming in sometimes.
     # T: That’s right. Evaluating because it simply tells the student that they are correct
