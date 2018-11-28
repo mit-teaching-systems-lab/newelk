@@ -64,7 +64,7 @@ Remember that each message has any number of codes attached to it.
                             <input type="checkbox" name="{{ request.path }}_none_{{ forloop.counter }}" id="none_{{ forloop.counter }}" value="None">
                         </div>
                         <div class="checkbox">
-                            <input onclick="alert('hello')" value="Submit" type="button">
+                            <input onclick="reportResult({{ forloop.counter }}, m.1)" value="Submit" type="button">
                         </div>
                 </td>
                 {% else %}
@@ -117,7 +117,23 @@ Remember that each message has any number of codes attached to it.
         buttonInitialize("Evaluating");
         buttonInitialize("Telling");
 
+        var reportResult = function (id, answer) {
+            // check against results
+            var priming = document.querySelector('#priming_' + String(num)).checked == answer.includes("priming");
+            var eliciting = document.querySelector('#eliciting_' + String(num)).checked == answer.includes("eliciting");
+            var probing = document.querySelector('#probing_' + String(num)).checked == answer.includes("probing");
+            var evaluating = document.querySelector('#evaluating_' + String(num)).checked == answer.includes("evaluating");
+            var telling = document.querySelector('#telling_' + String(num)).checked == answer.includes("telling");
+            var none = document.querySelector('#none_' + String(num)).checked == answer.includes("none");
+            if (priming && eliciting && probing && evaluating  && telling) {
+                alert('correct')
+            } else {
+                alert('wrong')
+            }
+            // xhr
 
+            // disable buttons & checkboxes
+        }
 
 
     }
