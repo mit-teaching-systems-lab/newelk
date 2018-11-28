@@ -155,21 +155,28 @@ Remember that each message has any number of codes attached to it.
             // xhr
             var sendData = function(id, code) {
                 var xhr = new XMLHttpRequest()
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                      console.log(xhr.response);
+                    }
+                  }
                 xhr.open('POST','/api/messagecode/')
                 xhr.setRequestHeader('content-type','application/json')
                 var data = { 'url' : window.location.pathname,
                  'other_id' : num,
                  'code' : code
                  }
-                xhr.send(JSON.stringify(data))
+                var datastring = JSON.stringify(data)
+                xhr.send(datastring)
+                console.log(
             }
 
-            if (priming) { sendData(num, "priming") }
-            if (eliciting) { sendData(num, "eliciting") }
-            if (probing) { sendData(num, "probing") }
-            if (evaluating) { sendData(num, "evaluating") }
-            if (telling) { sendData(num, "telling") }
-            if (none) { sendData(num, "none") }
+            if (primingbox.checked) { sendData(num, "priming") }
+            if (eclicitingbox.checked) { sendData(num, "eliciting") }
+            if (probingbox.checked) { sendData(num, "probing") }
+            if (evaluatingbox.checked) { sendData(num, "evaluating") }
+            if (tellingbox.checked) { sendData(num, "telling") }
+            if (nonebox.checked) { sendData(num, "none") }
 
 
             // disable buttons & checkboxes
