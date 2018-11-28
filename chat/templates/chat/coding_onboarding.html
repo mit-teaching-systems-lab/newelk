@@ -35,7 +35,7 @@ Remember that each message has any number of codes attached to it.
 <col width="60%">
 <col width="40%">
     {% for m in messages %}
-        <tr>
+        <tr style='border-bottom:none'>
             <td rowspan="2">{{ m.0 }}</td>
             <td id="checkgroup">
                 {% if "T:" in m.0 %}
@@ -72,8 +72,8 @@ Remember that each message has any number of codes attached to it.
                 {% endif %}
             </td>
         </tr>
-        <tr>
-            <td style='border-top:none'>
+        <tr style='border-top:none'>
+            <td>
                 <div>test</div>
             </td>
         </tr>
