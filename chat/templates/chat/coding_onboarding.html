@@ -123,6 +123,7 @@ Remember that each message has any number of codes attached to it.
             var evaluating = document.querySelector('#evaluating_' + String(num)).checked == answer.includes("evaluating");
             var telling = document.querySelector('#telling_' + String(num)).checked == answer.includes("telling");
             var none = document.querySelector('#none_' + String(num)).checked == answer.includes("none");
+            console.log('ok')
             if (priming && eliciting && probing && evaluating && telling && none) {
                 alert('correct')
             } else {
