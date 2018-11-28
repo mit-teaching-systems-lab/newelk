@@ -191,7 +191,6 @@ def onboard1(request):
     S: I know that there are 7 continents!;;"""
 
     lines = text.split("\n")
-    checked = []
     messages = []
     answers = []
     feedback = []
@@ -201,11 +200,8 @@ def onboard1(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    # submitted = False
-    # if request.method == 'POST':
-    #     checked = process_codes(request)
-    #     submitted = True
-    return render(request, 'chat/coding_onboarding.html', {"message":zip(messages,answers,feedback),"nextpage":"/chat/onboard2","checked":checked,"submitted":submitted})
+
+    return render(request, 'chat/coding_onboarding.html', {"message":zip(messages,answers,feedback),"nextpage":"/chat/onboard2"})
 
 
 def onboard2(request):
