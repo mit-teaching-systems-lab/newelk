@@ -233,63 +233,71 @@ def onboard1(request):
 
 
 def onboard2(request):
-    text = """T: Hi! Do you know what we are learning today?
+    text = """T: Hi! Do you know what we are learning today?;priming;Priming because this introduces what the topic of conversation will be about.
         S: Something about writing sentences?
-        T: What do you know about parts of speech?
+        T: What do you know about parts of speech?;eliciting;Eliciting because it is the first question on the topic that the teacher wants to know about. 
         S: I know that there are nouns, which are things, and verbs, which are actions, and description words, but I don’t remember what they are called.
-        T: Very good. Can you tell me more about nouns? Is “school” a noun?
+        T: Very good. Can you tell me more about nouns? Is “school” a noun?;evaluating,probing;Evaluating and Probing because “very good” tells the student that they are correct and the question directly asks about what the student just said and so is a follow-up question. 
         S: Yeah, a school is a type of thing.
-        T: What about “idea” or “Eastern High School”? Are they nouns?
+        T: What about “idea” or “Eastern High School”? Are they nouns?;probing;Probing because this question is meant to expand more on what the student thinks of nouns. 
         S: Idea is a thing, so yeah. But Eastern High School isn’t a noun because it’s capitalized.
-        T: Not quite.
+        T: Not quite.;evaluating;Evaluating because it tells the student whether they were correct. 
         S: What did I get wrong?
-        T: Nouns can be capitalized. “Eastern High School” is a ‘thing,’ right? Capitalized nouns are called proper nouns.
+        T: Nouns can be capitalized. “Eastern High School” is a ‘thing,’ right? Capitalized nouns are called proper nouns.;telling;Telling because this sentence directly tells the student information about the topic of discussion (parts of speech/nouns).
         S: Okay
-        T: Do all words have a part of speech?
+        T: Do all words have a part of speech?;eliciting;Eliciting because this is a question about a “sub-topic” of parts of speech that has not been asked about before. 
         S: I don’t know
-        T: Okay.
-        T: Let’s look at the sentence “I quickly ate a delicious cupcake.” What words can you classify as parts of speech?
+        T: Okay.;none;None because this is not asking anything or giving the student any information, but rather an acknowledgement of having heard the student. 
+        T: Let’s look at the sentence “I quickly ate a delicious cupcake.” What words can you classify as parts of speech?;eliciting;Eliciting because this asks about a different subtopic in parts of speech, namely the skill of identifying specific words as parts of speech. 
         S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?
-        T: I’m not going to answer that right now because I would like to know what you remember before class starts.
+        T: I’m not going to answer that right now because I would like to know what you remember before class starts.;priming;Priming because this is a ‘meta-comment’ about what the purpose of the conversation is and doesn’t directly touch the topic of discussion, parts of speech. 
         *bell rings*"""
-    messages = text.split("\n")
-    checked = []
-    submitted = False
-    if request.method == 'POST':
-        checked = process_codes(request)
-        submitted = True
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard3","checked":checked,"submitted":submitted})
+    lines = text.split("\n")
+    messages = []
+    answers = []
+    feedback = []
+    for line in lines:
+        item = line.split(";")
+        print(item)
+        messages.append(item[0])
+        answers.append(item[1])
+        feedback.append(item[2])
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard3"})
 
 
 def onboard3(request):
-    text = """T: Hello, Matthew. I’m hoping you can help me with something for a minute.
-        T: I know you did a dinosaur project with Mr. Jones last year in first grade. Can you tell me what you remember about dinosaurs and fossils?
+    text = """T: Hello, Matthew. I’m hoping you can help me with something for a minute.;priming;Priming because this is a meta-message that starts setting the tone for the conversation
+        T: I know you did a dinosaur project with Mr. Jones last year in first grade. Can you tell me what you remember about dinosaurs and fossils?;priming,eliciting;Priming and Eliticing because the first sentence is another meta-message setting the tone and the question is the first question about dinosaurs and fossils. 
         S: I made a velociraptor like in Jurassic Park and I put feathers on mine. Mine was the only one like that!
-        T: That sounds really cool. Do you think there are still dinosaurs today?
+        T: That sounds really cool. Do you think there are still dinosaurs today?;probing;Probing because the first comment does not fit any category and the question is a follow-up to asking about dinosaurs. 
         S: No, they all died. 
-        T: How did that happen?
+        T: How did that happen?;probing;Probing because this is a follow up question to what was just said. 
         S: Umm... I’m not sure. Maybe humans needed more space?
-        T: Does that mean that humans and dinosaurs existed at the same time?
+        T: Does that mean that humans and dinosaurs existed at the same time?;probing;Probing because this is a follow-up question to what was just said.
         S: I guess so. Before the Ice Age, right?
-        T: I’ll be happy to tell you during class today.
+        T: I’ll be happy to tell you during class today.;priming;Priming because this is a meta-message (i.e. not about dinosaurs) that sets the context of the conversation.
         S: Oh... Okay.
-        T: What do you know about fossils?
+        T: What do you know about fossils?;eliciting;Eliciting because this is the first question asked about fossils. 
         S: They’re leftovers of dead animals.
-        T: So a fossil of a bone is made of bone?
+        T: So a fossil of a bone is made of bone?;probing;Probing because this is a follow-up question. 
         S: Yeah!
-        T: Can fossils be only of bones?
+        T: Can fossils be only of bones?;probing;Probing because this is a follow-up question. 
         S: No... They can be of feathers, too, and seashells.
-        T: Very good. Is there any connection between fossils and extinct species?
+        T: Very good. Is there any connection between fossils and extinct species?;evaluating,probing;Evaluating and Probing because “very good” tell the student they were right and the question asks more details about fossils which were previously asked about
         S: Not really...
-        T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.
+        T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.;priming;Priming because this is a meta-message about the conversation and what it was for. 
         *bell rings*"""
-    messages = text.split("\n")
-    checked = []
-    submitted = False
-    if request.method == 'POST':
-        checked = process_codes(request)
-        submitted = True
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/chat/onboard4","checked":checked,"submitted":submitted})
+    lines = text.split("\n")
+    messages = []
+    answers = []
+    feedback = []
+    for line in lines:
+        item = line.split(";")
+        print(item)
+        messages.append(item[0])
+        answers.append(item[1])
+        feedback.append(item[2])
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard4")
 
 
 def onboard4(request):
@@ -316,10 +324,14 @@ def onboard4(request):
         T: Nice job! Thanks for talking to me, Sarah.
         S: You’re welcome
         *bell rings*"""
-    messages = text.split("\n")
-    checked = []
-    submitted = False
-    if request.method == 'POST':
-        checked = process_codes(request)
-        submitted = True
-    return render(request, 'chat/coding_onboarding.html', {"messages":messages,"nextpage":"/","checked":checked,"submitted":submitted})
+    lines = text.split("\n")
+    messages = []
+    answers = []
+    feedback = []
+    for line in lines:
+        item = line.split(";")
+        print(item)
+        messages.append(item[0])
+        answers.append(item[1])
+        feedback.append(item[2])
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/"})
