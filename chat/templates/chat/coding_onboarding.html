@@ -84,7 +84,7 @@ Remember that each message has any number of codes attached to it.
 
 <script>
     window.onload=function(){
-        
+
         var nones = document.querySelectorAll('input[value="None"]');
         nones.forEach(function (n) {
             var num = n.id.split("_")[1]
@@ -116,20 +116,20 @@ Remember that each message has any number of codes attached to it.
         buttonInitialize("Telling");
 
         var reportResult = function (num, answer) {
-            // check against results
-            var priming = document.querySelector('#priming_' + String(num)).checked == answer.includes("priming");
-            var eliciting = document.querySelector('#eliciting_' + String(num)).checked == answer.includes("eliciting");
-            var probing = document.querySelector('#probing_' + String(num)).checked == answer.includes("probing");
-            var evaluating = document.querySelector('#evaluating_' + String(num)).checked == answer.includes("evaluating");
-            var telling = document.querySelector('#telling_' + String(num)).checked == answer.includes("telling");
-            var none = document.querySelector('#none_' + String(num)).checked == answer.includes("none");
-            if (priming && eliciting && probing && evaluating  && telling) {
-                alert('correct')
-            } else {
-                alert('wrong')
-            }
+            <!--// check against results-->
+            <!--var priming = document.querySelector('#priming_' + String(num)).checked == answer.includes("priming");-->
+            <!--var eliciting = document.querySelector('#eliciting_' + String(num)).checked == answer.includes("eliciting");-->
+            <!--var probing = document.querySelector('#probing_' + String(num)).checked == answer.includes("probing");-->
+            <!--var evaluating = document.querySelector('#evaluating_' + String(num)).checked == answer.includes("evaluating");-->
+            <!--var telling = document.querySelector('#telling_' + String(num)).checked == answer.includes("telling");-->
+            <!--var none = document.querySelector('#none_' + String(num)).checked == answer.includes("none");-->
+            <!--if (priming && eliciting && probing && evaluating && telling && none) {-->
+                <!--alert('correct')-->
+            <!--} else {-->
+                <!--alert('wrong')-->
+            <!--}-->
             // xhr
-
+            alert('hi')
             // disable buttons & checkboxes
         }
 
