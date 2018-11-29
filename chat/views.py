@@ -59,6 +59,36 @@ def room(request, role, scenario, room_name):
 def join_room(request):
     return render(request, 'chat/join_scenario.html')
 
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
+    transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
+    quiz_results = {}
+    playercount = 0
+    # transcript.messages = Message.objects.filter(transcript=t).order_by("creation_time")
+    # if not transcript.messages:
+    #     transcript.messages = {}
+    #     transcript.messages['text'] = "no text found!"
+
+    participants = transcript.users.distinct()
+    scenario = transcript.scenario
+    for person in participants:
+        answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=transcript)
+        # answers = TFAnswer.objects.filter(transcript=latest_transcript,user=person)
+        quiz_results[person.username] = {}
+        quiz_results["question_details"] = {}
+        for answer in answers:
+            quiz_results[person.username][answer.question.pk] = answer.user_answer
+            quiz_results["question_details"][answer.question.pk] = {answer.question.question: answer.correct_answer}
+    playercount = participants.count
+
+    print('showing profile')
+    print(quiz_results)
+    return render(request, 'profile.html',
+                  {"quiz_results": quiz_results, "participant_count": playercount})
+
+
 def result(request):
     return render(request, 'chat/result.html')
 
