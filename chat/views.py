@@ -60,7 +60,7 @@ def join_room(request):
     return render(request, 'chat/join_scenario.html')
 
 
-def profile(request):
+def result(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
@@ -85,12 +85,9 @@ def profile(request):
 
     print('showing profile')
     print(quiz_results)
-    return render(request, 'profile.html',
+    return render(request, 'chat/result.html',
                   {"quiz_results": quiz_results, "participant_count": playercount})
 
-
-def result(request):
-    return render(request, 'chat/result.html')
 
 def quiz(request, role, scenario, room_name):
     if not request.user.is_authenticated:
