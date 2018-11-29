@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import CustomUser as User
 from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin
+
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
@@ -57,7 +59,7 @@ class ScenarioAdmin(MPTTModelAdmin):
 nonstaff_admin_site.register(Scenario, ScenarioAdmin)
 nonstaff_admin_site.register(TFQuestion)
 
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
 
 admin.site.register(ChatRoom)
 admin.site.register(Scenario, ScenarioAdmin)
