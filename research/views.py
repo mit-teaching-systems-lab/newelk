@@ -12,6 +12,18 @@ class TFAnswerViewSet(viewsets.ModelViewSet):
     queryset = TFAnswer.objects.all()
     serializer_class = TFAnswerSerializer
 
+    def get_queryset(self):
+        user = self.request.user
+        transcript = Transcript.objects.filter(users=user).latest("creation_time")
+        participants = transcript.users.distinct()
+        scenario = transcript.scenario
+        all_answers = TFAnswer.objects.none()
+        for person in participants:
+            player_answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=transcript)
+            all_answers = all_answers | player_answers
+
+        return all_answers
+
 
 class Echo:
     """An object that implements just the write method of the file-like
