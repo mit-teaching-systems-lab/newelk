@@ -131,61 +131,7 @@ Would you like to play again?
 
 
 
-        var players = Object.keys(results)
-        qpks = Object.keys(results.question_details);
 
-
-        for (q in qpks) {
-            var th = document.createElement("th");
-            var txt = document.createTextNode(
-                Object.keys(results.question_details[qpks[q]])[0]
-            )
-            th.appendChild(txt);
-            tr.appendChild(th)
-        }
-        resultsTable.appendChild(tr);
-
-        //Answers row
-        var tr = document.createElement("tr");
-        var td = document.createElement("td");
-        var txt = document.createTextNode("Correct");
-        td.appendChild(txt);
-        tr.appendChild(td)
-        for (q in qpks) {
-            var td = document.createElement("td");
-            var txt = document.createTextNode(
-                Object.values(results.question_details[qpks[q]])[0]
-            )
-            td.appendChild(txt);
-            tr.appendChild(td)
-        }
-        resultsTable.appendChild(tr);
-
-        //Player results
-        for (p in players) {
-            var player = players[p]
-            if (players[p] != "question_details") {
-                var details = results[player]
-                var tr = document.createElement("tr");
-                var td = document.createElement("td");
-                var txt = document.createTextNode(players[p]);
-                td.appendChild(txt)
-                tr.appendChild(td)
-                for (q in qpks) {
-                    var td = document.createElement("td")
-                    // console.log(q)
-                    // console.log(qpks)
-                    // console.log(qpks[q])
-                    // console.log(details)
-                    // console.log(details[qpks[q]])
-                    var txt = document.createTextNode(details[qpks[q]]);
-                    td.appendChild(txt)
-                    tr.appendChild(td)
-                }
-                resultsTable.appendChild(tr);
-            }
-        }
-    }
 
 </script>
 
