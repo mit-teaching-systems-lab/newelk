@@ -127,8 +127,9 @@ Would you like to play again?
             }
 			xhr.send()
         }
-
-
+        // initial display
+        getData()
+        
         var interval = setInterval(function(){
             getData()
         }, 5000)
