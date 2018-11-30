@@ -9,7 +9,7 @@ class TFAnswerViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = TFAnswer.objects.all().order_by('name')
+    queryset = TFAnswer.objects.all()
     serializer_class = TFAnswerSerializer
 
 
