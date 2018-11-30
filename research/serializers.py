@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 
 class TFAnswerSerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source='user.name')
     class Meta:
         model = TFAnswer
-        # user_name = serializers.CharField(source='user.name')
-        fields = ('user.name','question','user_answer','correct_answer')
+        fields = ('user_name','question','user_answer','correct_answer')
