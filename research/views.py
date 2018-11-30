@@ -1,4 +1,4 @@
-from .models import Message, TFAnswer
+from .models import Message, TFAnswer, Transcript
 from datetime import timedelta
 from django.http import StreamingHttpResponse, HttpResponse
 from django.utils import timezone
