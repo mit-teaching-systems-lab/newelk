@@ -84,16 +84,9 @@ Would you like to play again?
                 tr.appendChild(td);
                 for (var i = 0; i < questions.length; i++){
                     for (result in results) {
-
-                        console.log(results[result]['question_text'])
-                        console.log(questions[i])
-                        console.log(results[result]['user_name'])
-                        console.log(users[user])
                         if (questions[i] == results[result]['question_text'] && users[user] === results[result]['user_name']) {
                             var td = document.createElement("td");
                             var txt = document.createTextNode(results[result]['user_answer']);
-                            console.log('found')
-                            console.log(results[result]['user_answer'])
                             td.appendChild(txt);
                             tr.appendChild(td)
                         }
@@ -122,18 +115,23 @@ Would you like to play again?
 
 
         }
-        var interval = setInterval(function(){
+
+        var getData = function () {
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/api/tfanswer/");
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
-                    console.log(xhr.response)
                     document.results = xhr.response
                     buildTable(document.results)
                 }
             }
 			xhr.send()
-        }, 3000)
+        }
+
+
+        var interval = setInterval(function(){
+            getData()
+        }, 5000)
     }
 
 
