@@ -36,7 +36,7 @@ Would you like to play again?
 <script>
     // window.onload=function() {
     var results = {{ quiz_results|safe }};
-    if (Object.keys(results).length <= {{ participant_count }})
+    if (Object.keys(results).length < {{ participant_count }})
     {
         console.log('awaiting results, reloading in 10s')
         setTimeout(function () {
