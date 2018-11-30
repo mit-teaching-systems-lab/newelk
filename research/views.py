@@ -5,7 +5,7 @@ from django.utils import timezone
 from .serializers import TFAnswerSerializer
 from rest_framework import viewsets
 
-class TFAnswerViewSet(viewsets.RetrieveAPIView):
+class TFAnswerViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
