@@ -37,6 +37,13 @@ Would you like to play again?
 
     window.onload=function() {
         var buildTable = function (results) {
+
+            var resultsTable = document.getElementById("resultsTable")
+            while(resultsTable.hasChildNodes())
+            {
+               resultsTable.removeChild(resultsTable.firstChild);
+            }
+
             results = JSON.parse(results)
             users = []
             for (result in results) {
@@ -53,7 +60,7 @@ Would you like to play again?
                 }
             }
 
-            var resultsTable = document.getElementById("resultsTable")
+
             //Header row
             var headerRow = document.createElement("tr");
             var th = document.createElement("th");
