@@ -36,95 +36,156 @@ Would you like to play again?
 <script>
 
     window.onload=function() {
-        var interval = setInterval(function(){
+        var buildTable = function (results) {
+            results = JSON.parse(results)
+            users = []
+            for (result in results) {
 
+                if (users.indexOf(results[result]['user_name']) === -1) {
+                    users.push(results[result]['user_name'])
+                }
+            }
+            questions = []
+            for (result in results) {
+
+                if (questions.indexOf(results[result]['question_text']) === -1) {
+                    questions.push(results[result]['question_text'])
+                }
+            }
+
+            var resultsTable = document.getElementById("resultsTable")
+            //Header row
+            var headerRow = document.createElement("tr");
+            var th = document.createElement("th");
+            var txt = document.createTextNode("Player");
+            th.appendChild(txt);
+            headerRow.appendChild(th)
+
+            for (var i = 0; i < questions.length; i++){
+                var td = document.createElement("td");
+                var txt = document.createTextNode(questions[i]);
+                td.appendChild(txt);
+                headerRow.appendChild(td)
+            }
+            resultsTable.appendChild(headerRow);
+
+            for (user in users) {
+                var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                var txt = document.createTextNode(users[user]);
+                td.appendChild(txt);
+                tr.appendChild(td);
+                for (var i = 0; i < questions.length; i++){
+                    for (result in results) {
+
+                        console.log(results[result]['question_text'])
+                        console.log(questions[i])
+                        console.log(results[result]['user_name'])
+                        console.log(users[user])
+                        if (questions[i] == results[result]['question_text'] && users[user] === results[result]['user_name']) {
+                            var td = document.createElement("td");
+                            var txt = document.createTextNode(results[result]['user_answer']);
+                            console.log('found')
+                            console.log(results[result]['user_answer'])
+                            td.appendChild(txt);
+                            tr.appendChild(td)
+                        }
+                    }
+                }
+                resultsTable.appendChild(tr);
+            }
+            // Correct answers
+            var finalRow = document.createElement("tr");
+            var th = document.createElement("th");
+            var txt = document.createTextNode("Correct Answers");
+            th.appendChild(txt);
+            finalRow.appendChild(th);
+            for (var i = 0; i < questions.length; i++){
+                for (result in results) {
+                    if (questions[i] == results[result]['question_text']) {
+                        var td = document.createElement("td");
+                        var txt = document.createTextNode(results[result]['user_answer']);
+                        td.appendChild(txt);
+                        finalRow.appendChild(td);
+                        break;
+                    }
+                }
+            }
+            resultsTable.appendChild(finalRow);
+
+
+        }
+        var interval = setInterval(function(){
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/chatroom/");
+            xhr.open("GET", "/api/tfanswer/");
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     console.log(xhr.response)
+                    document.results = xhr.response
+                    buildTable(document.results)
                 }
             }
-        }, 2000)
+			xhr.send()
+        }, 3000)
     }
 
 
 
+        var players = Object.keys(results)
+        qpks = Object.keys(results.question_details);
 
 
+        for (q in qpks) {
+            var th = document.createElement("th");
+            var txt = document.createTextNode(
+                Object.keys(results.question_details[qpks[q]])[0]
+            )
+            th.appendChild(txt);
+            tr.appendChild(th)
+        }
+        resultsTable.appendChild(tr);
 
-    <!--// window.onload=function() {-->
-    <!--var results = {{ quiz_results|safe }};-->
-    <!--if (Object.keys(results).length < {{ participant_count }})-->
-    <!--{-->
-        <!--console.log('awaiting results, reloading in 10s')-->
-        <!--setTimeout(function () {-->
-            <!--location.reload(true)-->
-        <!--}, 10000);-->
-    <!--}-->
-    <!--else-->
-    <!--{-->
-        <!--var resultsTable = document.getElementById("resultsTable")-->
-        <!--var players = Object.keys(results)-->
-        <!--qpks = Object.keys(results.question_details);-->
+        //Answers row
+        var tr = document.createElement("tr");
+        var td = document.createElement("td");
+        var txt = document.createTextNode("Correct");
+        td.appendChild(txt);
+        tr.appendChild(td)
+        for (q in qpks) {
+            var td = document.createElement("td");
+            var txt = document.createTextNode(
+                Object.values(results.question_details[qpks[q]])[0]
+            )
+            td.appendChild(txt);
+            tr.appendChild(td)
+        }
+        resultsTable.appendChild(tr);
 
-        <!--//Header row-->
-        <!--var tr = document.createElement("tr");-->
-        <!--var th = document.createElement("th");-->
-        <!--var txt = document.createTextNode("Player");-->
-        <!--th.appendChild(txt);-->
-        <!--tr.appendChild(th)-->
-        <!--for (q in qpks) {-->
-            <!--var th = document.createElement("th");-->
-            <!--var txt = document.createTextNode(-->
-                <!--Object.keys(results.question_details[qpks[q]])[0]-->
-            <!--)-->
-            <!--th.appendChild(txt);-->
-            <!--tr.appendChild(th)-->
-        <!--}-->
-        <!--resultsTable.appendChild(tr);-->
-
-        <!--//Answers row-->
-        <!--var tr = document.createElement("tr");-->
-        <!--var td = document.createElement("td");-->
-        <!--var txt = document.createTextNode("Correct Answer");-->
-        <!--td.appendChild(txt);-->
-        <!--tr.appendChild(td)-->
-        <!--for (q in qpks) {-->
-            <!--var td = document.createElement("td");-->
-            <!--var txt = document.createTextNode(-->
-                <!--Object.values(results.question_details[qpks[q]])[0]-->
-            <!--)-->
-            <!--td.appendChild(txt);-->
-            <!--tr.appendChild(td)-->
-        <!--}-->
-        <!--resultsTable.appendChild(tr);-->
-
-        <!--//Player results-->
-        <!--for (p in players) {-->
-            <!--var player = players[p]-->
-            <!--if (players[p] != "question_details") {-->
-                <!--var details = results[player]-->
-                <!--var tr = document.createElement("tr");-->
-                <!--var td = document.createElement("td");-->
-                <!--var txt = document.createTextNode(players[p]);-->
-                <!--td.appendChild(txt)-->
-                <!--tr.appendChild(td)-->
-                <!--for (q in qpks) {-->
-                    <!--var td = document.createElement("td")-->
-                    <!--// console.log(q)-->
-                    <!--// console.log(qpks)-->
-                    <!--// console.log(qpks[q])-->
-                    <!--// console.log(details)-->
-                    <!--// console.log(details[qpks[q]])-->
-                    <!--var txt = document.createTextNode(details[qpks[q]]);-->
-                    <!--td.appendChild(txt)-->
-                    <!--tr.appendChild(td)-->
-                <!--}-->
-                <!--resultsTable.appendChild(tr);-->
-            <!--}-->
-        <!--}-->
-    <!--}-->
+        //Player results
+        for (p in players) {
+            var player = players[p]
+            if (players[p] != "question_details") {
+                var details = results[player]
+                var tr = document.createElement("tr");
+                var td = document.createElement("td");
+                var txt = document.createTextNode(players[p]);
+                td.appendChild(txt)
+                tr.appendChild(td)
+                for (q in qpks) {
+                    var td = document.createElement("td")
+                    // console.log(q)
+                    // console.log(qpks)
+                    // console.log(qpks[q])
+                    // console.log(details)
+                    // console.log(details[qpks[q]])
+                    var txt = document.createTextNode(details[qpks[q]]);
+                    td.appendChild(txt)
+                    tr.appendChild(td)
+                }
+                resultsTable.appendChild(tr);
+            }
+        }
+    }
 
 </script>
 
