@@ -2,6 +2,15 @@ from .models import Message, TFAnswer
 from datetime import timedelta
 from django.http import StreamingHttpResponse, HttpResponse
 from django.utils import timezone
+from .serializers import TFAnswerSerializer
+from rest_framework import viewsets
+
+class TFAnswerViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = TFAnswer.objects.all().order_by('name')
+    serializer_class = TFAnswerSerializer
 
 
 class Echo:

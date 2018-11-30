@@ -1,7 +1,6 @@
 from .models import ChatRoom, MessageCode
 from rest_framework import serializers
 
-
 class ChatRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatRoom
@@ -12,5 +11,3 @@ class MessageCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MessageCode
         fields = ('__all__')
-
-
