@@ -19,7 +19,7 @@ from django.views.generic.base import TemplateView
 # from django.contrib.auth.views import login, logout
 from chat.admin import nonstaff_admin_site
 from chat.views import ChatRoomViewSet, MessageCodeViewSet, scenario_editor, scenario_creator
-from datacollection.views import TFAnswerViewSet
+from research.views import TFAnswerViewSet
 from rest_framework import routers
 
 router = routers.DefaultRouter()
