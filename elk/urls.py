@@ -25,7 +25,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'chatroom', ChatRoomViewSet)
 router.register(r'messagecode', MessageCodeViewSet)
-router.register(r'tfanswer', TFAnswerViewSet
+router.register(r'tfanswer', TFAnswerViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
