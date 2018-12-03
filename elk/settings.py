@@ -130,7 +130,7 @@ try:
     }
     # Parse database configuration from $DATABASE_URL
     env = environ.Env()
-    if environ.get('MIT_URL') is not None:
+    if os.environ.get('MIT_URL') is not None:
         DATABASES['default'] = env.db('MIT_URL')
     else:
         DATABASES['default'] = env.db('DATABASE_URL')
