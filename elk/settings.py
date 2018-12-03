@@ -130,9 +130,9 @@ try:
     }
     # Parse database configuration from $DATABASE_URL
     env = environ.Env()
-    try:
+    if environ.get('MIT_URL') is not None:
         DATABASES['default'] = env.db('MIT_URL')
-    except KeyError:
+    else:
         DATABASES['default'] = env.db('DATABASE_URL')
 except KeyError:
     # Development settings -------------------------------------------------
