@@ -130,7 +130,10 @@ try:
     }
     # Parse database configuration from $DATABASE_URL
     env = environ.Env()
-    DATABASES['default'] = env.db('DATABASE_URL')
+    try:
+        DATABASES['default'] = env.db('MIT_URL')
+    except KeyError:
+        DATABASES['default'] = env.db('DATABASE_URL')
 except KeyError:
     # Development settings -------------------------------------------------
     REDIS = "redis://localhost:6379"
