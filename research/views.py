@@ -4,7 +4,7 @@ from django.http import StreamingHttpResponse, HttpResponse
 from django.utils import timezone
 from .serializers import TFAnswerSerializer
 from rest_framework import viewsets
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import os
 
 class TFAnswerViewSet(viewsets.ModelViewSet):
@@ -82,4 +82,5 @@ def toggle_feedback(request):
         os.environ['feedback'] = 'True'
     if request.POST:
         os.environ['feedback'] = str(not feedback)
+        return redirect('/research/feedback/')
     return render(request, 'research/toggle_feedback.html',{"feedback": feedback})
