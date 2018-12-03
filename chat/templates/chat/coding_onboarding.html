@@ -148,12 +148,15 @@ Remember that each message has any number of codes attached to it.
             var none = nonebox.checked == answer.includes("none");
 
             var feedbackbox = document.querySelector('#feedbackbox_' + String(num))
-
+            {% if give_feedback %}
             if (priming && eliciting && probing && evaluating && telling && none) {
                 feedbackbox.textContent = "We agree! We thought " + feedback;
             } else {
                 feedbackbox.textContent = "We thought " + feedback;
             }
+            {% else %}
+                feedbackbox.textContent = ""
+            {% endif %}
             // xhr
             function getCookie(cname) {
                 var name = cname + "=";

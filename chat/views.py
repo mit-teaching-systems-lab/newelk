@@ -259,22 +259,13 @@ def onboard1(request):
     messages = []
     answers = []
     feedback = []
-    if give_feedback:
-        for line in lines:
-            item = line.split(";")
-            print(item)
-            messages.append(item[0])
-            answers.append(item[1])
-            feedback.append(item[2])
-    else:
-        for line in lines:
-            item = line.split(";")
-            print(item)
-            messages.append(item[0])
-            answers.append(item[1])
-            feedback.append('')
-
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard2"})
+    for line in lines:
+        item = line.split(";")
+        print(item)
+        messages.append(item[0])
+        answers.append(item[1])
+        feedback.append(item[2])
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard2","give_feedback":give_feedback})
 
 
 def onboard2(request):
