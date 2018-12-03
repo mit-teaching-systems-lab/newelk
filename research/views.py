@@ -4,6 +4,8 @@ from django.http import StreamingHttpResponse, HttpResponse
 from django.utils import timezone
 from .serializers import TFAnswerSerializer
 from rest_framework import viewsets
+from django.shortcuts import render
+import os
 
 class TFAnswerViewSet(viewsets.ModelViewSet):
     """
@@ -66,3 +68,17 @@ def streaming_answers_view(request):
     return filtered_data_as_http_response(rows,
                          "group_id,username,question_id,question,correct_answer,user_response",
                          "answerlogs.csv")
+
+
+def toggle_feedback(request):
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            feedback = True
+        else:
+            feedback = False
+    except KeyError:
+        feedback = True
+    if request.POST:
+        os.environ['feedback'] = not feedback
+    return render(request, 'research/toggle_feedback.html',{"feedback": feedback})
