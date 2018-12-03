@@ -54,7 +54,15 @@ def room(request, role, scenario, room_name):
         return redirect('/accounts/login/')
 
     room_details = get_room_details(role, scenario, room_name)
-
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
+    room_details['give_feedback'] = give_feedback
     return render(request, 'chat/room.html', room_details)
 
 def join_room(request):
