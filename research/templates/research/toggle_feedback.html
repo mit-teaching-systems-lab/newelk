@@ -6,13 +6,13 @@
 </head>
 <body>
 {% if feedback %}
-Feedback = true
+Feedback is currently ON. Click the button to disable it site-wide.
 <form action="" method="POST">
     {% csrf_token %}
 <input type="submit" value="disable feedback">
 
 {% else %}
-Feedback = false
+Feedback is currently OFF. Click the button to enable it site-wide.
 <form action="" method="POST">
 {% csrf_token %}
 <input type="submit" value="enable feedback">

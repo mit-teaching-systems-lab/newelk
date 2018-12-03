@@ -288,6 +288,14 @@ def onboard2(request):
         S: “I” and “cupcake” are nouns. “Ate” is a verb. And “quickly” and “delicious” are description words. I don’t know about “a.” Am I right?;;
         T: I’m not going to answer that right now because I would like to know what you remember before class starts.;priming;Priming because this is a ‘meta-comment’ about what the purpose of the conversation is and doesn’t directly touch the topic of discussion, parts of speech. 
         *bell rings*;;"""
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
     lines = text.split("\n")
     messages = []
     answers = []
@@ -298,7 +306,7 @@ def onboard2(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard3"})
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard3","give_feedback":give_feedback})
 
 
 def onboard3(request):
@@ -323,6 +331,14 @@ def onboard3(request):
         S: Not really...;;
         T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.;priming;Priming because this is a meta-message about the conversation and what it was for. 
         *bell rings*;;"""
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
     lines = text.split("\n")
     messages = []
     answers = []
@@ -333,7 +349,7 @@ def onboard3(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard4"})
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard4","give_feedback":give_feedback})
 
 
 def onboard4(request):
@@ -360,6 +376,14 @@ def onboard4(request):
         T: Nice job! Thanks for talking to me, Sarah.;evaluating,priming;Evaluating and Priming because it firsts tells the student they are correct and the reminds the student of the context.
         S: You’re welcome.;;
         *bell rings*;;"""
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
     lines = text.split("\n")
     messages = []
     answers = []
