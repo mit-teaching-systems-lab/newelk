@@ -10,6 +10,7 @@ from .forms import ScenarioForm
 from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
 from .utils import process_codes
+import os
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
     """
@@ -245,16 +246,33 @@ def onboard1(request):
         T: Interesting.;none;None because this once again doesn’t tell the student whether they are correct. 
         *bell rings*;;"""
 
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
+
     lines = text.split("\n")
     messages = []
     answers = []
     feedback = []
-    for line in lines:
-        item = line.split(";")
-        print(item)
-        messages.append(item[0])
-        answers.append(item[1])
-        feedback.append(item[2])
+    if give_feedback:
+        for line in lines:
+            item = line.split(";")
+            print(item)
+            messages.append(item[0])
+            answers.append(item[1])
+            feedback.append(item[2])
+    else:
+        for line in lines:
+            item = line.split(";")
+            print(item)
+            messages.append(item[0])
+            answers.append(item[1])
+            feedback.append('')
 
     return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard2"})
 
