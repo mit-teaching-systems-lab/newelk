@@ -16,11 +16,14 @@ class TFAnswerViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        print(user)
         transcript = Transcript.objects.filter(users=user).latest("creation_time")
+        print(transcript)
         participants = transcript.users.distinct()
         scenario = transcript.scenario
         all_answers = TFAnswer.objects.none()
         for person in participants:
+            print(person)
             player_answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=transcript)
             all_answers = all_answers | player_answers
 
