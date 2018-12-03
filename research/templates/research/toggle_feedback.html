@@ -7,12 +7,16 @@
 <body>
 {% if feedback %}
 Feedback = true
-{% else %}
-Feedback = false
-{% endif %}
 <form action="" method="POST">
     {% csrf_token %}
-<input type="submit">
+<input type="submit" value="disable feedback">
+
+{% else %}
+Feedback = false
+<form action="" method="POST">
+{% csrf_token %}
+<input type="submit" value="enable feedback">
+{% endif %}
 </form>
 </body>
 </html>
