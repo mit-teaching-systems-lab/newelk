@@ -79,6 +79,7 @@ def toggle_feedback(request):
             feedback = False
     except KeyError:
         feedback = True
+        os.environ['feedback'] = 'True'
     if request.POST:
-        os.environ['feedback'] = not feedback
+        os.environ['feedback'] = str(not feedback)
     return render(request, 'research/toggle_feedback.html',{"feedback": feedback})
