@@ -132,7 +132,8 @@ Would you like to play again?
         
         var interval = setInterval(function(){
             getData()
-        }, 5000)
+        }, 5000);
+        setTimeout(clearInterval(interval), 20000);
     }
 
 
