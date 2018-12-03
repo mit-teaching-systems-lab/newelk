@@ -14,7 +14,7 @@ class CustomUser(AbstractUser):
     # around the globe.
     name = CharField(_("Name of User"), blank=True, max_length=255)
     def __str__(self):
-        return self.name
+        return self.username
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"username": self.username})
 
