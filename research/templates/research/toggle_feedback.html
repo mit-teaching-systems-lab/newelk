@@ -11,6 +11,7 @@ Feedback = true
 Feedback = false
 {% endif %}
 <form action="" method="POST">
+    {% csrf_token %}
 <input type="submit">
 </form>
 </body>
