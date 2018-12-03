@@ -394,4 +394,4 @@ def onboard4(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/"})
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/","give_feedback":give_feedback})
