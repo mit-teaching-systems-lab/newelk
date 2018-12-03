@@ -15,6 +15,7 @@ class TFAnswerViewSet(viewsets.ModelViewSet):
     serializer_class = TFAnswerSerializer
 
     def get_queryset(self):
+        print('getting queryset from api')
         user = self.request.user
         print(user)
         transcript = Transcript.objects.filter(users=user).latest("creation_time")
