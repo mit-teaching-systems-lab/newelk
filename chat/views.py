@@ -18,6 +18,13 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     """
     queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
+    def get_queryset(self):
+        user = self.request.user
+        print('player looking for chatrooms')
+        print(user)
+        return ChatRoom.objects.all().order_by('name')
+
+
 
 class MessageCodeViewSet(viewsets.ModelViewSet):
     """
