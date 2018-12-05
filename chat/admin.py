@@ -34,12 +34,23 @@ class ScenarioAdmin(MPTTModelAdmin):
             print('scene edited')
             old_obj = Scenario.objects.get(pk=obj.pk)
             new_obj = obj
-            new_obj.pk = None
-            new_obj.parent = old_obj
-            new_obj.save()
+            if (old_obj.scenario_name == new_obj.scenario_name and
+                old_obj.student_background == new_obj.student_background and
+                    old_obj.student_profile == new_obj.student_profile and
+                    old_obj.teacher_background == new_obj.teacher_background and
+                    old_obj.teacher_objective == new_obj.teacher_objective and
+                    old_obj.visible_to_players != new_obj.visible_to_players
+                ):
+                old_obj.visible_to_players = new_obj.visible_to_players
+                old_obj.save()
 
-            old_obj.visible_to_players = False
-            old_obj.save()
+            else:
+                new_obj.pk = None
+                new_obj.parent = old_obj
+                new_obj.save()
+
+                old_obj.visible_to_players = False
+                old_obj.save()
 
         else:
             # new object
