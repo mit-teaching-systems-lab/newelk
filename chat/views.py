@@ -200,6 +200,7 @@ def scenario_editor(request, pk):
                 ):
                 scenario.visible_to_players = new_scene.visible_to_players
                 scenario.save()
+                print('changed visibility on scenario')
                 return HttpResponseRedirect('/scenarios/chat/scenario/')
 
             new_scene.pk = None
