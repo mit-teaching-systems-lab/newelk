@@ -435,7 +435,7 @@ def code_messages(request):
     answers = []
     feedback = []
     for line in lines:
-        if line != "":
+        if line != "" and not line.startswith('***'):
             print(line)
             item = line.split(";")
             print(item)
