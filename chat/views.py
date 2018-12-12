@@ -435,10 +435,11 @@ def code_messages(request):
     answers = []
     feedback = []
     for line in lines:
-        print(line)
-        item = line.split(";")
-        print(item)
-        messages.append(item[0])
-        answers.append(item[1])
-        feedback.append(item[2])
+        if line != "":
+            print(line)
+            item = line.split(";")
+            print(item)
+            messages.append(item[0])
+            answers.append(item[1])
+            feedback.append(item[2])
     return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
