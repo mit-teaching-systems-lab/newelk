@@ -424,10 +424,11 @@ def code_messages(request):
         give_feedback = True
     transcript = get_random_object(Transcript)
 
-    messages = Message.objects.filter(transcript=transcript)
+    messages = Message.objects.filter(transcript=transcript).order_by('pk')
 
     text = ""
     for m in messages:
+        # feedback should go after the 2nd semicolon
         text += m.text + ";;\n"
 
     lines = text.split("\n")
