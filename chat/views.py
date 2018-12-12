@@ -428,7 +428,7 @@ def code_messages(request):
 
     text = ""
     for m in messages:
-        text += m.text + "\n"
+        text += m.text + ";;\n"
 
     lines = text.split("\n")
     messages = []
