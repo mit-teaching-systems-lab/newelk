@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from .forms import ScenarioForm
 from django.http import HttpResponseRedirect
 from django.forms import modelformset_factory
-from .utils import process_codes
+from .utils import get_random_object
 import os
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
@@ -411,3 +411,33 @@ def onboard4(request):
         answers.append(item[1])
         feedback.append(item[2])
     return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/","give_feedback":give_feedback})
+
+
+def code_messages(request):
+    try:
+        key = os.environ['feedback']
+        if key == 'True':
+            give_feedback = True
+        else:
+            give_feedback = False
+    except KeyError:
+        give_feedback = True
+    transcript = get_random_object(Transcript)
+
+    messages = Message.objects.filter(transcript=transcript)
+
+    text = ""
+    for m in messages:
+        text += m.text + "\n"
+
+    lines = text.split("\n")
+    messages = []
+    answers = []
+    feedback = []
+    for line in lines:
+        item = line.split(";")
+        print(item)
+        messages.append(item[0])
+        answers.append(item[1])
+        feedback.append(item[2])
+    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
