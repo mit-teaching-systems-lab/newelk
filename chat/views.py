@@ -435,6 +435,7 @@ def code_messages(request):
     answers = []
     feedback = []
     for line in lines:
+        print(line)
         item = line.split(";")
         print(item)
         messages.append(item[0])
