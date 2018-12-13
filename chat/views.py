@@ -443,4 +443,7 @@ def code_messages(request):
             messages.append(item[0])
             answers.append(item[1])
             feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
+    if len(messages) == 0:
+        code_messages(request)
+    else:
+        return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
