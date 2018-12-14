@@ -9,7 +9,7 @@ class ChatNode(MPTTModel):
     def __str__(self):
         return self.name
     def save(self, *args, **kwargs):
-        Scenario.objects.rebuild()
+        ChatNode.objects.rebuild()
         super(ChatNode, self).save(*args, **kwargs)
 
 from accounts.models import CustomUser as User
