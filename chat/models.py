@@ -8,6 +8,9 @@ class ChatNode(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     def __str__(self):
         return self.name
+    def save(self, *args, **kwargs):
+        Scenario.objects.rebuild()
+        super(ChatNode, self).save(*args, **kwargs)
 
 from accounts.models import CustomUser as User
 
