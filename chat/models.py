@@ -1,8 +1,15 @@
 from django.db import models
 from django.utils import timezone
-# from django.contrib.auth.models import User
-from accounts.models import CustomUser as User
 from mptt.models import MPTTModel, TreeForeignKey
+
+class ChatNode(MPTTModel):
+    name = models.CharField(max_length=42, blank=True)
+    message_text = models.TextField(blank=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.name
+
+from accounts.models import CustomUser as User
 
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
