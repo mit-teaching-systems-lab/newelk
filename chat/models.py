@@ -4,6 +4,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 
 class ChatNode(MPTTModel):
     name = models.CharField(max_length=250, blank=True)
+    type = models.CharField(max_length=50, blank=True)
     message_text = models.TextField(blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     def __str__(self):
