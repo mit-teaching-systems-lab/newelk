@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block title %}Chat Room{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+    
+  <div class="row">
+    
+      <div class="col-sm-6">
+          
+              <div>
+        <!--All these <br> tags are a bad idea and should be updated with something better. maybe <p>? idk. -->
+        <br><br>
+        <h1>{{ scenario_name }}</h1>
+        <br><br>
+
+        {% if student_background %}
+            {{ student_background|safe }}
+            <br><br>
+            <h5>Your Student Profile:</h5>
+                  {{ student_profile|safe }}
+            <br><br>
+            {% if student_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ student_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+
+        {% if teacher_background %}
+            <h5>Your Background:</h5>
+                  {{ teacher_background|safe }}
+            <br><br>
+            <h5>Your Objective:</h5>
+                  {{ teacher_objective|safe }}
+            <br><br>
+            {% if teacher_hints %}
+            <h5>Helpful Hints:</h5>
+                  {{ teacher_hints|safe }}
+            <br><br>
+            {% endif %}
+        {% endif %}
+    </div>
+          
+    </div>
+      
+          
+    <div class="col-sm-6">
+        </br></br>
+    <p class="lead">When you are ready to begin the round, click Begin</p>
+    <input id="begin-button" class="btn btn-primary btn-lg" type="button" value="Begin"/><br/>
+    <p class="lead">Use the scenario to the left to guide your conversation:</p>
+    <textarea id="chat-log" cols="50" rows="10" disabled="disabled" ></textarea><br/>
+    <input id="chat-message-input" placeholder="Chat here" type="text" size="40"/><br/>
+    <input id="chat-message-submit" class="btn btn-primary btn-lg" type="button" value="Send Message"/></br>
+
+    {% if give_feedback %}
+    <p>When the 7 minute round is finished, take the quiz.<br/>
+    <input id="quizbtn" type="button" class="btn btn-primary btn-sm" value="Take Quiz" onclick='window.location="quiz/"'>
+    </p>
+    {% else %}
+    <p>
+    <br>
+    <input id="quizbtn" type="button" class="btn btn-primary btn-sm" value="Play Again" onclick='window.location="/chat/"'>
+    </p>
+    {% endif %}
+    </div>
+    
+  </div>
+
+    
+</div>
+
+    </body>
+    
+    
+<!-- Bootstrap core JavaScript, local
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>    -->
+
+<!-- Latest compiled and minified Bootstrap JavaScript, hosted -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    
+<!--this is to make the text area look like it isnt disabled (greyed out)'-->
+<style type="text/css">
+    #chat-log{
+        border:solid 1px #000000;
+        background-color:#ffffff;
+        color:#000000;
+    }
+    </style>
+<script>
+    window.onload = function() {
+
+        var roomName = {{ room_name_json }};
+        var role = "{{ role }}";
+        var scenario = "{{ scenario }}";
+        if (window.location.protocol == "https:") {
+          var ws_scheme = "wss://";
+        } else {
+          var ws_scheme = "ws://"
+        };
+
+
+        var chatSocket = new WebSocket(
+            ws_scheme + window.location.host + '/ws/chat/' + role + '/' + scenario + '/' + roomName + '/');
+        chatSocket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var message = data['message'];
+            var begin_timer = data['begin_timer'] || false;
+            var time = parseInt(data['time']) || 0;
+            var textarea = document.querySelector('#chat-log');
+            textarea.value += (message + '\n');
+            textarea.scrollTop = textarea.scrollHeight;
+            if (begin_timer) {
+                console.log('beginning timer')
+                beginRound(time)
+            }
+        };
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        // document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            console.log(e.keyCode)
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            var messageInputDom = document.querySelector('#chat-message-input');
+            var button = document.querySelector('#begin-button');
+            if (messageInputDom.disabled) {
+                if (button.disabled) {
+                    alert("Please wait for other players to become ready")
+                } else {
+                    alert("Click 'Begin' to start")
+                }
+            }
+            var message = messageInputDom.value;
+            if (message != '') {
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+                messageInputDom.value = '';
+            };
+        };
+        document.querySelector('#begin-button').onclick = function(e) {
+            document.querySelector('#begin-button').value = "Waiting";
+            document.querySelector('#begin-button').disabled = true;
+            chatSocket.send(JSON.stringify({
+                    'ready': 'true'
+                }));
+        };
+
+        document.querySelector('#chat-message-input').disabled = true;
+    };
+    function beginRound(time)
+    {
+
+        var chatBox = document.querySelector("#chat-message-input");
+        chatBox.disabled = false;
+        var windowFocus = setInterval(function(){
+         chatBox.focus();
+        }, 50);
+
+        var button = document.querySelector('#begin-button');
+        button.disabled = true;
+        var countdown = new Date(null);
+        countdown.setSeconds(time % 60);
+        countdown.setMinutes(Math.floor(time / 60))
+        var interval = setInterval(function(){
+            button.value = countdown.toISOString().substr(15, 4);
+            if (time == 0){
+                button.value = "Time's up!";
+                document.querySelector('#chat-message-submit').disabled = true;
+                document.querySelector('#chat-message-input').disabled = true;
+                clearInterval(interval);
+                clearInterval(windowFocus)
+            }
+            countdown.setSeconds(countdown.getSeconds() - 1);
+            time -= 1;
+        }, 1000);
+    };
+</script>
+
+{% endblock %}
