@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode
 from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
-from .serializers import ChatRoomSerializer, MessageCodeSerializer
+from .serializers import ChatRoomSerializer, MessageCodeSerializer, ChatNodeSerializer
 from django.shortcuts import get_object_or_404
 from .forms import ScenarioForm
 from django.http import HttpResponseRedirect
@@ -36,6 +36,9 @@ class MessageCodeViewSet(viewsets.ModelViewSet):
         user = self.request.user if self.request.user.is_authenticated else None
         serializer.save(user=user)
 
+class ChatNodeViewSet(viewsets.ModelViewSet):
+    queryset = ChatNode.objects.all()
+    serializer_class = ChatNodeSerializer
 
 def select_role(request):
     if not request.user.is_authenticated:

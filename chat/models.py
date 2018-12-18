@@ -64,3 +64,27 @@ class MessageCode(models.Model):
     code = models.CharField(max_length=50)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True)
 
+
+class TFNode(MPTTModel):
+    question = models.CharField(max_length=250, blank=True)
+    answer = models.BooleanField(
+        choices=BOOL_CHOICES,
+        default=True,
+    )
+    feedback = models.TextField(blank=True)
+    parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
+    def __str__(self):
+        return self.name
+    def save(self, *args, **kwargs):
+        TFNode.objects.rebuild()
+        super(TFNode, self).save(*args, **kwargs)
+
+
+class OnboardLevel(models.Model):
+    name = models.CharField(max_length=50,blank=True,null=True)
+    tf_tree = models.ForeignKey(TFNode, on_delete=models.PROTECT, null=True,blank=True)
+    transcript = models.TextField()
+    instructions = models.TextField()
+    profile = models.TextField()
+    chat_tree = models.ForeignKey(ChatNode, on_delete=models.PROTECT, null=True,blank=True)
+    feedback = models.TextField()
