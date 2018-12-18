@@ -26,7 +26,7 @@ router = routers.DefaultRouter()
 router.register(r'chatroom', ChatRoomViewSet)
 router.register(r'messagecode', MessageCodeViewSet)
 router.register(r'tfanswer', TFAnswerViewSet)
-router.register(r'chatroom', ChatNodeViewSet)
+router.register(r'chatnode', ChatNodeViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
