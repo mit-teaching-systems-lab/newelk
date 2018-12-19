@@ -69,8 +69,11 @@
                     for (child in node.children) {
                         // create button
                         var btn = document.createElement("input");
-                        btn.value = node.children[child][0]
+                        btn.type = "button";
+                        btn.value = node.children[child][0];
                         buttons.appendChild(btn);
+
+                        btn.onclick = function() { console.log('test') }
 
 
                     }
