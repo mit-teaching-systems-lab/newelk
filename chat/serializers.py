@@ -13,6 +13,12 @@ class MessageCodeSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class ChatNodeSerializer(serializers.ModelSerializer):
+    children = serializers.SerializerMethodField('get_children')
+    def get_children(self, node):
+        child_pks = []
+        for child in node.get_children():
+            child_pks.append(child.pk)
+        return child_pks
     class Meta:
-        model = ChatNode
-        fields = ('__all__')
+            model = ChatNode
+            fields = ('__all__')
