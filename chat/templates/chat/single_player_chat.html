@@ -57,34 +57,40 @@
     }
     </style>
 <script>
-    window.onload = function() {
+    var getButtons = function(res) {
+        var resource = "/api/chatnode/" + String(res)
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", resource);
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                var node = JSON.parse(xhr.response);
+                console.log(node.children)
+                var buttons = document.querySelector("#buttons")
+                for (child in node.children) {
+                    // create button
+                    var btn = document.createElement("input");
+                    btn.type = "button";
+                    btn.value = node.children[child][0];
+                    btn.id = "btn_" + String(child)
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/chatnode/5");
-            xhr.onreadystatechange = function () {
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    var node = JSON.parse(xhr.response);
-                    console.log(node.children)
-                    var buttons = document.querySelector("#buttons")
-                    for (child in node.children) {
-                        // create button
-                        var btn = document.createElement("input");
-                        btn.type = "button";
-                        btn.value = node.children[child][0];
-                        btn.id = "btn_" + String(child)
 
+                    btn.onclick = function() {
+                        document.querySelector("#buttons").innerHTML = '';
+                        getButtons(child);
+                    };
+                    buttons.appendChild(btn);
 
-                        btn.onclick = function() {
-                            alert('blah');
-                            console.log('test');
-                            document.querySelector("#buttons").innerHTML = '';
-                        };
-                        buttons.appendChild(btn);
-
-                    }
                 }
             }
-            xhr.send();
+        }
+        xhr.send();
+    };
+
+    window.onload = function() {
+
+            getButtons(5);
+
+
         };
 
 </script>
