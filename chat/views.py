@@ -450,3 +450,8 @@ def code_messages(request):
         return code_messages(request)
     else:
         return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
+
+
+def single_player_chat(request):
+    entrypoint = ChatNode.objects.get(pk=1)
+    return render(request, 'chat/single_player_chat.html', {"entrypoint": entrypoint})
