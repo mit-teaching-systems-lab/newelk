@@ -77,7 +77,7 @@
 
                     var textarea = document.querySelector('#chat-log');
                     textarea.value += ('Teacher: ' + node.name + '\n');
-                    textarea.value += ('Student: ' + node.message_text + '\n');
+                    setTimeout(function(){textarea.value += ('Student: ' + node.message_text + '\n');},1000)
                     textarea.scrollTop = textarea.scrollHeight;
 
                     for (child in node.children) {
