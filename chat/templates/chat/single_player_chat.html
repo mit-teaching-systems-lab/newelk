@@ -64,7 +64,9 @@
         xhr.onreadystatechange = function () {
             if(xhr.readyState === 4 && xhr.status === 200) {
                 var node = JSON.parse(xhr.response);
-                console.log(node.children)
+                var textarea = document.querySelector('#chat-log');
+                textarea.value += (node.message_text + '\n');
+                
                 var buttons = document.querySelector("#buttons")
                 for (child in node.children) {
                     // create button
@@ -72,10 +74,11 @@
                     btn.type = "button";
                     btn.value = node.children[child][0];
                     btn.id = "btn_" + String(child)
-
-
                     btn.onclick = function() {
                         document.querySelector("#buttons").innerHTML = '';
+                        var textarea = document.querySelector('#chat-log');
+                        textarea.value += (node.children[child][0] + '\n');
+                        textarea.scrollTop = textarea.scrollHeight;
                         getButtons(child);
                     };
                     buttons.appendChild(btn);
