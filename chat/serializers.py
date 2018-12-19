@@ -15,9 +15,9 @@ class MessageCodeSerializer(serializers.ModelSerializer):
 class ChatNodeSerializer(serializers.ModelSerializer):
     children = serializers.SerializerMethodField('list_children')
     def list_children(self, node):
-        child_pks = []
+        child_pks = {}
         for child in node.get_children():
-            child_pks.append(child.pk)
+            child_pks[child.pk] = [child.name, child.message_text]
         return child_pks
     class Meta:
             model = ChatNode
