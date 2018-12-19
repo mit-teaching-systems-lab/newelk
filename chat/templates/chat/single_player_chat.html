@@ -71,10 +71,10 @@
                         var btn = document.createElement("input");
                         btn.type = "button";
                         btn.value = node.children[child][0];
+
+
+                        btn.onclick = function(){ console.log('test') };
                         buttons.appendChild(btn);
-
-                        btn.onclick = function() { console.log('test') }
-
 
                     }
                 }
