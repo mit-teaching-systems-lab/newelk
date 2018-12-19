@@ -74,7 +74,7 @@
                 var btn = document.createElement("input");
                 btn.type = "button";
                 btn.value = node.name
-                btn.id = "btn_" + String(child)
+                btn.id = "btn_" + String(node.id)
                 btn.onclick = function() {
                     document.querySelector("#buttons").innerHTML = '';
 
