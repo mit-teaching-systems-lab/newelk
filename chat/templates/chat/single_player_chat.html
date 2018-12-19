@@ -65,8 +65,8 @@
             if(xhr.readyState === 4 && xhr.status === 200) {
                 var node = JSON.parse(xhr.response);
                 var textarea = document.querySelector('#chat-log');
-                textarea.value += (node.message_text + '\n');
-                
+                textarea.value += ('Teacher: ' + node.message_text + '\n');
+
                 var buttons = document.querySelector("#buttons")
                 for (child in node.children) {
                     // create button
@@ -77,7 +77,7 @@
                     btn.onclick = function() {
                         document.querySelector("#buttons").innerHTML = '';
                         var textarea = document.querySelector('#chat-log');
-                        textarea.value += (node.children[child][0] + '\n');
+                        textarea.value += ('Teacher: ' + node.children[child][0] + '\n');
                         textarea.scrollTop = textarea.scrollHeight;
                         getButtons(child);
                     };
