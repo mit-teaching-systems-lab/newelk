@@ -453,5 +453,5 @@ def code_messages(request):
 
 
 def single_player_chat(request):
-    entrypoint = ChatNode.objects.get(pk=1)
+    entrypoint = ChatNode.objects.get(pk=5)
     return render(request, 'chat/single_player_chat.html', {"entrypoint": entrypoint})
