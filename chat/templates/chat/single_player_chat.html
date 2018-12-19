@@ -65,9 +65,6 @@
             if(xhr.readyState === 4 && xhr.status === 200) {
                 var node = JSON.parse(xhr.response);
 
-                var textarea = document.querySelector('#chat-log');
-                textarea.value += ('Student: ' + node.message_text + '\n');
-
                 var buttons = document.querySelector("#buttons")
 
                 // create button
