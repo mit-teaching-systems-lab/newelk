@@ -65,8 +65,14 @@
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     var node = JSON.parse(xhr.response);
                     console.log(node.children)
+                    var buttons = document.querySelector("#buttons")
                     for (child in node.children) {
-                        console.log(child)
+                        // create button
+                        var btn = document.createElement("input");
+                        btn.value = node.children[child][0]
+                        buttons.appendChild(btn);
+
+
                     }
                 }
             }
