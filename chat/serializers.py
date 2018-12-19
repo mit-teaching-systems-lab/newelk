@@ -13,8 +13,8 @@ class MessageCodeSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class ChatNodeSerializer(serializers.ModelSerializer):
-    children = serializers.SerializerMethodField('get_children')
-    def get_children(self, node):
+    children = serializers.SerializerMethodField('list_children')
+    def list_children(self, node):
         child_pks = []
         for child in node.get_children():
             child_pks.append(child.pk)
