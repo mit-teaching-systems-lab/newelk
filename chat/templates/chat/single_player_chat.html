@@ -57,33 +57,39 @@
     }
     </style>
 <script>
-    var getButtons = function(res) {
+    var getButton = function(res) {
         var resource = "/api/chatnode/" + String(res)
         var xhr = new XMLHttpRequest();
         xhr.open("GET", resource);
         xhr.onreadystatechange = function () {
             if(xhr.readyState === 4 && xhr.status === 200) {
                 var node = JSON.parse(xhr.response);
+
                 var textarea = document.querySelector('#chat-log');
                 textarea.value += ('Student: ' + node.message_text + '\n');
 
                 var buttons = document.querySelector("#buttons")
-                for (child in node.children) {
-                    // create button
-                    var btn = document.createElement("input");
-                    btn.type = "button";
-                    btn.value = node.children[child][0];
-                    btn.id = "btn_" + String(child)
-                    btn.onclick = function() {
-                        document.querySelector("#buttons").innerHTML = '';
-                        var textarea = document.querySelector('#chat-log');
-                        textarea.value += ('Teacher: ' + node.children[child][0] + '\n');
-                        textarea.scrollTop = textarea.scrollHeight;
-                        getButtons(child);
-                    };
-                    buttons.appendChild(btn);
 
-                }
+                // create button
+                var btn = document.createElement("input");
+                btn.type = "button";
+                btn.value = node.name
+                btn.id = "btn_" + String(child)
+                btn.onclick = function() {
+                    document.querySelector("#buttons").innerHTML = '';
+
+                    var textarea = document.querySelector('#chat-log');
+                    textarea.value += ('Teacher: ' + node.name + '\n');
+                    textarea.value += ('Student: ' + node.message_text + '\n');
+                    textarea.scrollTop = textarea.scrollHeight;
+
+                    for (child in node.children) {
+                        getButton(child);
+                    }
+
+                };
+                buttons.appendChild(btn);
+
             }
         }
         xhr.send();
@@ -91,7 +97,7 @@
 
     window.onload = function() {
 
-            getButtons(5);
+            getButton(5);
 
 
         };
