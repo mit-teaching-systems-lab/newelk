@@ -25,9 +25,10 @@
         </br></br>
     <p class="lead">more instructions here?</p>
     <textarea id="chat-log" cols="50" rows="10" disabled="disabled" ></textarea><br/>
-    {% for button in entrypoint.children %}
-        <input value="{{ button }}">
-    {% endfor %}
+    <div id="buttons">
+
+    </div>
+
 
     </div>
     
@@ -58,97 +59,21 @@
 <script>
     window.onload = function() {
 
-        var roomName = {{ room_name_json }};
-        var role = "{{ role }}";
-        var scenario = "{{ scenario }}";
-        if (window.location.protocol == "https:") {
-          var ws_scheme = "wss://";
-        } else {
-          var ws_scheme = "ws://"
-        };
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/chatnode/5");
+            xhr.onreadystatechange = function () {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    var node = JSON.parse(xhr.response);
 
-
-        var chatSocket = new WebSocket(
-            ws_scheme + window.location.host + '/ws/chat/' + role + '/' + scenario + '/' + roomName + '/');
-        chatSocket.onmessage = function(e) {
-            var data = JSON.parse(e.data);
-            var message = data['message'];
-            var begin_timer = data['begin_timer'] || false;
-            var time = parseInt(data['time']) || 0;
-            var textarea = document.querySelector('#chat-log');
-            textarea.value += (message + '\n');
-            textarea.scrollTop = textarea.scrollHeight;
-            if (begin_timer) {
-                console.log('beginning timer')
-                beginRound(time)
-            }
-        };
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        // document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            console.log(e.keyCode)
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            var messageInputDom = document.querySelector('#chat-message-input');
-            var button = document.querySelector('#begin-button');
-            if (messageInputDom.disabled) {
-                if (button.disabled) {
-                    alert("Please wait for other players to become ready")
-                } else {
-                    alert("Click 'Begin' to start")
+                    for (child in node.children) {
+                        console.log(child)
+                    }
                 }
             }
-            var message = messageInputDom.value;
-            if (message != '') {
-                chatSocket.send(JSON.stringify({
-                    'message': message
-                }));
-                messageInputDom.value = '';
-            };
-        };
-        document.querySelector('#begin-button').onclick = function(e) {
-            document.querySelector('#begin-button').value = "Waiting";
-            document.querySelector('#begin-button').disabled = true;
-            chatSocket.send(JSON.stringify({
-                    'ready': 'true'
-                }));
+
         };
 
-        document.querySelector('#chat-message-input').disabled = true;
-    };
-    function beginRound(time)
-    {
 
-        var chatBox = document.querySelector("#chat-message-input");
-        chatBox.disabled = false;
-        var windowFocus = setInterval(function(){
-         chatBox.focus();
-        }, 50);
-
-        var button = document.querySelector('#begin-button');
-        button.disabled = true;
-        var countdown = new Date(null);
-        countdown.setSeconds(time % 60);
-        countdown.setMinutes(Math.floor(time / 60))
-        var interval = setInterval(function(){
-            button.value = countdown.toISOString().substr(15, 4);
-            if (time == 0){
-                button.value = "Time's up!";
-                document.querySelector('#chat-message-submit').disabled = true;
-                document.querySelector('#chat-message-input').disabled = true;
-                clearInterval(interval);
-                clearInterval(windowFocus)
-            }
-            countdown.setSeconds(countdown.getSeconds() - 1);
-            time -= 1;
-        }, 1000);
-    };
 </script>
 
 {% endblock %}
