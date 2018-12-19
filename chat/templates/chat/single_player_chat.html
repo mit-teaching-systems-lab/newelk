@@ -64,15 +64,14 @@
             xhr.onreadystatechange = function () {
                 if(xhr.readyState === 4 && xhr.status === 200) {
                     var node = JSON.parse(xhr.response);
-
+                    console.log(node.children)
                     for (child in node.children) {
                         console.log(child)
                     }
                 }
             }
-
+            xhr.send();
         };
-
 
 </script>
 
