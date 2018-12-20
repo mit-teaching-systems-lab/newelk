@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
 import json
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel
 from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
 from .serializers import ChatRoomSerializer, MessageCodeSerializer, ChatNodeSerializer
@@ -454,3 +454,6 @@ def code_messages(request):
 
 def single_player_chat(request):
     return render(request, 'chat/single_player_chat.html')
+
+def onboard_chat(request):
+    return render(request, 'chat/single_player_chat.html', {"level":OnboardLevel.objects.get(pk=1)})

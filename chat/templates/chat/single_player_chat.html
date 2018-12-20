@@ -13,9 +13,9 @@
               <div>
         <!--All these <br> tags are a bad idea and should be updated with something better. maybe <p>? idk. -->
         <br><br>
-        <h1>some title here</h1>
+        <h1>{{ level.name }}</h1>
         <br><br>
-        idk maybe instructions here
+        {{ level.instructions_left }}
     </div>
           
     </div>
@@ -23,7 +23,7 @@
           
     <div class="col-sm-6">
         </br></br>
-    <p class="lead">more instructions here?</p>
+    <p class="lead">{{ level.instructions_right }}</p>
     <textarea id="chat-log" cols="50" rows="10" disabled="disabled" ></textarea><br/>
     <div id="buttons">
 
