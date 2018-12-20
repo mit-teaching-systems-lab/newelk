@@ -77,15 +77,20 @@
 
                     var textarea = document.querySelector('#chat-log');
                     textarea.value += ('Teacher: ' + node.name + '\n');
-                    setTimeout(function(){textarea.value += ('Student: ' + node.message_text + '\n');},1000)
-                    textarea.scrollTop = textarea.scrollHeight;
+                    setTimeout(function(){
+                        textarea.value += ('Student: ' + node.message_text + '\n');
+                        textarea.scrollTop = textarea.scrollHeight;
+                        for (child in node.children) {
+                            getButton(child);
+                        }
+                        buttons.appendChild(btn);
+                    },1000)
 
-                    for (child in node.children) {
-                        getButton(child);
-                    }
+
+
 
                 };
-                buttons.appendChild(btn);
+
 
             }
         }
