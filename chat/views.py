@@ -453,7 +453,4 @@ def code_messages(request):
 
 
 def single_player_chat(request):
-    return render(request, 'chat/single_player_chat.html')
-
-def onboard_chat(request):
     return render(request, 'chat/single_player_chat.html', {"level":OnboardLevel.objects.get(pk=1)})
