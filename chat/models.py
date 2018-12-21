@@ -2,11 +2,17 @@ from django.db import models
 from django.utils import timezone
 from mptt.models import MPTTModel, TreeForeignKey
 
+class Feedback(models.Model):
+    text = models.TextField()
+    def __str__(self):
+        return self.name
+
 class ChatNode(MPTTModel):
     name = models.CharField(max_length=250, blank=True)
     type = models.CharField(max_length=50, blank=True)
     message_text = models.TextField(blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
+    feedback_link = models.ForeignKey(Feedback, on_delete=models.PROTECT, blank=True, null=True)
     def __str__(self):
         return self.name
     def save(self, *args, **kwargs):
@@ -84,9 +90,10 @@ class TFNode(MPTTModel):
 class OnboardLevel(models.Model):
     name = models.CharField(max_length=50,blank=True,null=True)
     tf_tree = models.ForeignKey(TFNode, on_delete=models.PROTECT, null=True,blank=True)
-    transcript = models.TextField()
+    transcript = models.TextField(blank=True)
     instructions_left = models.TextField(blank=True)
     instructions_right = models.TextField(blank=True)
-    profile = models.TextField()
+    profile = models.TextField(blank=True)
     chat_tree = models.ForeignKey(ChatNode, on_delete=models.PROTECT, null=True,blank=True)
-    feedback = models.TextField()
+
+
