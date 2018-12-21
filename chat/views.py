@@ -452,5 +452,5 @@ def code_messages(request):
         return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
 
 
-def single_player_chat(request):
-    return render(request, 'chat/single_player_chat.html', {"level":OnboardLevel.objects.get(pk=1)})
+def single_player_chat(request, level):
+    return render(request, 'chat/single_player_chat.html', {"level":OnboardLevel.objects.get(pk=level)})
