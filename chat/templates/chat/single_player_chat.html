@@ -65,7 +65,7 @@
             if(xhr.readyState === 4 && xhr.status === 200) {
                 var node = JSON.parse(xhr.response);
 
-
+                console.log('api works')
 
                 // create button
                 var btn = document.createElement("input");
@@ -85,8 +85,8 @@
                             textarea.value += ('Student: ' + node.message_text + '\n');
                             textarea.scrollTop = textarea.scrollHeight;
                             for (child in node.children) {
-                                <!--console.log('node child:')-->
-                                <!--console.log(child)-->
+                                console.log('node child:')
+                                console.log(child)
                                 getButton(child);
                             }
 
@@ -94,6 +94,7 @@
                         }
 
                     },1000)
+                console.log('trying to append button')
                 document.querySelector("#buttons").appendChild(btn);
 
 
