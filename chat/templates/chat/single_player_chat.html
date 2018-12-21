@@ -81,16 +81,17 @@
                         if (node.name == "End Conversation") {
                             alert('placeholder feedback')
                         } else {
-
-                            textarea.value += ('Student: ' + node.message_text + '\n');
-                            textarea.scrollTop = textarea.scrollHeight;
-                            for (child in node.children) {
-                                console.log('node child:')
-                                console.log(child)
-                                getButton(child);
-                            }
+                            setTimeout(function(){
+                                textarea.value += ('Student: ' + node.message_text + '\n');
+                                textarea.scrollTop = textarea.scrollHeight;
+                                for (child in node.children) {
+                                    console.log('node child:')
+                                    console.log(child)
+                                    getButton(child);
+                                }
+                            }, 1000)
                         }
-                    },1500)
+                    },1000)
                 };
                 console.log('trying to append button')
                 document.querySelector("#buttons").appendChild(btn);
