@@ -80,7 +80,11 @@
                     textarea.value += ('Teacher: ' + node.name + '\n');
                     setTimeout(function(){
                         if (node.name == "End Conversation") {
-                            alert('placeholder feedback')
+                            var link = document.createElement("a");
+                            var linktext = document.createTextNode("Click to view your results");
+                            link.setAttribute('href','{{ node.feedback_link.pk }}/')
+                            link.appendChild(linktext);
+                            document.querySelector("#buttons").appendChild(link);
                         } else {
                             textarea.value += ('Student: ' + node.message_text + '\n');
                             textarea.scrollTop = textarea.scrollHeight;
