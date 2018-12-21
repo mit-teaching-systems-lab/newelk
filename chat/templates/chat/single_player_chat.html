@@ -81,18 +81,20 @@
                         if (node.name == "End Conversation") {
                             alert('placeholder feedback')
                         } else {
-                            
+
                             textarea.value += ('Student: ' + node.message_text + '\n');
                             textarea.scrollTop = textarea.scrollHeight;
                             for (child in node.children) {
+                                <!--console.log('node child:')-->
+                                <!--console.log(child)-->
                                 getButton(child);
                             }
-                            document.querySelector("#buttons").appendChild(btn);
+
 
                         }
 
                     },1000)
-
+                document.querySelector("#buttons").appendChild(btn);
 
 
 
