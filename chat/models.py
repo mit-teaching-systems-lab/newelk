@@ -81,7 +81,7 @@ class TFNode(MPTTModel):
     feedback = models.TextField(blank=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True, on_delete=models.PROTECT)
     def __str__(self):
-        return self.name
+        return self.question
     def save(self, *args, **kwargs):
         TFNode.objects.rebuild()
         super(TFNode, self).save(*args, **kwargs)
