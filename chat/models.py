@@ -5,7 +5,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 class Feedback(models.Model):
     text = models.TextField()
     def __str__(self):
-        return self.name
+        return self.text
 
 class ChatNode(MPTTModel):
     name = models.CharField(max_length=250, blank=True)
