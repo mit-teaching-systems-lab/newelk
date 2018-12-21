@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback
 from django.contrib.admin.sites import AdminSite
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.shortcuts import redirect
@@ -77,4 +77,5 @@ admin.site.register(Scenario, ScenarioAdmin)
 admin.site.register(TFQuestion)
 admin.site.register(MessageCode)
 admin.site.register(ChatNode, DraggableMPTTAdmin)
+admin.site.register(Feedback)
 admin.site.register(OnboardLevel)
