@@ -81,9 +81,9 @@
                         if (node.name == "End Conversation") {
                             alert('placeholder feedback')
                         } else {
+                            textarea.value += ('Student: ' + node.message_text + '\n');
+                            textarea.scrollTop = textarea.scrollHeight;
                             setTimeout(function(){
-                                textarea.value += ('Student: ' + node.message_text + '\n');
-                                textarea.scrollTop = textarea.scrollHeight;
                                 for (child in node.children) {
                                     console.log('node child:')
                                     console.log(child)
