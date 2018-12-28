@@ -453,7 +453,7 @@ def single_player_chat(request, level):
 
 def chat_feedback(request, level, feedback):
     feedback = Feedback.objects.get(pk=feedback)
-    return render(request, 'chat/single_player_chat.html', {"feedback": feedback})
+    return render(request, 'chat/feedback.html', {"feedback": feedback})
 
 def onboard_menu(request):
     return render(request, 'chat/onboard_menu.html')
