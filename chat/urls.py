@@ -8,6 +8,7 @@ urlpatterns = [
     path('t/', views.join_scenario, name='join_scenario'),
     path('s/', views.select_scenario, name='select_scenario'),
     path('menu/', views.onboard_menu, name='onboard_menu'),
+    path('chatinst/', views.chat_inst, name='chat_inst'),
     path('onboard/', views.onboard_inst, name='onboard_inst'),
     path('onboard1/', views.onboard1, name='onboard1'),
     path('onboard2/', views.onboard2, name='onboard2'),

@@ -237,6 +237,9 @@ def onboard_inst(request):
     return render(request, 'chat/onboard_instructions.html')
 
 
+def chat_inst(request):
+    return render(request, 'chat/chat_instructions.html')
+
 def onboard1(request):
     text = """T: What do you know about continents?;eliciting;Eliciting because this is the first question on the topic of continents
         S: There’s like... America... and England... and Africa... and maybe India?;;
