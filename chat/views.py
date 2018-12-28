@@ -226,16 +226,11 @@ def scenario_editor(request, pk):
     # If this is a GET (or any other method) create the default form.
     else:
         scenario_form = ScenarioForm(instance=scenario)
-        # scenario_form = ScenarioFormSet(queryset=Scenario.objects.filter(pk=pk))
-        # scenario_form = ScenarioForm(request.POST, instance=scenario)
 
     context = {
         'form': scenario_form,
         'scenario': scenario,
     }
-
-    print(scenario_form)
-
     return render(request, 'chat/scenario_editor.html', context)
 
 def onboard_inst(request):
@@ -459,3 +454,6 @@ def single_player_chat(request, level):
 def chat_feedback(request, level, feedback):
     feedback = Feedback.objects.get(pk=feedback)
     return render(request, 'chat/single_player_chat.html', {"feedback": feedback})
+
+def onboard_menu(request):
+    return render(request, 'chat/onboard_menu.html')
