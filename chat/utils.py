@@ -1,20 +1,6 @@
-from .models import MessageCode
 import random
-from django.db.models import Max
 
-#
-# def process_codes(request):
-#     checked = []
-#     for item in request.POST:
-#         if not item == "csrfmiddlewaretoken":
-#             print(item)
-#             checked.append(item)
-#             u, c, n = item.split("_")
-#             if request.user.is_authenticated:
-#                 MessageCode.objects.create(url=str(u), other_id=str(n), code=c, user=request.user)
-#             else:
-#                 MessageCode.objects.create(url=str(u), other_id=str(n), code=c)
-#     return checked
+from django.db.models import Max
 
 
 def get_random_object(obj):

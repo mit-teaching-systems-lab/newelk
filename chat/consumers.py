@@ -1,10 +1,9 @@
-from channels.generic.websocket import AsyncWebsocketConsumer
 import json
-from research.models import Transcript, Message
+
+from channels.generic.websocket import AsyncWebsocketConsumer
+
 from chat.models import ChatRoom, Scenario
-import re
-import threading
-import asyncio
+from research.models import Transcript, Message
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -13,10 +12,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.role = self.scope['url_route']['kwargs']['role']
         self.scenario = self.scope['url_route']['kwargs']['scenario']
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_name = re.sub('%', '-', self.room_name)
-        self.room_name = re.sub(' ', '-', self.room_name)
-        self.room_name = re.sub('_', '-', self.room_name)
-        self.room_name = re.sub('!', '-', self.room_name)
         self.room_name = self.room_name.lower()
 
         self.room_group_name = 'chat_%s_%s' % (self.room_name, self.scenario)
@@ -25,7 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if not self.room:
             this_scene = Scenario.objects.get(pk=self.scenario)
-            self.room = ChatRoom.objects.create(name=self.room_name,scenario=this_scene)
+            self.room = ChatRoom.objects.create(name=self.room_name, scenario=this_scene)
 
             ts = Transcript.objects.create(room_name=self.room_name)
             ts.scenario = this_scene

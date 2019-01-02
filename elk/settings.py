@@ -11,17 +11,21 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+
 import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'h2$(bv2o57)e6p%v2tkujf$0=x^tt@1&7=xuyq56$1$0hbcyqn'
+env = environ.Env()
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+if SECRET_KEY is None:
+    SECRET_KEY = 'h2$(bv2o57)e6p%v2tkujf$0=x^tt@1&7=xuyq56$1$0hbcyqn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -119,17 +123,17 @@ try:
 
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'elk',                      # Or path to database file if using sqlite3.
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'elk',  # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
             'USER': '',
             'PASSWORD': '',
-            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-            'PORT': '',                      # Set to empty string for default.
+            'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+            'PORT': '',  # Set to empty string for default.
         }
     }
     # Parse database configuration from $DATABASE_URL
-    env = environ.Env()
     if os.environ.get('MIT_URL') is not None:
         DATABASES['default'] = env.db('MIT_URL')
     else:
@@ -154,7 +158,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
@@ -172,7 +175,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -216,4 +218,3 @@ ANYMAIL = {
     'MAILGUN_API_KEY': os.environ.get('MAILGUN_API_KEY'),
     'MAILGUN_SENDER_DOMAIN': os.environ.get('MAILGUN_DOMAIN')
 }
-

@@ -1,16 +1,19 @@
+import json
+import os
+
+from django.forms import modelformset_factory
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.utils.safestring import mark_safe
-import json
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback
-from research.models import TFAnswer, Transcript, Message
 from rest_framework import viewsets
-from .serializers import ChatRoomSerializer, MessageCodeSerializer, ChatNodeSerializer
-from django.shortcuts import get_object_or_404
+
+from research.models import TFAnswer, Transcript, Message
 from .forms import ScenarioForm
-from django.http import HttpResponseRedirect
-from django.forms import modelformset_factory
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback
+from .serializers import ChatRoomSerializer, MessageCodeSerializer, ChatNodeSerializer
 from .utils import get_random_object
-import os
+
 
 class ChatRoomViewSet(viewsets.ModelViewSet):
     """
@@ -18,12 +21,12 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     """
     queryset = ChatRoom.objects.all().order_by('name')
     serializer_class = ChatRoomSerializer
+
     def get_queryset(self):
         user = self.request.user
         print('player looking for chatrooms')
         print(user)
         return ChatRoom.objects.all().order_by('name')
-
 
 
 class MessageCodeViewSet(viewsets.ModelViewSet):
@@ -32,19 +35,23 @@ class MessageCodeViewSet(viewsets.ModelViewSet):
     """
     queryset = MessageCode.objects.all()
     serializer_class = MessageCodeSerializer
+
     def perform_create(self, serializer):
         user = self.request.user if self.request.user.is_authenticated else None
         serializer.save(user=user)
 
+
 class ChatNodeViewSet(viewsets.ModelViewSet):
     queryset = ChatNode.objects.all()
     serializer_class = ChatNodeSerializer
+
 
 def select_role(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     scenarios = Scenario.objects.all()
     return render(request, 'chat/select_role.html')
+
 
 def select_scenario(request):
     if not request.user.is_authenticated:
@@ -53,11 +60,13 @@ def select_scenario(request):
     scenarios = Scenario.objects.filter(visible_to_players=True)
     return render(request, 'chat/select_scenario.html', {'scenarios': scenarios})
 
+
 def join_scenario(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
     chatrooms = ChatRoom.objects.all()
     return render(request, 'chat/join_scenario.html', {'chatrooms': chatrooms})
+
 
 def room(request, role, scenario, room_name):
     if not request.user.is_authenticated:
@@ -74,6 +83,7 @@ def room(request, role, scenario, room_name):
         give_feedback = True
     room_details['give_feedback'] = give_feedback
     return render(request, 'chat/room.html', room_details)
+
 
 def join_room(request):
     return render(request, 'chat/join_scenario.html')
@@ -128,8 +138,9 @@ def quiz(request, role, scenario, room_name):
         return redirect('/chat/result')
     else:
         quiz_context = get_room_details(role, scenario, room_name)
-        quiz_context.update({'transcript':transcript, 'questions':questions})
+        quiz_context.update({'transcript': transcript, 'questions': questions})
         return render(request, 'chat/quiz.html', quiz_context)
+
 
 def get_room_details(role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
@@ -158,6 +169,7 @@ def get_room_details(role, scenario, room_name):
 
     return room_details
 
+
 def scenario_creator(request):
     if request.method == 'POST':
         scenario_form = ScenarioForm(request.POST)
@@ -175,7 +187,7 @@ def scenario_creator(request):
 def scenario_editor(request, pk):
     scenario = get_object_or_404(Scenario, pk=pk)
     # AuthorFormSet = modelformset_factory(Author, fields=('name', 'title'))
-    ScenarioFormSet = modelformset_factory(Scenario, exclude=('parent','owner','creation_time'))
+    ScenarioFormSet = modelformset_factory(Scenario, exclude=('parent', 'owner', 'creation_time'))
 
     # If this is a POST request then process the Form data
     if request.method == 'POST':
@@ -195,12 +207,12 @@ def scenario_editor(request, pk):
 
             new_scene = scenario_form.save(commit=False)
             if (new_scene.scenario_name == scenario.scenario_name and
-                new_scene.student_background == scenario.student_background and
-                new_scene.student_profile == scenario.student_profile and
-                new_scene.teacher_background == scenario.teacher_background and
-                new_scene.teacher_objective == scenario.teacher_objective and
-                new_scene.visible_to_players != scenario.visible_to_players
-                ):
+                    new_scene.student_background == scenario.student_background and
+                    new_scene.student_profile == scenario.student_profile and
+                    new_scene.teacher_background == scenario.teacher_background and
+                    new_scene.teacher_objective == scenario.teacher_objective and
+                    new_scene.visible_to_players != scenario.visible_to_players
+            ):
                 scenario.visible_to_players = new_scene.visible_to_players
                 scenario.save()
                 print('changed visibility on scenario')
@@ -233,12 +245,14 @@ def scenario_editor(request, pk):
     }
     return render(request, 'chat/scenario_editor.html', context)
 
+
 def onboard_inst(request):
     return render(request, 'chat/onboard_instructions.html')
 
 
 def chat_inst(request):
     return render(request, 'chat/chat_instructions.html')
+
 
 def onboard1(request):
     text = """T: What do you know about continents?;eliciting;Eliciting because this is the first question on the topic of continents
@@ -282,7 +296,9 @@ def onboard1(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard2","give_feedback":give_feedback})
+    return render(request, 'chat/coding_onboarding.html',
+                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard2",
+                   "give_feedback": give_feedback})
 
 
 def onboard2(request):
@@ -323,7 +339,9 @@ def onboard2(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard3","give_feedback":give_feedback})
+    return render(request, 'chat/coding_onboarding.html',
+                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard3",
+                   "give_feedback": give_feedback})
 
 
 def onboard3(request):
@@ -366,7 +384,9 @@ def onboard3(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/onboard4","give_feedback":give_feedback})
+    return render(request, 'chat/coding_onboarding.html',
+                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard4",
+                   "give_feedback": give_feedback})
 
 
 def onboard4(request):
@@ -411,7 +431,8 @@ def onboard4(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/","give_feedback":give_feedback})
+    return render(request, 'chat/coding_onboarding.html',
+                  {"messages": zip(messages, answers, feedback), "nextpage": "/", "give_feedback": give_feedback})
 
 
 def code_messages(request):
@@ -447,16 +468,20 @@ def code_messages(request):
     if len(messages) == 0:
         return code_messages(request)
     else:
-        return render(request, 'chat/coding_onboarding.html', {"messages":zip(messages,answers,feedback),"nextpage":"/chat/code","give_feedback":give_feedback})
+        return render(request, 'chat/coding_onboarding.html',
+                      {"messages": zip(messages, answers, feedback), "nextpage": "/chat/code",
+                       "give_feedback": give_feedback})
 
 
 def single_player_chat(request, level):
     level_obj = OnboardLevel.objects.get(pk=level)
-    return render(request, 'chat/single_player_chat.html', {"level":level_obj})
+    return render(request, 'chat/single_player_chat.html', {"level": level_obj})
+
 
 def chat_feedback(request, level, feedback):
     feedback = Feedback.objects.get(pk=feedback)
     return render(request, 'chat/feedback.html', {"feedback": feedback})
+
 
 def onboard_menu(request):
     return render(request, 'chat/onboard_menu.html')
