@@ -26,8 +26,6 @@ class ChatNode(MPTTModel):
         super(ChatNode, self).save(*args, **kwargs)
 
 
-from accounts.models import CustomUser as User
-
 BOOL_CHOICES = ((True, 'True'), (False, 'False'))
 
 
@@ -46,7 +44,7 @@ class Scenario(MPTTModel):
     # previous_version = models.ForeignKey('self', on_delete=models.SET_NULL, default=None, blank=True, null=True)
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', db_index=True,
                             on_delete=models.PROTECT)
-    owner = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    owner = models.ForeignKey('accounts.CustomUser', null=True, on_delete=models.SET_NULL)
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -70,8 +68,8 @@ from research.models import Transcript, Message
 
 class ChatRoom(models.Model):
     name = models.CharField(max_length=50)
-    users = models.ManyToManyField(User, related_name='+')
-    ready_users = models.ManyToManyField(User, related_name='+')
+    users = models.ManyToManyField('accounts.CustomUser', related_name='+')
+    ready_users = models.ManyToManyField('accounts.CustomUser', related_name='+')
     scenario = models.ForeignKey(Scenario, on_delete=models.SET_NULL, null=True)
     transcript = models.ForeignKey(Transcript, on_delete=models.SET_NULL, null=True)
     creation_time = models.DateTimeField(default=timezone.now)
@@ -85,7 +83,7 @@ class MessageCode(models.Model):
     other_id = models.CharField(max_length=50, blank=True, null=True)
     url = models.CharField(max_length=50, blank=True, null=True)
     code = models.CharField(max_length=50)
-    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, blank=True)
+    user = models.ForeignKey('accounts.CustomUser', null=True, on_delete=models.SET_NULL, blank=True)
 
 
 class TFNode(MPTTModel):
