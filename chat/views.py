@@ -480,8 +480,15 @@ def single_player_chat(request, level):
 
 def chat_feedback(request, level, final_node):
     node = ChatNode.objects.get(pk=final_node)
+    node_ancestors = node.get_ancestors()
+    transcript = ''
+    for n in node_ancestors:
+        transcript += n.name + "\n"
+        transcript += n.message_text + "\n"
+
     feedback = node.feedback_link
-    return render(request, 'chat/feedback.html', {"feedback": feedback})
+
+    return render(request, 'chat/feedback.html', {"feedback": feedback, "transcript": transcript})
 
 
 def onboard_menu(request):
