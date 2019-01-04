@@ -82,7 +82,7 @@
                         if (node.name == "End Conversation") {
                             var link = document.createElement("a");
                             var linktext = document.createTextNode("Click to view your results");
-                            link.setAttribute('href',String(node.pk) + '/')
+                            link.setAttribute('href',String(node.id) + '/')
                             link.appendChild(linktext);
                             document.querySelector("#buttons").appendChild(link);
                         } else {
