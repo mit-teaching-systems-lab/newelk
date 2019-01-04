@@ -107,7 +107,6 @@ class TFNode(MPTTModel):
 class OnboardLevel(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
     tf_tree = models.ForeignKey(TFNode, on_delete=models.PROTECT, null=True, blank=True)
-    transcript = models.TextField(blank=True)
     instructions_left = models.TextField(blank=True)
     instructions_right = models.TextField(blank=True)
     profile = models.TextField(blank=True)

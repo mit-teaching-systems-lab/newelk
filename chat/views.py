@@ -478,8 +478,9 @@ def single_player_chat(request, level):
     return render(request, 'chat/single_player_chat.html', {"level": level_obj})
 
 
-def chat_feedback(request, level, feedback):
-    feedback = Feedback.objects.get(pk=feedback)
+def chat_feedback(request, level, final_node):
+    node = ChatNode.objects.get(pk=final_node)
+    feedback = node.feedback_link
     return render(request, 'chat/feedback.html', {"feedback": feedback})
 
 
