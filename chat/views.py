@@ -483,8 +483,8 @@ def chat_feedback(request, level, final_node):
     node_ancestors = node.get_ancestors()
     transcript = ''
     for n in node_ancestors:
-        transcript += n.name + "\n"
-        transcript += n.message_text + "\n"
+        transcript += "Teacher: " + n.name + "\n"
+        transcript += "Student: " + n.message_text + "\n"
 
     feedback = node.feedback_link
 
