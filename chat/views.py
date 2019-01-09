@@ -10,7 +10,7 @@ from rest_framework import viewsets
 
 from research.models import TFAnswer, Transcript, Message
 from .forms import ScenarioForm
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback
+from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel
 from .serializers import ChatRoomSerializer, MessageCodeSerializer, ChatNodeSerializer
 from .utils import get_random_object
 
