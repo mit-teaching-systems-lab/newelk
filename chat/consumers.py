@@ -71,7 +71,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if 'message' in text_data_json:
             # print('msg found')
             message = username + text_data_json['message']
-
+            print(message)
             await self.channel_layer.group_send(
                 self.room_group_name,
                 {
