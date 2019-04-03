@@ -112,7 +112,7 @@ ASGI_APPLICATION = "elk.routing.application"
 
 try:
     # PAAS settings -------------------------------------------------
-    REDIS = os.environ['REDIS_URL']
+    REDIS = os.environ['REDIS_MIT']
     import django_heroku
 
     django_heroku.settings(locals())
