@@ -184,6 +184,8 @@ def scenario_creator(request):
         scenario_form = ScenarioForm(request.POST)
         if scenario_form.is_valid():
             new_scene = scenario_form.save()
+            new_scene.owner = request.user
+            new_scene.save()
             return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
     else:
         scenario_form = ScenarioForm()
