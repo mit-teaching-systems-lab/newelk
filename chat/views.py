@@ -185,6 +185,8 @@ def scenario_creator(request):
 
 
 def scenario_editor(request, pk):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
     scenario = get_object_or_404(Scenario, pk=pk)
     # AuthorFormSet = modelformset_factory(Author, fields=('name', 'title'))
     ScenarioFormSet = modelformset_factory(Scenario, exclude=('parent', 'owner', 'creation_time'))
