@@ -1,6 +1,7 @@
 import json
 import os
 
+from django.contrib.auth.models import Group
 from django.forms import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -121,6 +122,9 @@ def result(request):
 def quiz(request, role, scenario, room_name):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
+    else:
+        g = Group.objects.get(name='scene_creators')
+        g.user_set.add(request.user)
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
@@ -173,6 +177,9 @@ def get_room_details(role, scenario, room_name):
 def scenario_creator(request):
     if not request.user.is_authenticated:
         return redirect('/accounts/login/')
+    else:
+        g = Group.objects.get(name='scene_creators')
+        g.user_set.add(request.user)
     if request.method == 'POST':
         scenario_form = ScenarioForm(request.POST)
         if scenario_form.is_valid():
