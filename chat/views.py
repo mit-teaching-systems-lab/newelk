@@ -171,6 +171,8 @@ def get_room_details(role, scenario, room_name):
 
 
 def scenario_creator(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/')
     if request.method == 'POST':
         scenario_form = ScenarioForm(request.POST)
         if scenario_form.is_valid():
