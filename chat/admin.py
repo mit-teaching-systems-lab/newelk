@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
+from django.shortcuts import redirect
 from django.urls import reverse
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
@@ -66,6 +67,8 @@ class ScenarioAdmin(MPTTModelAdmin):
         Scenario.objects.partial_rebuild(obj.tree_id)
 
     def get_queryset(self, request):
+        if not request.user.is_authenticated:
+            return redirect('/accounts/login/')
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
