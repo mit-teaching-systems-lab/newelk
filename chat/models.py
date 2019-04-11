@@ -48,7 +48,7 @@ class Scenario(MPTTModel):
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.scenario_name + '  /  id:' + str(self.pk) + '  /  ' + str(self.creation_time)[5:19]
+        return self.scenario_name + '  /  id:' + str(self.pk) + '  /  ' + str(self.creation_time)[5:19] + ' / ' + str(self.owner)
 
 
 class TFQuestion(models.Model):
