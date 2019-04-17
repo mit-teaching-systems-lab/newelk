@@ -14,7 +14,8 @@ from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, Onboa
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect('/accounts/login/')
+            print('not authenticated')
+            return False
         print(request.user.__dict__)
         g = Group.objects.get(name='scene_creators')
         g.user_set.add(request.user)
