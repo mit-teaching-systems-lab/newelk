@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import redirect
 from django.urls import reverse
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
+from django.http import HttpResponseRedirect
 
 from accounts.models import CustomUser as User
 from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback, TFNode
@@ -13,7 +14,7 @@ from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, Onboa
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         if not request.user.is_authenticated:
-            return redirect('/accounts/login/')
+            return HttpResponseRedirect('/accounts/login/')
         g = Group.objects.get(name='scene_creators')
         g.user_set.add(request.user)
         return request.user.is_active
@@ -70,7 +71,7 @@ class ScenarioAdmin(MPTTModelAdmin):
 
     def get_queryset(self, request):
         if not request.user.is_authenticated:
-            return redirect('/accounts/login/')
+            return HttpResponseRedirect('/accounts/login/')
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
