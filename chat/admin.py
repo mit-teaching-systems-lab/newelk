@@ -15,7 +15,7 @@ class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         if not request.user.is_authenticated:
             return HttpResponseRedirect('/accounts/login/')
-        print(request.user)
+        print(request.user.__dict__)
         g = Group.objects.get(name='scene_creators')
         g.user_set.add(request.user)
         return request.user.is_active
