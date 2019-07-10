@@ -73,7 +73,8 @@ class ScenarioAdmin(MPTTModelAdmin):
         if not request.user.is_authenticated:
             return HttpResponseRedirect('/accounts/login/')
         qs = super().get_queryset(request)
-        if request.user.is_superuser:
+        g = Group.objects.get(name='scenario_admin')
+        if request.user.is_superuser or g in request.user.groups.all():
             return qs
         return qs.filter(owner=request.user)
 
