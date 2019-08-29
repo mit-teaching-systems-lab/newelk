@@ -8,46 +8,56 @@ from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 from django.http import HttpResponseRedirect
 
 from accounts.models import CustomUser as User
-from .models import Scenario, TFQuestion, ChatRoom, MessageCode, ChatNode, OnboardLevel, Feedback, TFNode
+from .models import (
+    Scenario,
+    TFQuestion,
+    ChatRoom,
+    MessageCode,
+    ChatNode,
+    OnboardLevel,
+    Feedback,
+    TFNode,
+)
 
 
 class NonStaffAdmin(AdminSite):
     def has_permission(self, request):
         if not request.user.is_authenticated:
             return False
-        g = Group.objects.get(name='scene_creators')
+        g = Group.objects.get(name="scene_creators")
         g.user_set.add(request.user)
         return request.user.is_active
 
 
-nonstaff_admin_site = NonStaffAdmin(name='nonstaffadmin')
+nonstaff_admin_site = NonStaffAdmin(name="nonstaffadmin")
 
 
 class ScenarioAdmin(MPTTModelAdmin):
-    list_display = ('__str__', 'visible_to_players')
-    readonly_fields = ('creation_time', 'parent', 'owner')
-    exclude = ('student_hints', 'teacher_hints',)
+    list_display = ("__str__", "visible_to_players")
+    readonly_fields = ("creation_time", "parent", "owner")
+    exclude = ("student_hints", "teacher_hints")
     mptt_indent_field = "__str__"
     MPTT_ADMIN_LEVEL_INDENT = 20
 
     def response_change(self, request, obj):
-        request.path = reverse('admin:chat_scenario_change', args=(obj.id,))
+        request.path = reverse("admin:chat_scenario_change", args=(obj.id,))
         return super().response_change(request, obj)
 
     def save_model(self, request, obj, form, change):
-        print('new scenario')
+        print("new scenario")
 
         if change:
             # editing an object
-            print('scene edited')
+            print("scene edited")
             old_obj = Scenario.objects.get(pk=obj.pk)
             new_obj = obj
-            if (old_obj.scenario_name == new_obj.scenario_name and
-                    old_obj.student_background == new_obj.student_background and
-                    old_obj.student_profile == new_obj.student_profile and
-                    old_obj.teacher_background == new_obj.teacher_background and
-                    old_obj.teacher_objective == new_obj.teacher_objective and
-                    old_obj.visible_to_players != new_obj.visible_to_players
+            if (
+                old_obj.scenario_name == new_obj.scenario_name
+                and old_obj.student_background == new_obj.student_background
+                and old_obj.student_profile == new_obj.student_profile
+                and old_obj.teacher_background == new_obj.teacher_background
+                and old_obj.teacher_objective == new_obj.teacher_objective
+                and old_obj.visible_to_players != new_obj.visible_to_players
             ):
                 old_obj.visible_to_players = new_obj.visible_to_players
                 old_obj.save()
@@ -62,7 +72,7 @@ class ScenarioAdmin(MPTTModelAdmin):
 
         else:
             # new object
-            print('new scene')
+            print("new scene")
             obj.owner = request.user
             obj.visible_to_players = True
             obj.save()
@@ -71,9 +81,9 @@ class ScenarioAdmin(MPTTModelAdmin):
 
     def get_queryset(self, request):
         if not request.user.is_authenticated:
-            return HttpResponseRedirect('/accounts/login/')
+            return HttpResponseRedirect("/accounts/login/")
         qs = super().get_queryset(request)
-        g = Group.objects.get(name='scenario_admin')
+        g = Group.objects.get(name="scenario_admin")
         if request.user.is_superuser or g in request.user.groups.all():
             return qs
         return qs.filter(owner=request.user)

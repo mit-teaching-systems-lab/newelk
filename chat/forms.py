@@ -2,7 +2,7 @@ from django import forms
 
 from chat.models import Scenario
 
-BOOL_CHOICES = ((True, 'True'), (False, 'False'))
+BOOL_CHOICES = ((True, "True"), (False, "False"))
 
 
 # class ScenarioForm(forms.Form):
@@ -23,5 +23,11 @@ class ScenarioForm(forms.ModelForm):
     # visible_to_players = forms.BooleanField()
     class Meta:
         model = Scenario
-        fields = ['scenario_name', 'student_background', 'student_profile', 'teacher_background', 'teacher_objective',
-                  'visible_to_players']
+        fields = [
+            "scenario_name",
+            "student_background",
+            "student_profile",
+            "teacher_background",
+            "teacher_objective",
+            "visible_to_players",
+        ]

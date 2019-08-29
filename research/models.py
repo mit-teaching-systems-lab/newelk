@@ -21,7 +21,7 @@ class Transcript(models.Model):
             name = self.room_name
         except AttributeError:
             name = "NO_ROOM_NAME"
-        return name + ' ' + str(self.creation_time)[0:10]
+        return name + " " + str(self.creation_time)[0:10]
 
 
 from chat.models import TFQuestion
@@ -36,13 +36,31 @@ class TFAnswer(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        transcript_id = str(self.transcript.id) if self.transcript else 'no_transcript_id'
-        username = self.user.username if self.user else 'System'
-        question_id = str(self.question.id) if self.question else 'no_question_id'
-        question = self.question.question if self.question else 'no_question'
-        correct_answer = str(self.question.answer) if str(self.question.answer) else 'no_question_answer'
-        user_response = self.user_answer if self.user_answer else 'no_user_answer'
-        return transcript_id + ',' + username + ',' + question_id + ',' + question + ',' + correct_answer + ',' + user_response
+        transcript_id = (
+            str(self.transcript.id) if self.transcript else "no_transcript_id"
+        )
+        username = self.user.username if self.user else "System"
+        question_id = str(self.question.id) if self.question else "no_question_id"
+        question = self.question.question if self.question else "no_question"
+        correct_answer = (
+            str(self.question.answer)
+            if str(self.question.answer)
+            else "no_question_answer"
+        )
+        user_response = self.user_answer if self.user_answer else "no_user_answer"
+        return (
+            transcript_id
+            + ","
+            + username
+            + ","
+            + question_id
+            + ","
+            + question
+            + ","
+            + correct_answer
+            + ","
+            + user_response
+        )
 
 
 class Message(models.Model):
@@ -53,11 +71,28 @@ class Message(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        transcript_id = str(self.transcript.id) if self.transcript else 'no_transcript_id'
-        room = self.transcript.room_name if self.transcript else 'no_room_name'
-        scenario = str(self.transcript.scenario) if self.transcript else 'no_scenario'
-        username = self.user.username if self.user else 'System'
-        role = self.role if self.role else 'role_not_set'
+        transcript_id = (
+            str(self.transcript.id) if self.transcript else "no_transcript_id"
+        )
+        room = self.transcript.room_name if self.transcript else "no_room_name"
+        scenario = str(self.transcript.scenario) if self.transcript else "no_scenario"
+        username = self.user.username if self.user else "System"
+        role = self.role if self.role else "role_not_set"
         time = str(self.creation_time)
-        return transcript_id + ',' + room + ',' + scenario + ',' + username + ',' + role + ',' + str(
-            self.id) + ',"' + self.text + '",' + time
+        return (
+            transcript_id
+            + ","
+            + room
+            + ","
+            + scenario
+            + ","
+            + username
+            + ","
+            + role
+            + ","
+            + str(self.id)
+            + ',"'
+            + self.text
+            + '",'
+            + time
+        )

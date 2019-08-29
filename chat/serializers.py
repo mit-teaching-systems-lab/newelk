@@ -6,17 +6,17 @@ from .models import ChatRoom, MessageCode, ChatNode
 class ChatRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChatRoom
-        fields = ('name', 'scenario')
+        fields = ("name", "scenario")
 
 
 class MessageCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = MessageCode
-        fields = ('__all__')
+        fields = "__all__"
 
 
 class ChatNodeSerializer(serializers.ModelSerializer):
-    children = serializers.SerializerMethodField('list_children')
+    children = serializers.SerializerMethodField("list_children")
 
     def list_children(self, node):
         child_pks = {}
@@ -26,4 +26,4 @@ class ChatNodeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ChatNode
-        fields = ('__all__')
+        fields = "__all__"

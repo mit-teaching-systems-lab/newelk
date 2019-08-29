@@ -20,20 +20,22 @@ class ChatRoomViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = ChatRoom.objects.all().order_by('name')
+
+    queryset = ChatRoom.objects.all().order_by("name")
     serializer_class = ChatRoomSerializer
 
     def get_queryset(self):
         user = self.request.user
-        print('player looking for chatrooms')
+        print("player looking for chatrooms")
         print(user)
-        return ChatRoom.objects.all().order_by('name')
+        return ChatRoom.objects.all().order_by("name")
 
 
 class MessageCodeViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+
     queryset = MessageCode.objects.all()
     serializer_class = MessageCodeSerializer
 
@@ -49,50 +51,50 @@ class ChatNodeViewSet(viewsets.ModelViewSet):
 
 def select_role(request):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     scenarios = Scenario.objects.all()
-    return render(request, 'chat/select_role.html')
+    return render(request, "chat/select_role.html")
 
 
 def select_scenario(request):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     # scenarios = Scenario.objects.filter(children__isnull=True).filter(visible_to_players=True)
     scenarios = Scenario.objects.filter(visible_to_players=True)
-    return render(request, 'chat/select_scenario.html', {'scenarios': scenarios})
+    return render(request, "chat/select_scenario.html", {"scenarios": scenarios})
 
 
 def join_scenario(request):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     chatrooms = ChatRoom.objects.all()
-    return render(request, 'chat/join_scenario.html', {'chatrooms': chatrooms})
+    return render(request, "chat/join_scenario.html", {"chatrooms": chatrooms})
 
 
 def room(request, role, scenario, room_name):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
 
     room_details = get_room_details(role, scenario, room_name)
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
     except KeyError:
         give_feedback = True
-    room_details['give_feedback'] = give_feedback
-    return render(request, 'chat/room.html', room_details)
+    room_details["give_feedback"] = give_feedback
+    return render(request, "chat/room.html", room_details)
 
 
 def join_room(request):
-    return render(request, 'chat/join_scenario.html')
+    return render(request, "chat/join_scenario.html")
 
 
 def result(request):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
     quiz_results = {}
     playercount = 0
@@ -104,106 +106,117 @@ def result(request):
     participants = transcript.users.distinct()
     scenario = transcript.scenario
     for person in participants:
-        answers = TFAnswer.objects.filter(question__scenario=scenario, user=person, transcript=transcript)
+        answers = TFAnswer.objects.filter(
+            question__scenario=scenario, user=person, transcript=transcript
+        )
         # answers = TFAnswer.objects.filter(transcript=latest_transcript,user=person)
         quiz_results[person.username] = {}
         quiz_results["question_details"] = {}
         for answer in answers:
             quiz_results[person.username][answer.question.pk] = answer.user_answer
-            quiz_results["question_details"][answer.question.pk] = {answer.question.question: answer.correct_answer}
+            quiz_results["question_details"][answer.question.pk] = {
+                answer.question.question: answer.correct_answer
+            }
     playercount = participants.count
 
-    print('showing profile')
+    print("showing profile")
     print(quiz_results)
-    return render(request, 'chat/result.html',
-                  {"quiz_results": quiz_results, "participant_count": playercount})
+    return render(
+        request,
+        "chat/result.html",
+        {"quiz_results": quiz_results, "participant_count": playercount},
+    )
 
 
 def quiz(request, role, scenario, room_name):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     else:
-        g = Group.objects.get(name='scene_creators')
+        g = Group.objects.get(name="scene_creators")
         g.user_set.add(request.user)
     scene = Scenario.objects.get(pk=scenario)
     questions = TFQuestion.objects.filter(scenario=scene)
     transcript = Transcript.objects.filter(users=request.user).latest("creation_time")
-    transcript.messages = Message.objects.filter(transcript=transcript).order_by("creation_time")
-    if request.method == 'POST':
+    transcript.messages = Message.objects.filter(transcript=transcript).order_by(
+        "creation_time"
+    )
+    if request.method == "POST":
         for pk in request.POST:
             if not pk == "csrfmiddlewaretoken":
                 question = TFQuestion.objects.get(pk=pk)
-                answer = TFAnswer(user_answer=request.POST[pk],
-                                  correct_answer=question.answer,
-                                  question=question,
-                                  user=request.user,
-                                  transcript=transcript)
+                answer = TFAnswer(
+                    user_answer=request.POST[pk],
+                    correct_answer=question.answer,
+                    question=question,
+                    user=request.user,
+                    transcript=transcript,
+                )
                 answer.save()
-        return redirect('/chat/result')
+        return redirect("/chat/result")
     else:
         quiz_context = get_room_details(role, scenario, room_name)
-        quiz_context.update({'transcript': transcript, 'questions': questions})
-        return render(request, 'chat/quiz.html', quiz_context)
+        quiz_context.update({"transcript": transcript, "questions": questions})
+        return render(request, "chat/quiz.html", quiz_context)
 
 
 def get_room_details(role, scenario, room_name):
     scene = Scenario.objects.get(pk=scenario)
 
     room_details = {
-        'room_name_json': mark_safe(json.dumps(room_name)),
-        'scenario_name': scene.scenario_name,
-        'scenario': scenario,
-        'role': role,
-        'student_background': scene.student_background,
-        'student_profile': scene.student_profile,
-        'student_hints': scene.student_hints,
-        'teacher_background': scene.teacher_background,
-        'teacher_objective': scene.teacher_objective,
-        'teacher_hints': scene.teacher_hints,
+        "room_name_json": mark_safe(json.dumps(room_name)),
+        "scenario_name": scene.scenario_name,
+        "scenario": scenario,
+        "role": role,
+        "student_background": scene.student_background,
+        "student_profile": scene.student_profile,
+        "student_hints": scene.student_hints,
+        "teacher_background": scene.teacher_background,
+        "teacher_objective": scene.teacher_objective,
+        "teacher_hints": scene.teacher_hints,
     }
-    if role == 's':
-        room_details.pop('teacher_background', None)
-        room_details.pop('teacher_objective', None)
-        room_details.pop('teacher_hints', None)
+    if role == "s":
+        room_details.pop("teacher_background", None)
+        room_details.pop("teacher_objective", None)
+        room_details.pop("teacher_hints", None)
 
-    if role == 't':
-        room_details.pop('student_background', None)
-        room_details.pop('student_profile', None)
-        room_details.pop('student_hints', None)
+    if role == "t":
+        room_details.pop("student_background", None)
+        room_details.pop("student_profile", None)
+        room_details.pop("student_hints", None)
 
     return room_details
 
 
 def scenario_creator(request):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     else:
-        g = Group.objects.get(name='scene_creators')
+        g = Group.objects.get(name="scene_creators")
         g.user_set.add(request.user)
-    if request.method == 'POST':
+    if request.method == "POST":
         scenario_form = ScenarioForm(request.POST)
         if scenario_form.is_valid():
             new_scene = scenario_form.save()
             new_scene.owner = request.user
             new_scene.save()
-            return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
+            return HttpResponseRedirect("/scenarios/chat/scenario/%i/" % new_scene.pk)
     else:
         scenario_form = ScenarioForm()
-        context = {
-            'form': scenario_form,
-        }
-        return render(request, 'chat/scenario_editor.html', context)
+        context = {"form": scenario_form}
+        return render(request, "chat/scenario_editor.html", context)
 
 
 def scenario_editor(request, pk):
     if not request.user.is_authenticated:
-        return redirect('/accounts/login/')
+        return redirect("/accounts/login/")
     scenario = get_object_or_404(Scenario, pk=pk)
     # AuthorFormSet = modelformset_factory(Author, fields=('name', 'title'))
-    ScenarioFormSet = modelformset_factory(Scenario, exclude=('parent', 'owner', 'creation_time'))
+    ScenarioFormSet = modelformset_factory(
+        Scenario, exclude=("parent", "owner", "creation_time")
+    )
 
     # If this is a POST request then process the Form data
-    if request.method == 'POST':
+    if request.method == "POST":
 
         questions = TFQuestion.objects.filter(scenario=scenario)
 
@@ -219,17 +232,18 @@ def scenario_editor(request, pk):
             print(request.POST)
 
             new_scene = scenario_form.save(commit=False)
-            if (new_scene.scenario_name == scenario.scenario_name and
-                    new_scene.student_background == scenario.student_background and
-                    new_scene.student_profile == scenario.student_profile and
-                    new_scene.teacher_background == scenario.teacher_background and
-                    new_scene.teacher_objective == scenario.teacher_objective and
-                    new_scene.visible_to_players != scenario.visible_to_players
+            if (
+                new_scene.scenario_name == scenario.scenario_name
+                and new_scene.student_background == scenario.student_background
+                and new_scene.student_profile == scenario.student_profile
+                and new_scene.teacher_background == scenario.teacher_background
+                and new_scene.teacher_objective == scenario.teacher_objective
+                and new_scene.visible_to_players != scenario.visible_to_players
             ):
                 scenario.visible_to_players = new_scene.visible_to_players
                 scenario.save()
-                print('changed visibility on scenario')
-                return HttpResponseRedirect('/scenarios/chat/scenario/')
+                print("changed visibility on scenario")
+                return HttpResponseRedirect("/scenarios/chat/scenario/")
 
             new_scene.pk = None
             new_scene.parent = scenario
@@ -246,26 +260,23 @@ def scenario_editor(request, pk):
             Scenario.objects.partial_rebuild(scenario.tree_id)
 
             # redirect to a new URL:
-            return HttpResponseRedirect('/scenarios/chat/scenario/')
+            return HttpResponseRedirect("/scenarios/chat/scenario/")
             # return HttpResponseRedirect('/scenarios/chat/scenario/%i/' % new_scene.pk)
 
     # If this is a GET (or any other method) create the default form.
     else:
         scenario_form = ScenarioForm(instance=scenario)
 
-    context = {
-        'form': scenario_form,
-        'scenario': scenario,
-    }
-    return render(request, 'chat/scenario_editor.html', context)
+    context = {"form": scenario_form, "scenario": scenario}
+    return render(request, "chat/scenario_editor.html", context)
 
 
 def onboard_inst(request):
-    return render(request, 'chat/onboard_instructions.html')
+    return render(request, "chat/onboard_instructions.html")
 
 
 def chat_inst(request):
-    return render(request, 'chat/chat_instructions.html')
+    return render(request, "chat/chat_instructions.html")
 
 
 def onboard1(request):
@@ -292,8 +303,8 @@ def onboard1(request):
         *bell rings*;;"""
 
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
@@ -310,9 +321,15 @@ def onboard1(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html',
-                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard2",
-                   "give_feedback": give_feedback})
+    return render(
+        request,
+        "chat/coding_onboarding.html",
+        {
+            "messages": zip(messages, answers, feedback),
+            "nextpage": "/chat/onboard2",
+            "give_feedback": give_feedback,
+        },
+    )
 
 
 def onboard2(request):
@@ -336,8 +353,8 @@ def onboard2(request):
         T: I’m not going to answer that right now because I would like to know what you remember before class starts.;priming;Priming because this is a ‘meta-comment’ about what the purpose of the conversation is and doesn’t directly touch the topic of discussion, parts of speech. 
         *bell rings*;;"""
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
@@ -353,9 +370,15 @@ def onboard2(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html',
-                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard3",
-                   "give_feedback": give_feedback})
+    return render(
+        request,
+        "chat/coding_onboarding.html",
+        {
+            "messages": zip(messages, answers, feedback),
+            "nextpage": "/chat/onboard3",
+            "give_feedback": give_feedback,
+        },
+    )
 
 
 def onboard3(request):
@@ -381,8 +404,8 @@ def onboard3(request):
         T: Okay. Thank you for talking to me! I now know what we’re going to talk about today.;priming;Priming because this is a meta-message about the conversation and what it was for. 
         *bell rings*;;"""
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
@@ -398,9 +421,15 @@ def onboard3(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html',
-                  {"messages": zip(messages, answers, feedback), "nextpage": "/chat/onboard4",
-                   "give_feedback": give_feedback})
+    return render(
+        request,
+        "chat/coding_onboarding.html",
+        {
+            "messages": zip(messages, answers, feedback),
+            "nextpage": "/chat/onboard4",
+            "give_feedback": give_feedback,
+        },
+    )
 
 
 def onboard4(request):
@@ -428,8 +457,8 @@ def onboard4(request):
         S: You’re welcome.;;
         *bell rings*;;"""
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
@@ -445,14 +474,21 @@ def onboard4(request):
         messages.append(item[0])
         answers.append(item[1])
         feedback.append(item[2])
-    return render(request, 'chat/coding_onboarding.html',
-                  {"messages": zip(messages, answers, feedback), "nextpage": "/", "give_feedback": give_feedback})
+    return render(
+        request,
+        "chat/coding_onboarding.html",
+        {
+            "messages": zip(messages, answers, feedback),
+            "nextpage": "/",
+            "give_feedback": give_feedback,
+        },
+    )
 
 
 def code_messages(request):
     try:
-        key = os.environ['feedback']
-        if key == 'True':
+        key = os.environ["feedback"]
+        if key == "True":
             give_feedback = True
         else:
             give_feedback = False
@@ -460,7 +496,7 @@ def code_messages(request):
         give_feedback = True
     transcript = get_random_object(Transcript)
 
-    messages = Message.objects.filter(transcript=transcript).order_by('pk')
+    messages = Message.objects.filter(transcript=transcript).order_by("pk")
 
     text = ""
     for m in messages:
@@ -472,7 +508,7 @@ def code_messages(request):
     answers = []
     feedback = []
     for line in lines:
-        if line != "" and not line.startswith('***'):
+        if line != "" and not line.startswith("***"):
             print(line)
             item = line.split(";")
             print(item)
@@ -482,28 +518,36 @@ def code_messages(request):
     if len(messages) == 0:
         return code_messages(request)
     else:
-        return render(request, 'chat/coding_onboarding.html',
-                      {"messages": zip(messages, answers, feedback), "nextpage": "/chat/code",
-                       "give_feedback": give_feedback})
+        return render(
+            request,
+            "chat/coding_onboarding.html",
+            {
+                "messages": zip(messages, answers, feedback),
+                "nextpage": "/chat/code",
+                "give_feedback": give_feedback,
+            },
+        )
 
 
 def single_player_chat(request, level):
     level_obj = OnboardLevel.objects.get(pk=level)
-    return render(request, 'chat/single_player_chat.html', {"level": level_obj})
+    return render(request, "chat/single_player_chat.html", {"level": level_obj})
 
 
 def chat_feedback(request, level, final_node):
     node = ChatNode.objects.get(pk=final_node)
     node_ancestors = node.get_ancestors()
-    transcript = ''
+    transcript = ""
     for n in node_ancestors:
         transcript += "Teacher: " + n.name + "\n"
         transcript += "Student: " + n.message_text + "\n"
 
     feedback = node.feedback_link
 
-    return render(request, 'chat/feedback.html', {"feedback": feedback, "transcript": transcript})
+    return render(
+        request, "chat/feedback.html", {"feedback": feedback, "transcript": transcript}
+    )
 
 
 def onboard_menu(request):
-    return render(request, 'chat/onboard_menu.html')
+    return render(request, "chat/onboard_menu.html")

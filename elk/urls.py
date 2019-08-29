@@ -19,24 +19,34 @@ from django.views.generic.base import TemplateView
 from rest_framework import routers
 
 from chat.admin import nonstaff_admin_site
-from chat.views import ChatRoomViewSet, MessageCodeViewSet, scenario_editor, scenario_creator, ChatNodeViewSet
+from chat.views import (
+    ChatRoomViewSet,
+    MessageCodeViewSet,
+    scenario_editor,
+    scenario_creator,
+    ChatNodeViewSet,
+)
 from research.views import TFAnswerViewSet
 
 router = routers.DefaultRouter()
-router.register(r'chatroom', ChatRoomViewSet)
-router.register(r'messagecode', MessageCodeViewSet)
-router.register(r'tfanswer', TFAnswerViewSet)
-router.register(r'chatnode', ChatNodeViewSet)
+router.register(r"chatroom", ChatRoomViewSet)
+router.register(r"messagecode", MessageCodeViewSet)
+router.register(r"tfanswer", TFAnswerViewSet)
+router.register(r"chatnode", ChatNodeViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('', TemplateView.as_view(template_name='landing_page.html'), name='home'),
-    path('c/', include('consent.urls')),
-    path('chat/', include('chat.urls')),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('research/', include('research.urls')),
-    path('scenarios/chat/scenario/<int:pk>/change/', scenario_editor, name='scenario_editor'),
-    path('scenarios/chat/scenario/add/', scenario_creator, name='scenario_creator'),
-    path('scenarios/', nonstaff_admin_site.urls, name='scenario_editor'),
+    path("api/", include(router.urls)),
+    path("", TemplateView.as_view(template_name="landing_page.html"), name="home"),
+    path("c/", include("consent.urls")),
+    path("chat/", include("chat.urls")),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("accounts.urls")),
+    path("research/", include("research.urls")),
+    path(
+        "scenarios/chat/scenario/<int:pk>/change/",
+        scenario_editor,
+        name="scenario_editor",
+    ),
+    path("scenarios/chat/scenario/add/", scenario_creator, name="scenario_creator"),
+    path("scenarios/", nonstaff_admin_site.urls, name="scenario_editor"),
 ]
