@@ -113,6 +113,9 @@ class MessageCode(models.Model):
     user = models.ForeignKey(
         "accounts.CustomUser", null=True, on_delete=models.SET_NULL, blank=True
     )
+    def __str__(self):
+        return str(self.message.pk) + ", " + str(other_id) + ", " + str(url)  + ", " + str(code) + ", " + str(user)
+
 
 
 class TFNode(MPTTModel):
